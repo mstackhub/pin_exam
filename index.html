@@ -1983,19 +1983,23 @@
       document.getElementById('modal-wrong-count').innerText = `${wrongCount} ข้อ`;
       document.getElementById('modal-unanswered-count').innerText = `${unansweredCount} ข้อ`;
 
-      // Evaluation verdict
+      // Evaluation verdict (5 Tiers)
       let verdictHtml = '';
-      if (percent >= 80) {
-        verdictHtml = `<span class="text-amber-300 font-bold">🏆 ยอดเยี่ยมมาก! ระดับดีเลิศ (เกียรตินิยม)</span><br><span class="text-slate-200">คุณมีความพร้อมในการสอบนักวิเคราะห์นโยบายและแผน 100% เต็ม!</span>`;
+      if (percent >= 90) {
+        verdictHtml = `<span class="text-amber-300 font-bold text-sm sm:text-base">🥇 ตัวแม่ ตัวมัม มึงสอบได้แน่ๆ</span><br><span class="text-slate-200 text-xs sm:text-sm">ปังมากก! ทำได้ ${correctCount}/${total} ข้อ พร้อมฟาดบรรจุอันดับ 1 แน่นอน</span>`;
+      } else if (percent >= 80) {
+        verdictHtml = `<span class="text-emerald-300 font-bold text-sm sm:text-base">🥈 Slay Mama Ten เยี่ยมมาก</span><br><span class="text-slate-200 text-xs sm:text-sm">เริ่ดมากแม่! คะแนนระดับนี้ผ่านฉลุย ลุยสนามสอบจริงได้เลย</span>`;
+      } else if (percent >= 70) {
+        verdictHtml = `<span class="text-sky-300 font-bold text-sm sm:text-base">🥉 ก็อยู่ดี (พอใจไหมละ)</span><br><span class="text-slate-200 text-xs sm:text-sm">ผ่านเกณฑ์แล้วจ้า แต่ถ้าอยากได้อันดับท็อปๆ แนะนำเก็บตกข้อที่พลาดอีกนิด</span>`;
       } else if (percent >= 60) {
-        verdictHtml = `<span class="text-emerald-300 font-bold">🎯 ผ่านเกณฑ์มาตรฐานการสอบ (ผ่านระดับดี)</span><br><span class="text-slate-200">ยินดีด้วยครับ! แนะนำให้กดดูเฉลยเพื่อทบทวนข้อที่พลาดและเสริมความมั่นใจ</span>`;
+        verdictHtml = `<span class="text-amber-400 font-bold text-sm sm:text-base">⚠️ อีดอกก ไปอ่านนหนังสือใหม่ค่ะ</span><br><span class="text-slate-200 text-xs sm:text-sm">ผ่านแบบหวุดหวิดเฉียดฉิวมาก รีบกดดูเฉลยแล้วไปอ่านทบทวนด่วนๆ!</span>`;
       } else {
-        verdictHtml = `<span class="text-rose-300 font-bold">📚 ยังไม่ผ่านเกณฑ์ (คะแนนต่ำกว่า 60%)</span><br><span class="text-slate-200">อย่าเพิ่งท้อครับ! แนะนำให้กด <strong>"ดูเฉลยละเอียด"</strong> เพื่อศึกษาแนวคิดและกลับมาทำใหม่อีกครั้ง</span>`;
+        verdictHtml = `<span class="text-rose-400 font-bold text-sm sm:text-base">📖 ถามจิ๊งง มึงใช้อะไรทำข้อสอบ ไปอ่านหนังสือ</span><br><span class="text-slate-200 text-xs sm:text-sm">ยังไม่ผ่านค่ะสาว! กดปุ่ม <strong>"ดูเฉลยละเอียด"</strong> ด้านล่าง ศึกษาทีละข้อ แล้วมาทำใหม่เดี๋ยวนี้</span>`;
       }
       document.getElementById('modal-verdict-text').innerHTML = verdictHtml;
 
-      // Confetti for passing score
-      if (percent >= 60) {
+      // Confetti for passing score (>= 70%)
+      if (percent >= 70) {
         confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
       }
 
