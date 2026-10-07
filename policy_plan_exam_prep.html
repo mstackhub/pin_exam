@@ -619,6 +619,69 @@
 
       </div>
 
+      <!-- Interactive Sample Data Table for Excel Testing -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs font-prompt">ชุดข้อมูลทดสอบจริง</span>
+              <h4 class="text-base font-bold text-slate-800 font-prompt">📋 ตารางจำลองข้อมูลโครงการและงบประมาณ (สำหรับฝึกสูตร Excel)</h4>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">กดปุ่มคัดลอก แล้วนำไปกด <strong>Ctrl+V (วาง)</strong> ใน Microsoft Excel หรือ Google Sheets ได้ทันที</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="copyExcelTableToClipboard()" id="btn-copy-excel" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-xl text-xs font-bold font-prompt transition flex items-center gap-1.5 shadow-sm">
+              <span>📋</span> คัดลอกตารางไปวางใน Excel
+            </button>
+            <button onclick="downloadExcelCSV()" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold font-prompt transition flex items-center gap-1.5 shadow-sm">
+              <span>📥</span> ดาวน์โหลดเป็น .CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Visual Excel Coordinate Table -->
+        <div class="overflow-x-auto border border-slate-200 rounded-xl">
+          <table class="w-full text-left text-xs border-collapse font-mono" id="sample-excel-table">
+            <thead>
+              <tr class="bg-slate-200/80 text-slate-700 border-b border-slate-300 font-bold text-center">
+                <th class="p-2 border-r border-slate-300 bg-slate-300/70 w-10">#</th>
+                <th class="p-2 border-r border-slate-300">A (รหัสโครงการ)</th>
+                <th class="p-2 border-r border-slate-300">B (ชื่อโครงการ)</th>
+                <th class="p-2 border-r border-slate-300">C (ยุทธศาสตร์)</th>
+                <th class="p-2 border-r border-slate-300">D (หน่วยงาน)</th>
+                <th class="p-2 border-r border-slate-300 text-right">E (งบประมาณจัดสรร)</th>
+                <th class="p-2 border-r border-slate-300 text-right">F (เบิกจ่ายจริง)</th>
+                <th class="p-2">G (สถานะ)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700 font-sans" id="sample-table-body">
+              <!-- Injected by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Quick Formula Test Box -->
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-3.5 space-y-2">
+          <div class="text-xs font-bold text-emerald-900 font-prompt flex items-center gap-1.5">
+            <span>🧪</span> สูตรแนะนำสำหรับทดสอบกับตารางนี้ใน Excel:
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs font-mono">
+            <div class="bg-white p-2 rounded border border-emerald-200">
+              <span class="text-slate-500 text-[10px] block font-sans">รวมงบประมาณทั้งหมด:</span>
+              <span class="text-emerald-700 font-bold">=SUM(E2:E11)</span>
+            </div>
+            <div class="bg-white p-2 rounded border border-emerald-200">
+              <span class="text-slate-500 text-[10px] block font-sans">รวมงบเฉพาะ ยุทธศาสตร์ที่ 1:</span>
+              <span class="text-emerald-700 font-bold">=SUMIF(C2:C11, "ยุทธศาสตร์ที่ 1", E2:E11)</span>
+            </div>
+            <div class="bg-white p-2 rounded border border-emerald-200">
+              <span class="text-slate-500 text-[10px] block font-sans">นับโครงการที่ 'แล้วเสร็จ':</span>
+              <span class="text-emerald-700 font-bold">=COUNTIF(G2:G11, "แล้วเสร็จ")</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- 10 Excel Practice Exam Questions -->
       <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-sm space-y-4">
         <h4 class="text-base font-bold text-slate-800 font-prompt flex items-center gap-2">
@@ -1194,6 +1257,7 @@
       renderWrittenPills();
       loadWrittenQuestion(0);
       renderExcelQuiz();
+      renderSampleExcelTable();
       renderFlashcards();
       renderSummaryCards();
     });
@@ -1361,8 +1425,91 @@
     }
 
     // =========================================================================
-    // EXCEL PRACTICE LOGIC
+    // EXCEL PRACTICE & SAMPLE DATA LOGIC
     // =========================================================================
+
+    const SAMPLE_EXCEL_ROWS = [
+      { row: 2, code: "PRJ-001", name: "โครงการจัดหาโลหิตปลอดภัย", strategy: "ยุทธศาสตร์ที่ 1", dept: "ศูนย์บริการโลหิต", budget: 500000, spent: 480000, status: "แล้วเสร็จ" },
+      { row: 3, code: "PRJ-002", name: "โครงการอบรมปฐมพยาบาลชุมชน", strategy: "ยุทธศาสตร์ที่ 1", dept: "ศูนย์ฝึกอบรม", budget: 250000, spent: 210000, status: "แล้วเสร็จ" },
+      { row: 4, code: "PRJ-003", name: "โครงการบรรเทาทุกข์ผู้ประสบภัยหนาว", strategy: "ยุทธศาสตร์ที่ 2", dept: "สำนักงานบรรเทาทุกข์", budget: 800000, spent: 750000, status: "แล้วเสร็จ" },
+      { row: 5, code: "PRJ-004", name: "โครงการพัฒนาระบบเทคโนโลยีสารสนเทศ", strategy: "ยุทธศาสตร์ที่ 3", dept: "ศูนย์เทคโนโลยี", budget: 1200000, spent: 900000, status: "กำลังดำเนินการ" },
+      { row: 6, code: "PRJ-005", name: "โครงการส่งเสริมสุขภาพผู้สูงอายุ", strategy: "ยุทธศาสตร์ที่ 1", dept: "สำนักงานบรรเทาทุกข์", budget: 300000, spent: 150000, status: "กำลังดำเนินการ" },
+      { row: 7, code: "PRJ-006", name: "โครงการพัฒนาศักยภาพอาสาสมัคร", strategy: "ยุทธศาสตร์ที่ 2", dept: "สำนักงานอาสากาชาด", budget: 180000, spent: 180000, status: "แล้วเสร็จ" },
+      { row: 8, code: "PRJ-007", name: "โครงการจัดซื้อเวชภัณฑ์ฉุกเฉิน", strategy: "ยุทธศาสตร์ที่ 1", dept: "ฝ่ายจัดหา", budget: 650000, spent: 650000, status: "แล้วเสร็จ" },
+      { row: 9, code: "PRJ-008", name: "โครงการปรับปรุงอาคารและสถานที่", strategy: "ยุทธศาสตร์ที่ 3", dept: "ฝ่ายบริหารกายภาพ", budget: 450000, spent: 200000, status: "กำลังดำเนินการ" },
+      { row: 10, code: "PRJ-009", name: "โครงการสื่อสารองค์กรและภาพลักษณ์", strategy: "ยุทธศาสตร์ที่ 2", dept: "ฝ่ายประชาสัมพันธ์", budget: 150000, spent: 90000, status: "กำลังดำเนินการ" },
+      { row: 11, code: "PRJ-010", name: "โครงการวิจัยและพัฒนานโยบาย", strategy: "ยุทธศาสตร์ที่ 3", dept: "สำนักยุทธศาสตร์", budget: 320000, spent: 300000, status: "แล้วเสร็จ" }
+    ];
+
+    function renderSampleExcelTable() {
+      const tbody = document.getElementById('sample-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      SAMPLE_EXCEL_ROWS.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition border-b border-slate-100';
+        tr.innerHTML = `
+          <td class="p-2 border-r border-slate-200 text-center font-mono font-bold text-slate-400 bg-slate-50">${r.row}</td>
+          <td class="p-2 border-r border-slate-200 font-mono font-bold text-blue-700">${r.code}</td>
+          <td class="p-2 border-r border-slate-200 font-medium">${r.name}</td>
+          <td class="p-2 border-r border-slate-200">${r.strategy}</td>
+          <td class="p-2 border-r border-slate-200 text-slate-500">${r.dept}</td>
+          <td class="p-2 border-r border-slate-200 text-right font-mono font-bold text-slate-800">${r.budget.toLocaleString()}</td>
+          <td class="p-2 border-r border-slate-200 text-right font-mono text-emerald-700">${r.spent.toLocaleString()}</td>
+          <td class="p-2">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${r.status === 'แล้วเสร็จ' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+              ${r.status}
+            </span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function copyExcelTableToClipboard() {
+      const headers = ["รหัสโครงการ\tชื่อโครงการ\tยุทธศาสตร์\tหน่วยงาน\tงบประมาณจัดสรร\tเบิกจ่ายจริง\tสถานะ"];
+      const rows = SAMPLE_EXCEL_ROWS.map(r => 
+        `${r.code}\t${r.name}\t${r.strategy}\t${r.dept}\t${r.budget}\t${r.spent}\t${r.status}`
+      );
+      const tsvContent = [headers, ...rows].join("\n");
+
+      navigator.clipboard.writeText(tsvContent).then(() => {
+        const btn = document.getElementById('btn-copy-excel');
+        btn.innerHTML = '<span>✅</span> คัดลอกสำเร็จ! วางใน Excel ได้ทันที';
+        btn.classList.remove('bg-emerald-600');
+        btn.classList.add('bg-emerald-700');
+
+        confetti({ particleCount: 30, spread: 45, origin: { y: 0.7 } });
+
+        setTimeout(() => {
+          btn.innerHTML = '<span>📋</span> คัดลอกตารางไปวางใน Excel';
+          btn.classList.add('bg-emerald-600');
+          btn.classList.remove('bg-emerald-700');
+        }, 3000);
+      }).catch(err => {
+        alert('กรุณาคัดลอกข้อมูลด้วยตนเอง');
+      });
+    }
+
+    function downloadExcelCSV() {
+      const headers = ["รหัสโครงการ,ชื่อโครงการ,ยุทธศาสตร์,หน่วยงาน,งบประมาณจัดสรร,เบิกจ่ายจริง,สถานะ"];
+      const rows = SAMPLE_EXCEL_ROWS.map(r => 
+        `"${r.code}","${r.name}","${r.strategy}","${r.dept}",${r.budget},${r.spent},"${r.status}"`
+      );
+      // Add UTF-8 BOM for Excel Thai compatibility
+      const csvContent = "\uFEFF" + [headers, ...rows].join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", "ตัวอย่างข้อมูลโครงการและงบประมาณ_Excel.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      confetti({ particleCount: 25, spread: 40, origin: { y: 0.7 } });
+    }
 
     function renderExcelQuiz() {
       const container = document.getElementById('excel-quiz-list');
