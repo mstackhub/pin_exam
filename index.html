@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>คู่มือพิชิต 100% เต็ม: นักวิเคราะห์นโยบายและแผน (สูตรลัด + คลังข้อสอบ 50 ข้อ)</title>
+  <title>คู่มือพิชิต 100% เต็ม: นักวิเคราะห์นโยบายและแผน (สูตรลัด + ข้อกา 50 + ข้อเขียน 50 + Excel)</title>
   <!-- Google Fonts: Sarabun & Prompt -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://gstatic.com" crossorigin>
@@ -89,54 +89,63 @@
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col selection:bg-red-500 selection:text-white bg-slate-50">
 
-  <!-- TOP APP BAR -->
+  <!-- TOP APP BAR WITH ORGANIZED MENU GROUPING -->
   <header class="bg-gradient-to-r from-red-700 via-red-800 to-slate-900 text-white shadow-md sticky top-0 z-50 no-print">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-14 sm:h-20">
+      <div class="flex items-center justify-between h-14 sm:h-18">
         
         <!-- Logo & Title -->
         <div class="flex items-center space-x-2 sm:space-x-3 overflow-hidden">
-          <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center shrink-0 shadow-inner">
-            <span class="text-xl sm:text-2xl">🎯</span>
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center shrink-0 shadow-inner">
+            <span class="text-lg sm:text-xl">🎯</span>
           </div>
           <div class="truncate">
-            <h1 class="text-sm sm:text-lg lg:text-xl font-bold tracking-tight text-white flex items-center gap-1.5 sm:gap-2 truncate">
-              <span class="truncate">สูตรพิชิต 100% เต็ม ภาค ข</span>
-              <span class="hidden md:inline-block text-[10px] sm:text-xs font-normal px-2.5 py-0.5 rounded-full bg-red-500/30 border border-red-400/40 text-red-200">
-                นักวิเคราะห์นโยบายและแผน
+            <h1 class="text-xs sm:text-base lg:text-lg font-bold tracking-tight text-white flex items-center gap-1.5 truncate font-prompt">
+              <span class="truncate">คู่มือสอบนักวิเคราะห์นโยบายและแผน</span>
+              <span class="hidden lg:inline-block text-[10px] font-normal px-2 py-0.5 rounded-full bg-red-500/30 border border-red-400/40 text-red-200">
+                100% เต็ม ภาค ข
               </span>
             </h1>
-            <p class="text-[11px] sm:text-xs text-red-200 truncate hidden xs:block">
-              สูตรลัด 1 บรรทัด + คลังข้อกา 50 ข้อ + จำลองสอบอัตนัย
-            </p>
           </div>
         </div>
 
-        <!-- Desktop Navigation Tabs -->
-        <nav class="hidden md:flex items-center space-x-1.5">
-          <button onclick="switchTab('hacks')" id="dtab-hacks" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition bg-amber-400 text-slate-900 shadow-sm flex items-center gap-1.5 font-bold">
-            <span>⚡</span> สูตรลัดช่วยจำ
+        <!-- Grouped Desktop Navigation Bar -->
+        <nav class="hidden md:flex items-center space-x-1">
+          <!-- 1. สูตรลัด -->
+          <button onclick="switchTab('hacks')" id="dtab-hacks" class="nav-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-amber-400 text-slate-900 shadow-sm flex items-center gap-1 font-prompt">
+            <span>⚡</span> สูตรลัดจำง่าย
           </button>
-          <button onclick="switchTab('quiz')" id="dtab-quiz" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition text-white/80 hover:bg-white/10 hover:text-white flex items-center gap-1.5">
+          
+          <!-- 2. ข้อกา 50 -->
+          <button onclick="switchTab('quiz')" id="dtab-quiz" class="nav-btn px-3 py-1.5 rounded-xl text-xs font-medium transition text-white/80 hover:bg-white/10 hover:text-white flex items-center gap-1 font-prompt">
             <span>📝</span> ข้อกา 50 ข้อ
-            <span class="px-1.5 py-0.2 bg-red-500 text-white text-[10px] font-bold rounded-full">50 ข้อ</span>
+            <span class="px-1.5 py-0.2 bg-red-500 text-white text-[9px] font-bold rounded-full">50</span>
           </button>
-          <button onclick="switchTab('summary')" id="dtab-summary" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition text-white/80 hover:bg-white/10 hover:text-white flex items-center gap-1.5">
-            <span>📖</span> สรุปเนื้อหา
+
+          <!-- 3. ข้อเขียน 50 + จำลองสอบ -->
+          <button onclick="switchTab('written')" id="dtab-written" class="nav-btn px-3 py-1.5 rounded-xl text-xs font-medium transition text-white/80 hover:bg-white/10 hover:text-white flex items-center gap-1 font-prompt">
+            <span>✍️</span> ข้อเขียน 50 ข้อ
+            <span class="px-1.5 py-0.2 bg-amber-400 text-slate-900 text-[9px] font-bold rounded-full">50 ข้อ</span>
           </button>
-          <button onclick="switchTab('flashcards')" id="dtab-flashcards" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition text-white/80 hover:bg-white/10 hover:text-white flex items-center gap-1.5">
-            <span>🗂️</span> แฟลชการ์ด
+
+          <!-- 4. Excel นโยบาย&แผน -->
+          <button onclick="switchTab('excel')" id="dtab-excel" class="nav-btn px-3 py-1.5 rounded-xl text-xs font-medium transition text-white/80 hover:bg-white/10 hover:text-white flex items-center gap-1 font-prompt">
+            <span>📊</span> Excel นโยบาย&แผน
+            <span class="px-1.5 py-0.2 bg-emerald-500 text-white text-[9px] font-bold rounded-full">สูตร+โจทย์</span>
           </button>
-          <button onclick="switchTab('simulation')" id="dtab-simulation" class="nav-btn px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition text-white/80 hover:bg-white/10 hover:text-white flex items-center gap-1.5">
-            <span>✍️</span> จำลองสอบอัตนัย
-            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+
+          <!-- 5. สรุป & การ์ด -->
+          <button onclick="switchTab('summary')" id="dtab-summary" class="nav-btn px-3 py-1.5 rounded-xl text-xs font-medium transition text-white/80 hover:bg-white/10 hover:text-white flex items-center gap-1 font-prompt">
+            <span>📖</span> สรุป & การ์ด
           </button>
-          <button onclick="window.print()" class="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-xl transition" title="พิมพ์เป็นชีทสรุป / บันทึกเป็น PDF">
+
+          <!-- Print Button -->
+          <button onclick="window.print()" class="p-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition ml-1" title="พิมพ์เป็นชีทสรุป / บันทึกเป็น PDF">
             🖨️
           </button>
         </nav>
 
-        <!-- Mobile Header Action (Print) -->
+        <!-- Mobile Print -->
         <div class="flex items-center md:hidden gap-1">
           <button onclick="window.print()" class="p-2 text-white/80 hover:text-white rounded-lg active:bg-white/20 transition" title="พิมพ์เอกสาร">
             🖨️
@@ -146,69 +155,69 @@
       </div>
     </div>
 
-    <!-- MOBILE SCROLLABLE TAB BAR -->
-    <div class="md:hidden bg-red-900/90 border-t border-red-700/50 px-2 py-1.5 flex items-center justify-around overflow-x-auto no-scrollbar gap-1 text-xs">
-      <button onclick="switchTab('hacks')" id="mtab-hacks" class="mobile-nav-btn flex-1 py-1.5 px-2 rounded-lg font-bold text-center transition bg-amber-400 text-slate-900 whitespace-nowrap">
+    <!-- MOBILE SCROLLABLE TAB BAR (5 CORE GROUPS) -->
+    <div class="md:hidden bg-red-950 border-t border-red-800/60 px-2 py-1.5 flex items-center overflow-x-auto no-scrollbar gap-1 text-xs">
+      <button onclick="switchTab('hacks')" id="mtab-hacks" class="mobile-nav-btn shrink-0 py-1.5 px-2.5 rounded-lg font-bold text-center transition bg-amber-400 text-slate-900 font-prompt">
         ⚡ สูตรลัด
       </button>
-      <button onclick="switchTab('quiz')" id="mtab-quiz" class="mobile-nav-btn flex-1 py-1.5 px-2 rounded-lg font-medium text-center transition text-red-200 hover:text-white whitespace-nowrap flex items-center justify-center gap-1">
+      <button onclick="switchTab('quiz')" id="mtab-quiz" class="mobile-nav-btn shrink-0 py-1.5 px-2.5 rounded-lg font-medium text-center transition text-red-200 hover:text-white font-prompt">
         📝 ข้อกา 50
       </button>
-      <button onclick="switchTab('summary')" id="mtab-summary" class="mobile-nav-btn flex-1 py-1.5 px-2 rounded-lg font-medium text-center transition text-red-200 hover:text-white whitespace-nowrap">
-        📖 สรุป
+      <button onclick="switchTab('written')" id="mtab-written" class="mobile-nav-btn shrink-0 py-1.5 px-2.5 rounded-lg font-medium text-center transition text-red-200 hover:text-white font-prompt flex items-center gap-1">
+        ✍️ ข้อเขียน 50
       </button>
-      <button onclick="switchTab('flashcards')" id="mtab-flashcards" class="mobile-nav-btn flex-1 py-1.5 px-2 rounded-lg font-medium text-center transition text-red-200 hover:text-white whitespace-nowrap">
-        🗂️ การ์ด
+      <button onclick="switchTab('excel')" id="mtab-excel" class="mobile-nav-btn shrink-0 py-1.5 px-2.5 rounded-lg font-medium text-center transition text-red-200 hover:text-white font-prompt">
+        📊 Excel
       </button>
-      <button onclick="switchTab('simulation')" id="mtab-simulation" class="mobile-nav-btn flex-1 py-1.5 px-2 rounded-lg font-medium text-center transition text-red-200 hover:text-white whitespace-nowrap flex items-center justify-center gap-1">
-        ✍️ อตนัย
+      <button onclick="switchTab('summary')" id="mtab-summary" class="mobile-nav-btn shrink-0 py-1.5 px-2.5 rounded-lg font-medium text-center transition text-red-200 hover:text-white font-prompt">
+        📖 สรุป&การ์ด
       </button>
     </div>
   </header>
 
   <!-- MAIN WRAPPER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 mb-8">
 
-    <!-- OVERVIEW STATS BANNER -->
-    <div class="mb-6 sm:mb-8 bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 text-xl sm:text-2xl font-bold font-prompt shrink-0 shadow-sm">
-          50
+    <!-- TOP DASHBOARD STATS -->
+    <div class="mb-6 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 text-lg sm:text-xl font-bold font-prompt shrink-0">
+          💯
         </div>
         <div>
-          <h2 class="text-sm sm:text-base md:text-lg font-bold text-slate-800 font-prompt leading-tight">
-            คลังข้อสอบ 50 ข้อ + 7 สูตรลัดจำง่าย ไม่ต้องท่องยาว
+          <h2 class="text-xs sm:text-sm md:text-base font-bold text-slate-800 font-prompt leading-tight">
+            คลังเตรียมสอบครบวงจร: ข้อกา 50 ข้อ + ข้อเขียน 50 ข้อ + สูตรลัด + Excel
           </h2>
-          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
-            จำด้วย <strong>รหัสย่อ 1 บรรทัด</strong> ➔ ฝึกฝนด้วย <strong>ข้อกา 50 ข้อ</strong> ➔ เขียนลง <strong>ห้องสอบอัตนัย</strong> ได้ 100%
+          <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">
+            ฝึกทำข้อกา ➔ ซ้อมเขียนตอบ ➔ ทบทวนสูตร Excel ➔ พร้อมสอบ 100%
           </p>
         </div>
       </div>
 
-      <div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+      <div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
         <div class="text-left sm:text-right">
-          <div class="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">ทำข้อกาผ่านแล้ว</div>
-          <div class="text-base sm:text-lg font-bold text-emerald-600 font-prompt" id="quiz-overall-stat">0 / 50 ข้อ</div>
+          <div class="text-[10px] text-slate-400 font-semibold uppercase">ความคืบหน้าข้อกา</div>
+          <div class="text-xs sm:text-sm font-bold text-emerald-600 font-prompt" id="quiz-overall-stat">0 / 50 ข้อ</div>
         </div>
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-4 border-emerald-500 flex items-center justify-center font-bold text-xs sm:text-sm text-emerald-700 font-prompt bg-emerald-50 shrink-0" id="quiz-badge-icon">
-          🎯
+        <div class="text-left sm:text-right ml-2">
+          <div class="text-[10px] text-slate-400 font-semibold uppercase">ข้อเขียนที่ฝึกแล้ว</div>
+          <div class="text-xs sm:text-sm font-bold text-red-600 font-prompt" id="written-overall-stat">0 / 50 ข้อ</div>
         </div>
       </div>
     </div>
 
     <!-- ========================================================================= -->
-    <!-- TAB 0: MEMORY HACKS & CHEAT CODES (สูตรลัดจำง่าย 1 บรรทัดต่อข้อ) -->
+    <!-- GROUP 1: MEMORY HACKS (สูตรลัดจำง่าย) -->
     <!-- ========================================================================= -->
-    <section id="section-hacks" class="tab-content block space-y-6">
+    <section id="section-hacks" class="tab-content block space-y-4 sm:space-y-6">
       
-      <!-- Banner -->
-      <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-red-600 text-white rounded-2xl p-5 sm:p-6 shadow-md">
+      <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-red-600 text-white rounded-2xl p-4 sm:p-6 shadow-md">
         <div class="flex items-center gap-3">
           <span class="text-3xl sm:text-4xl">⚡</span>
           <div>
             <h3 class="text-base sm:text-xl font-black font-prompt">สูตรลัดรหัสย่อ (Memory Hacks) จำง่ายใน 5 นาที</h3>
             <p class="text-xs sm:text-sm text-amber-100 mt-0.5">
-              ไม่ต้องท่องจำความเรียงยาวๆ จำแค่ "รหัสย่อ 1 บรรทัด" แล้วแตกกิ่งเขียนตอบได้คะแนนเต็ม 20 ทุกข้อ!
+              ไม่ต้องท่องจำยาวๆ จำแค่ "รหัสย่อ 1 บรรทัด" แล้วแตกกิ่งเขียนตอบได้คะแนนเต็ม 20 ทุกข้อ!
             </p>
           </div>
         </div>
@@ -216,373 +225,151 @@
 
       <!-- 7 Fast Formula Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        
         <!-- Hack 1 -->
-        <div class="bg-white rounded-2xl border-2 border-red-100 p-4 sm:p-5 shadow-sm space-y-3 relative overflow-hidden">
+        <div class="bg-white rounded-2xl border-2 border-red-100 p-4 shadow-sm space-y-2.5">
           <div class="flex items-center justify-between">
             <span class="px-2.5 py-0.5 bg-red-100 text-red-800 rounded-lg text-xs font-bold font-prompt">สูตรข้อ 1</span>
             <span class="text-xs text-slate-400 font-medium">Strategic Planning</span>
           </div>
-          <div class="bg-red-50 p-3 rounded-xl border border-red-200">
-            <div class="text-[11px] font-bold text-red-600 uppercase">รหัสท่องจำ:</div>
-            <div class="text-base sm:text-lg font-black text-red-950 font-prompt mt-0.5">
-              "วิ - พัน - เป้า - ยุทธ - กล"
-            </div>
-            <div class="text-xs text-red-800 mt-1">
-              (<strong>นิยาม:</strong> ตัดสินใจ ➔ กำหนดทิศทาง ➔ บนข้อมูลรอบด้าน)
-            </div>
+          <div class="bg-red-50 p-2.5 rounded-xl border border-red-200">
+            <div class="text-[10px] font-bold text-red-600 uppercase">รหัสท่องจำ:</div>
+            <div class="text-base sm:text-lg font-black text-red-950 font-prompt">"วิ - พัน - เป้า - ยุทธ - กล"</div>
+            <div class="text-xs text-red-800 mt-0.5">(ตัดสินใจ ➔ กำหนดทิศทาง ➔ ข้อมูลรอบด้าน)</div>
           </div>
-          <ul class="text-xs text-slate-600 space-y-1">
-            <li>• <strong>วิ:</strong> วิสัยทัศน์ (Vision) - ภาพอนาคต</li>
-            <li>• <strong>พัน:</strong> พันธกิจ (Mission) - ภารกิจจัดตั้ง</li>
-            <li>• <strong>เป้า:</strong> เป้าประสงค์ (Goal) - จุดมุ่งหมาย</li>
-            <li>• <strong>ยุทธ:</strong> ยุทธศาสตร์ (Strategy) - เสาหลัก</li>
-            <li>• <strong>กล:</strong> กลยุทธ์/แนวทางพัฒนา (Actions) - วิธีปฏิบัติ</li>
+          <ul class="text-xs text-slate-600 space-y-0.5">
+            <li>• <strong>วิ:</strong> วิสัยทัศน์ (Vision) | <strong>พัน:</strong> พันธกิจ (Mission)</li>
+            <li>• <strong>เป้า:</strong> เป้าประสงค์ (Goal) | <strong>ยุทธ:</strong> ยุทธศาสตร์ (Strategy)</li>
+            <li>• <strong>กล:</strong> กลยุทธ์/แนวทางพัฒนา (Actions)</li>
           </ul>
         </div>
 
         <!-- Hack 2 -->
-        <div class="bg-white rounded-2xl border-2 border-blue-100 p-4 sm:p-5 shadow-sm space-y-3 relative overflow-hidden">
+        <div class="bg-white rounded-2xl border-2 border-blue-100 p-4 shadow-sm space-y-2.5">
           <div class="flex items-center justify-between">
             <span class="px-2.5 py-0.5 bg-blue-100 text-blue-800 rounded-lg text-xs font-bold font-prompt">สูตรข้อ 2</span>
             <span class="text-xs text-slate-400 font-medium">Mission & Vision</span>
           </div>
-          <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
-            <div class="text-[11px] font-bold text-blue-600 uppercase">รหัสท่องจำ:</div>
-            <div class="text-sm sm:text-base font-black text-blue-950 font-prompt mt-0.5">
-              "พันธกิจ = เกิดมาทำไม ทำเพื่อใคร | วิสัยทัศน์ = ภาพอนาคต 3-10 ปี"
-            </div>
+          <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-200">
+            <div class="text-[10px] font-bold text-blue-600 uppercase">รหัสท่องจำ:</div>
+            <div class="text-xs sm:text-sm font-black text-blue-950 font-prompt">"พันธกิจ = เกิดมาทำไม ทำเพื่อใคร | วิสัยทัศน์ = ภาพอนาคต 3-10 ปี"</div>
           </div>
           <div class="grid grid-cols-2 gap-2 text-xs text-slate-600">
             <div class="bg-slate-50 p-2 rounded-lg border border-slate-100">
-              <strong class="text-blue-800">พันธกิจ 5 ด้าน:</strong><br>
-              โดเมน - ลูกค้า - สินค้า - พื้นที่ - ปรัชญา
+              <strong class="text-blue-800">พันธกิจ 5 ด้าน:</strong><br>โดเมน-ลูกค้า-สินค้า-พื้นที่-ปรัชญา
             </div>
             <div class="bg-slate-50 p-2 rounded-lg border border-slate-100">
-              <strong class="text-purple-800">วิสัยทัศน์ 3 มิติ:</strong><br>
-              ท้าทาย (Stretch) - จุดยืน (Niche) - เวลา (Time)
+              <strong class="text-purple-800">วิสัยทัศน์ 3 มิติ:</strong><br>ท้าทาย (Stretch) - จุดยืน (Niche) - เวลา
             </div>
           </div>
         </div>
 
         <!-- Hack 3 -->
-        <div class="bg-white rounded-2xl border-2 border-emerald-100 p-4 sm:p-5 shadow-sm space-y-3 relative overflow-hidden">
+        <div class="bg-white rounded-2xl border-2 border-emerald-100 p-4 shadow-sm space-y-2.5">
           <div class="flex items-center justify-between">
             <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-lg text-xs font-bold font-prompt">สูตรข้อ 3</span>
             <span class="text-xs text-slate-400 font-medium">Action Plan</span>
           </div>
-          <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200">
-            <div class="text-[11px] font-bold text-emerald-600 uppercase">รหัสท่องจำ:</div>
-            <div class="text-base sm:text-lg font-black text-emerald-950 font-prompt mt-0.5">
-              "แปลงกลยุทธ์ สู่การปฏิบัติจริง"
-            </div>
+          <div class="bg-emerald-50 p-2.5 rounded-xl border border-emerald-200">
+            <div class="text-[10px] font-bold text-emerald-600 uppercase">รหัสท่องจำ:</div>
+            <div class="text-base sm:text-lg font-black text-emerald-950 font-prompt">"แปลงกลยุทธ์ สู่การปฏิบัติจริง"</div>
           </div>
           <div class="text-xs text-slate-600">
-            <strong>6 องค์ประกอบ (จำเป็นคู่):</strong><br>
-            1. ชื่อแผน + 2. โครงการหลัก + 3. กิจกรรมย่อย + 4. วันเวลาสถานที่ + <span class="text-emerald-700 font-bold">5. ความเสี่ยง + 6. แผนสำรอง</span>
+            <strong>6 ส่วนจำเป็นคู่:</strong> 1. ชื่อแผน + 2. โครงการหลัก + 3. กิจกรรมย่อย + 4. วันเวลาสถานที่ + <span class="text-emerald-700 font-bold">5. ความเสี่ยง + 6. แผนสำรอง</span>
           </div>
         </div>
 
         <!-- Hack 4 -->
-        <div class="bg-white rounded-2xl border-2 border-amber-100 p-4 sm:p-5 shadow-sm space-y-3 relative overflow-hidden">
+        <div class="bg-white rounded-2xl border-2 border-amber-100 p-4 shadow-sm space-y-2.5">
           <div class="flex items-center justify-between">
             <span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded-lg text-xs font-bold font-prompt">สูตรข้อ 4</span>
             <span class="text-xs text-slate-400 font-medium">KPI & SMART</span>
           </div>
-          <div class="bg-amber-50 p-3 rounded-xl border border-amber-200">
-            <div class="text-[11px] font-bold text-amber-700 uppercase">รหัสท่องจำ:</div>
-            <div class="text-sm sm:text-base font-black text-amber-950 font-prompt mt-0.5">
-              "วัด ประสิทธิภาพ (คุ้มค่า) + ประสิทธิผล (บรรลุผล)"
-            </div>
+          <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-200">
+            <div class="text-[10px] font-bold text-amber-700 uppercase">รหัสท่องจำ:</div>
+            <div class="text-sm sm:text-base font-black text-amber-950 font-prompt">"วัด ประสิทธิภาพ (คุ้มค่า) + ประสิทธิผล (บรรลุผล)"</div>
           </div>
-          <div class="text-xs text-slate-700 font-prompt space-y-0.5">
-            <div><strong class="text-amber-700">S:</strong> ชัดเจนเฉพาะเจาะจง | <strong class="text-amber-700">M:</strong> วัดได้เป็นตัวเลข</div>
-            <div><strong class="text-amber-700">A:</strong> บรรลุได้ไม่ง่าย/ยากไป | <strong class="text-amber-700">R:</strong> เป็นจริงคุ้มต้นทุน</div>
-            <div><strong class="text-amber-700">T:</strong> มีกรอบเวลาแน่นอน</div>
+          <div class="text-xs text-slate-700 space-y-0.5">
+            <div><strong class="text-amber-700">S:</strong> ชัดเจนเจาะจง | <strong class="text-amber-700">M:</strong> วัดได้ตัวเลข | <strong class="text-amber-700">A:</strong> บรรลุได้ไม่ง่าย/ยากไป</div>
+            <div><strong class="text-amber-700">R:</strong> เป็นจริงคุ้มทุน | <strong class="text-amber-700">T:</strong> มีกรอบเวลาชัดเจน</div>
           </div>
         </div>
 
         <!-- Hack 5 -->
-        <div class="bg-white rounded-2xl border-2 border-purple-100 p-4 sm:p-5 shadow-sm space-y-3 relative overflow-hidden">
+        <div class="bg-white rounded-2xl border-2 border-purple-100 p-4 shadow-sm space-y-2.5">
           <div class="flex items-center justify-between">
             <span class="px-2.5 py-0.5 bg-purple-100 text-purple-800 rounded-lg text-xs font-bold font-prompt">สูตรข้อ 5</span>
             <span class="text-xs text-slate-400 font-medium">Logical Framework</span>
           </div>
-          <div class="bg-purple-50 p-3 rounded-xl border border-purple-200">
-            <div class="text-[11px] font-bold text-purple-700 uppercase">รหัสท่องจำสายโซ่คุณค่า:</div>
-            <div class="text-xs sm:text-sm font-black text-purple-950 font-prompt mt-0.5 leading-snug">
+          <div class="bg-purple-50 p-2.5 rounded-xl border border-purple-200">
+            <div class="text-[10px] font-bold text-purple-700 uppercase">รหัสท่องจำสายโซ่คุณค่า:</div>
+            <div class="text-xs sm:text-sm font-black text-purple-950 font-prompt leading-tight">
               "คนเงินของ (Input) ➔ เสร็จทันที (Output) ➔ ได้ผลจริง (Outcome) ➔ สังคมดีระยะยาว (Impact)"
             </div>
-          </div>
-          <div class="text-xs text-slate-600 bg-slate-50 p-2 rounded-lg border border-slate-100">
-            <strong>ตัวอย่าง:</strong> งบ/วิทยากร (Input) ➔ อบรมเสร็จ 50 คน (Output) ➔ ปฐมพยาบาลได้ (Outcome) ➔ อัตราตายลดลง (Impact)
           </div>
         </div>
 
         <!-- Hack 6 -->
-        <div class="bg-white rounded-2xl border-2 border-indigo-100 p-4 sm:p-5 shadow-sm space-y-3 relative overflow-hidden">
+        <div class="bg-white rounded-2xl border-2 border-indigo-100 p-4 shadow-sm space-y-2.5">
           <div class="flex items-center justify-between">
             <span class="px-2.5 py-0.5 bg-indigo-100 text-indigo-800 rounded-lg text-xs font-bold font-prompt">สูตรข้อ 6</span>
             <span class="text-xs text-slate-400 font-medium">Monitoring vs Evaluation</span>
           </div>
-          <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
-            <div class="text-[11px] font-bold text-indigo-700 uppercase">รหัสท่องจำ:</div>
-            <div class="text-xs sm:text-sm font-black text-indigo-950 font-prompt mt-0.5">
+          <div class="bg-indigo-50 p-2.5 rounded-xl border border-indigo-200">
+            <div class="text-[10px] font-bold text-indigo-700 uppercase">รหัสท่องจำ:</div>
+            <div class="text-xs sm:text-sm font-black text-indigo-950 font-prompt">
               "ติดตาม = คุมตอนทำ (แก้สด) vs ประเมิน = วัดสำเร็จทุกช่วง (ตัดสินใจ/ถอดบทเรียน)"
             </div>
-          </div>
-          <div class="grid grid-cols-2 gap-2 text-xs text-slate-600">
-            <div><strong>ติดตาม (Monitoring):</strong> ทำต่อเนื่องขณะกำลังทำโครงการ</div>
-            <div><strong>ประเมินผล (Evaluation):</strong> ทำทุกขั้นตอน (ก่อน/ระหว่าง/หลัง)</div>
           </div>
         </div>
 
         <!-- Hack 7 -->
-        <div class="bg-white rounded-2xl border-2 border-rose-100 p-4 sm:p-5 shadow-sm space-y-3 md:col-span-2 relative overflow-hidden">
+        <div class="bg-white rounded-2xl border-2 border-rose-100 p-4 shadow-sm space-y-2.5 md:col-span-2">
           <div class="flex items-center justify-between">
             <span class="px-2.5 py-0.5 bg-rose-100 text-rose-800 rounded-lg text-xs font-bold font-prompt">สูตรข้อ 7</span>
             <span class="text-xs text-slate-400 font-medium">บทบาทนักวิเคราะห์นโยบายและแผน</span>
           </div>
-          <div class="bg-rose-50 p-3 rounded-xl border border-rose-200">
-            <div class="text-[11px] font-bold text-rose-700 uppercase">รหัสท่องจำ 7 คำกริยา:</div>
-            <div class="text-sm sm:text-base font-black text-rose-950 font-prompt mt-0.5">
+          <div class="bg-rose-50 p-2.5 rounded-xl border border-rose-200">
+            <div class="text-[10px] font-bold text-rose-700 uppercase">รหัสท่องจำ 7 คำกริยา:</div>
+            <div class="text-xs sm:text-base font-black text-rose-950 font-prompt mt-0.5">
               "ศึกษาเป็นไปได้ ➔ เขียนเป็นระบบ ➔ กำหนด SMART ➔ คุมงบเวลา ➔ ร่วมมือ ➔ ติดตาม ➔ ปิดส่งมอบบทเรียน"
             </div>
           </div>
         </div>
-
       </div>
 
-      <!-- Button to jump to Quiz -->
-      <div class="text-center pt-2">
-        <button onclick="switchTab('quiz')" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-bold font-prompt text-sm shadow-md transition transform hover:-translate-y-0.5">
-          🚀 พร้อมแล้ว! ไปทดสอบความจำกับ "ข้อกา 50 ข้อ" ➔
+      <div class="flex flex-wrap gap-2 justify-center pt-2">
+        <button onclick="switchTab('quiz')" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold font-prompt text-xs sm:text-sm shadow transition">
+          📝 ไปทำข้อกา 50 ข้อ ➔
+        </button>
+        <button onclick="switchTab('written')" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold font-prompt text-xs sm:text-sm shadow transition">
+          ✍️ ไปฝึกเขียนข้อสอบ 50 ข้อ ➔
         </button>
       </div>
 
     </section>
 
     <!-- ========================================================================= -->
-    <!-- TAB 1: SUMMARY & CORE KNOWLEDGE (สรุปเนื้อหาเจาะลึก 7 ข้อ) -->
+    <!-- GROUP 2: MULTIPLE CHOICE QUIZ (ข้อสอบปรนัย / ข้อกา 50 ข้อ) -->
     <!-- ========================================================================= -->
-    <section id="section-summary" class="tab-content hidden space-y-6 sm:space-y-8">
+    <section id="section-quiz" class="tab-content hidden space-y-4 sm:space-y-6">
       
-      <!-- Golden Strategy Guide Card -->
-      <div class="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100/40 border border-amber-200/90 rounded-2xl p-4 sm:p-6 shadow-sm">
-        <div class="flex items-start gap-3">
-          <span class="text-2xl sm:text-3xl shrink-0">💡</span>
-          <div>
-            <h3 class="text-sm sm:text-base md:text-lg font-bold text-amber-950 font-prompt">เทคนิคการเขียนตอบข้อสอบบรรยายให้ได้ 20/20 เต็ม</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 text-xs sm:text-sm text-amber-900">
-              <div class="flex items-start gap-1.5">
-                <span class="font-bold text-amber-600">1.</span>
-                <span><strong>นิยามหัวใจ:</strong> เปิดประโยคด้วยนิยามเชิงวิชาการที่กระชับ รัดกุม</span>
-              </div>
-              <div class="flex items-start gap-1.5">
-                <span class="font-bold text-amber-600">2.</span>
-                <span><strong>จำแนกหัวข้อย่อย:</strong> ใช้ Bullet/เลขข้อ ช่วยให้กรรมการตรวจง่ายและให้คะแนนครบ</span>
-              </div>
-              <div class="flex items-start gap-1.5">
-                <span class="font-bold text-amber-600">3.</span>
-                <span><strong>Keyword สากล:</strong> ใส่คำศัพท์อังกฤษ เช่น SMART, Logframe, Stretch goal, Niche</span>
-              </div>
-              <div class="flex items-start gap-1.5">
-                <span class="font-bold text-amber-600">4.</span>
-                <span><strong>ยกตัวอย่างบริบท:</strong> อ้างอิงภารกิจสภากาชาดหรือบริการสาธารณะเพื่อคะแนนการประยุกต์</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7 Questions Detail Cards -->
-      <div class="space-y-6 sm:space-y-8">
-        
-        <!-- ข้อ 1 -->
-        <div id="q1" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition scroll-mt-28 md:scroll-mt-24">
-          <div class="bg-gradient-to-r from-red-600 to-rose-700 px-4 sm:px-6 py-3.5 sm:py-4 text-white flex justify-between items-center">
-            <div class="flex items-center gap-2 sm:gap-3">
-              <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-white/20 rounded-lg text-xs sm:text-sm font-bold font-prompt">ข้อ 1</span>
-              <h3 class="text-sm sm:text-base md:text-lg font-bold font-prompt leading-tight">การวางแผนยุทธศาสตร์ (Strategic Planning)</h3>
-            </div>
-            <span class="text-[11px] sm:text-xs bg-red-800/90 px-2 py-0.5 rounded-full font-medium shrink-0">20 คะแนน</span>
-          </div>
-          <div class="p-4 sm:p-6 space-y-4">
-            <div class="bg-red-50/70 p-3.5 sm:p-4 rounded-xl border-l-4 border-red-500">
-              <div class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-red-700 mb-1">ความหมายหลัก (นิยาม)</div>
-              <p class="text-slate-800 text-xs sm:text-sm leading-relaxed">
-                <strong>การวางแผนยุทธศาสตร์ (Strategic Planning)</strong> คือ <em>กระบวนการตัดสินใจเพื่อกำหนดทิศทางในอนาคตขององค์กร</em> โดยกำหนดสภาพการณ์ในอนาคตที่ต้องการบรรลุ และกำหนดแนวทางในการบรรลุสภาพการณ์นั้น บนพื้นฐานของข้อมูลที่รอบด้านอย่างเป็นระบบ (พิจารณาทั้งศักยภาพขีดความสามารถภายใน และการเปลี่ยนแปลงสภาพแวดล้อมภายนอก เช่น เศรษฐกิจ สังคม การเมือง และสิ่งแวดล้อม)
-              </p>
-            </div>
-
-            <div>
-              <h4 class="text-xs sm:text-sm font-bold text-slate-700 font-prompt mb-2 sm:mb-3 flex items-center gap-1.5">
-                <span>📌</span> 5 ขั้นตอนหลักของกระบวนการวางแผนยุทธศาสตร์:
-              </h4>
-              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
-                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                  <div class="w-6 h-6 mx-auto bg-red-600 text-white rounded-full flex items-center justify-center text-xs font-bold mb-1.5">1</div>
-                  <div class="font-bold text-xs sm:text-sm text-slate-800 font-prompt">วิสัยทัศน์ (Vision)</div>
-                  <div class="text-[10px] sm:text-xs text-slate-500 mt-0.5">ภาพอนาคตที่ต้องการไปถึง</div>
-                </div>
-                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                  <div class="w-6 h-6 mx-auto bg-red-600 text-white rounded-full flex items-center justify-center text-xs font-bold mb-1.5">2</div>
-                  <div class="font-bold text-xs sm:text-sm text-slate-800 font-prompt">พันธกิจ (Mission)</div>
-                  <div class="text-[10px] sm:text-xs text-slate-500 mt-0.5">ภารกิจหลักการจัดตั้ง</div>
-                </div>
-                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                  <div class="w-6 h-6 mx-auto bg-red-600 text-white rounded-full flex items-center justify-center text-xs font-bold mb-1.5">3</div>
-                  <div class="font-bold text-xs sm:text-sm text-slate-800 font-prompt">เป้าประสงค์ (Goal)</div>
-                  <div class="text-[10px] sm:text-xs text-slate-500 mt-0.5">จุดมุ่งหมายเพื่อการพัฒนา</div>
-                </div>
-                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center">
-                  <div class="w-6 h-6 mx-auto bg-red-600 text-white rounded-full flex items-center justify-center text-xs font-bold mb-1.5">4</div>
-                  <div class="font-bold text-xs sm:text-sm text-slate-800 font-prompt">ยุทธศาสตร์ (Strategy)</div>
-                  <div class="text-[10px] sm:text-xs text-slate-500 mt-0.5">ประเด็นหลักขับเคลื่อน</div>
-                </div>
-                <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center col-span-2 sm:col-span-1">
-                  <div class="w-6 h-6 mx-auto bg-red-600 text-white rounded-full flex items-center justify-center text-xs font-bold mb-1.5">5</div>
-                  <div class="font-bold text-xs sm:text-sm text-slate-800 font-prompt">กลยุทธ์ / แนวทางพัฒนา</div>
-                  <div class="text-[10px] sm:text-xs text-slate-500 mt-0.5">วิธีการปฏิบัติสู่ผลสัมฤทธิ์</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ข้อ 2 -->
-        <div id="q2" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition scroll-mt-28 md:scroll-mt-24">
-          <div class="bg-gradient-to-r from-red-600 to-rose-700 px-4 sm:px-6 py-3.5 sm:py-4 text-white flex justify-between items-center">
-            <div class="flex items-center gap-2 sm:gap-3">
-              <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-white/20 rounded-lg text-xs sm:text-sm font-bold font-prompt">ข้อ 2</span>
-              <h3 class="text-sm sm:text-base md:text-lg font-bold font-prompt leading-tight">พันธกิจและวิสัยทัศน์ (Mission & Vision)</h3>
-            </div>
-            <span class="text-[11px] sm:text-xs bg-red-800/90 px-2 py-0.5 rounded-full font-medium shrink-0">20 คะแนน</span>
-          </div>
-          <div class="p-4 sm:p-6 space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="border border-blue-200 bg-blue-50/40 rounded-xl p-4 space-y-2.5">
-                <h4 class="font-bold text-blue-900 font-prompt text-sm sm:text-base">1. พันธกิจ (Mission)</h4>
-                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                  คือ <strong>ความมุ่งหมายพื้นฐานในการจัดตั้งองค์กร</strong> ในระยะยาว ประกอบด้วย 5 ด้าน: Domain, Customers, Products/Services, Location, Philosophy
-                </p>
-              </div>
-              <div class="border border-purple-200 bg-purple-50/40 rounded-xl p-4 space-y-2.5">
-                <h4 class="font-bold text-purple-900 font-prompt text-sm sm:text-base">2. วิสัยทัศน์ (Vision)</h4>
-                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                  คือ <strong>เป้าหมายระยะกลางถึงระยะยาว (3-10 ปี)</strong> ประกอบด้วย 3 มิติ: Stretch goal, Definition of niche, Time horizon
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ข้อ 3 -->
-        <div id="q3" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition scroll-mt-28 md:scroll-mt-24">
-          <div class="bg-gradient-to-r from-red-600 to-rose-700 px-4 sm:px-6 py-3.5 sm:py-4 text-white flex justify-between items-center">
-            <div class="flex items-center gap-2 sm:gap-3">
-              <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-white/20 rounded-lg text-xs sm:text-sm font-bold font-prompt">ข้อ 3</span>
-              <h3 class="text-sm sm:text-base md:text-lg font-bold font-prompt leading-tight">แผนปฏิบัติการ (Action Plan)</h3>
-            </div>
-            <span class="text-[11px] sm:text-xs bg-red-800/90 px-2 py-0.5 rounded-full font-medium shrink-0">20 คะแนน</span>
-          </div>
-          <div class="p-4 sm:p-6 space-y-4">
-            <p class="text-xs sm:text-sm text-slate-800 leading-relaxed">
-              <strong>แผนปฏิบัติการ (Action Plan)</strong> คือ การแปลงความคิดเชิงกลยุทธ์สู่แนวทางชี้นำการปฏิบัติการจริง โดยมี 6 องค์ประกอบหลัก: (1) ชื่อแผน (2) ขั้นตอนหลัก (3) กิจกรรมย่อย (4) วันเวลาสถานที่ (5) ความเสี่ยง (6) แผนสำรอง
-            </p>
-          </div>
-        </div>
-
-        <!-- ข้อ 4 -->
-        <div id="q4" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition scroll-mt-28 md:scroll-mt-24">
-          <div class="bg-gradient-to-r from-red-600 to-rose-700 px-4 sm:px-6 py-3.5 sm:py-4 text-white flex justify-between items-center">
-            <div class="flex items-center gap-2 sm:gap-3">
-              <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-white/20 rounded-lg text-xs sm:text-sm font-bold font-prompt">ข้อ 4</span>
-              <h3 class="text-sm sm:text-base md:text-lg font-bold font-prompt leading-tight">ตัวชี้วัด (KPI) & SMART</h3>
-            </div>
-            <span class="text-[11px] sm:text-xs bg-red-800/90 px-2 py-0.5 rounded-full font-medium shrink-0">20 คะแนน</span>
-          </div>
-          <div class="p-4 sm:p-6 space-y-4">
-            <p class="text-xs sm:text-sm text-slate-700">
-              KPI สะท้อน <strong>ประสิทธิภาพ (Efficiency)</strong> และ <strong>ประสิทธิผล (Effectiveness)</strong> โดยมีคุณสมบัติที่ดีตามหลัก SMART: Specific, Measurable, Achievable, Realistic, Timely
-            </p>
-          </div>
-        </div>
-
-        <!-- ข้อ 5 -->
-        <div id="q5" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition scroll-mt-28 md:scroll-mt-24">
-          <div class="bg-gradient-to-r from-red-600 to-rose-700 px-4 sm:px-6 py-3.5 sm:py-4 text-white flex justify-between items-center">
-            <div class="flex items-center gap-2 sm:gap-3">
-              <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-white/20 rounded-lg text-xs sm:text-sm font-bold font-prompt">ข้อ 5</span>
-              <h3 class="text-sm sm:text-base md:text-lg font-bold font-prompt leading-tight">ตารางเหตุผลสัมพันธ์ (Logical Framework)</h3>
-            </div>
-            <span class="text-[11px] sm:text-xs bg-red-800/90 px-2 py-0.5 rounded-full font-medium shrink-0">20 คะแนน</span>
-          </div>
-          <div class="p-4 sm:p-6 space-y-4">
-            <p class="text-xs sm:text-sm text-slate-700">
-              4 ตัวชี้วัดสำคัญ: (1) Input = ทรัพยากร (2) Output = ผลสำเร็จทันที (3) Outcome = ผลประโยชน์ตามมา (4) Impact = ผลระยะยาวต่อสังคม
-            </p>
-          </div>
-        </div>
-
-        <!-- ข้อ 6 -->
-        <div id="q6" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition scroll-mt-28 md:scroll-mt-24">
-          <div class="bg-gradient-to-r from-red-600 to-rose-700 px-4 sm:px-6 py-3.5 sm:py-4 text-white flex justify-between items-center">
-            <div class="flex items-center gap-2 sm:gap-3">
-              <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-white/20 rounded-lg text-xs sm:text-sm font-bold font-prompt">ข้อ 6</span>
-              <h3 class="text-sm sm:text-base md:text-lg font-bold font-prompt leading-tight">ติดตาม vs ประเมินผล (Monitoring vs Evaluation)</h3>
-            </div>
-            <span class="text-[11px] sm:text-xs bg-red-800/90 px-2 py-0.5 rounded-full font-medium shrink-0">20 คะแนน</span>
-          </div>
-          <div class="p-4 sm:p-6 space-y-4">
-            <p class="text-xs sm:text-sm text-slate-700">
-              <strong>ติดตาม (Monitoring):</strong> ทำต่อเนื่องขณะกำลังดำเนินงานเพื่อควบคุมกำกับและแก้ปัญหาหน้างาน | <strong>ประเมินผล (Evaluation):</strong> ทำทุกขั้นตอนเพื่อตัดสินคุณค่า ความคุ้มค่า และถอดบทเรียน
-            </p>
-          </div>
-        </div>
-
-        <!-- ข้อ 7 -->
-        <div id="q7" class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition scroll-mt-28 md:scroll-mt-24">
-          <div class="bg-gradient-to-r from-red-600 to-rose-700 px-4 sm:px-6 py-3.5 sm:py-4 text-white flex justify-between items-center">
-            <div class="flex items-center gap-2 sm:gap-3">
-              <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-white/20 rounded-lg text-xs sm:text-sm font-bold font-prompt">ข้อ 7</span>
-              <h3 class="text-sm sm:text-base md:text-lg font-bold font-prompt leading-tight">บทบาทนักวิเคราะห์นโยบายและแผน</h3>
-            </div>
-            <span class="text-[11px] sm:text-xs bg-red-800/90 px-2 py-0.5 rounded-full font-medium shrink-0">20 คะแนน</span>
-          </div>
-          <div class="p-4 sm:p-6 space-y-4">
-            <p class="text-xs sm:text-sm text-slate-700">
-              7 แนวทางขับเคลื่อน: (1) Feasibility Study (2) วางแผนเป็นระบบ (3) กำหนด SMART (4) บริหารงบ/เวลา (5) บูรณาการ (6) ติดตามประเมินผล (7) ปิดโครงการและส่งมอบบทเรียน
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- TAB 2: MULTIPLE CHOICE QUIZ (ข้อสอบปรนัย / ข้อกา 50 ข้อ) -->
-    <!-- ========================================================================= -->
-    <section id="section-quiz" class="tab-content hidden space-y-6">
-      
-      <!-- Quiz Header & Score Tracker -->
-      <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-4 sm:p-6 shadow-md border border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sticky top-14 sm:top-20 z-40">
+      <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-4 sm:p-5 shadow-md border border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sticky top-14 sm:top-18 z-40">
         <div>
           <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 bg-amber-400 text-slate-900 font-bold text-xs rounded-md">คลังข้อสอบ 50 ข้อ</span>
-            <h3 class="text-base sm:text-lg font-bold font-prompt">📝 ข้อสอบปรนัย (ข้อกา) เจาะลึกครบทุกมิติ</h3>
+            <span class="px-2.5 py-0.5 bg-amber-400 text-slate-900 font-bold text-xs rounded-md">คลังข้อกา 50 ข้อ</span>
+            <h3 class="text-sm sm:text-base font-bold font-prompt">📝 ข้อสอบปรนัยช่วยจำแม่นยำ</h3>
           </div>
-          <p class="text-xs text-slate-300 mt-1">
-            คลิกเลือกคำตอบ ระบบจะตรวจและแสดงคำอธิบายเฉลยทันที ทำซ้ำได้ไม่จำกัด!
+          <p class="text-[11px] sm:text-xs text-slate-300 mt-0.5">
+            คลิกเลือกคำตอบ ระบบจะตรวจและแสดงคำอธิบายเฉลยทันที
           </p>
         </div>
 
-        <div class="flex items-center justify-between sm:justify-end gap-3 bg-white/10 p-2.5 rounded-xl border border-white/10 shrink-0">
+        <div class="flex items-center justify-between sm:justify-end gap-3 bg-white/10 p-2 rounded-xl border border-white/10 shrink-0">
           <div class="text-left sm:text-right">
-            <div class="text-[10px] text-slate-300 font-semibold uppercase">คะแนนสะสม</div>
-            <div class="text-lg font-black font-prompt text-amber-300" id="quiz-live-score">0 / 50</div>
+            <div class="text-[9px] text-slate-300 font-semibold uppercase">คะแนนสะสม</div>
+            <div class="text-base font-black font-prompt text-amber-300" id="quiz-live-score">0 / 50</div>
           </div>
-          <button onclick="resetAllQuizzes()" class="px-3 py-1.5 bg-white/20 hover:bg-white/30 text-white text-xs rounded-lg transition font-medium">
+          <button onclick="resetAllQuizzes()" class="px-2.5 py-1 bg-white/20 hover:bg-white/30 text-white text-xs rounded-lg transition font-medium">
             เริ่มใหม่
           </button>
         </div>
@@ -601,154 +388,275 @@
       </div>
 
       <!-- Quiz Questions Grid -->
-      <div class="space-y-4" id="quiz-container">
-        <!-- Injected by JS -->
+      <div class="space-y-3" id="quiz-container">
+        <!-- Populated via JS -->
       </div>
 
     </section>
 
     <!-- ========================================================================= -->
-    <!-- TAB 3: FLASHCARDS (แฟลชการ์ดจำแม่น Active Recall) -->
+    <!-- GROUP 3: 50 WRITTEN EXERCISES & ESSAY SIMULATOR (คลังข้อเขียน 50 ข้อ) -->
     <!-- ========================================================================= -->
-    <section id="section-flashcards" class="tab-content hidden space-y-4 sm:space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200">
-        <div>
-          <h3 class="text-sm sm:text-base md:text-lg font-bold text-slate-800 font-prompt">🗂️ แฟลชการ์ดช่วยจำ (Active Recall)</h3>
-          <p class="text-[11px] sm:text-xs text-slate-500">แตะที่การ์ดเพื่อพลิกดูเฉลย ฝึกฝนจนจำขึ้นใจ 100%</p>
-        </div>
-        <div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-          <div class="text-xs text-slate-600">
-            จำได้แล้ว: <span id="card-mastered-count" class="font-bold text-emerald-600 font-prompt text-sm">0/7</span>
-          </div>
-          <button onclick="resetFlashcards()" class="text-xs px-3 py-1.5 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 rounded-lg transition">
-            รีเซ็ต
-          </button>
-        </div>
-      </div>
-
-      <!-- Flashcard Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="flashcard-grid">
-        <!-- Injected via JS -->
-      </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- TAB 4: EXAM SIMULATION (ห้องสอบจำลอง 2 ชม. + ตรวจ Keyword AI) -->
-    <!-- ========================================================================= -->
-    <section id="section-simulation" class="tab-content hidden space-y-4 sm:space-y-6">
+    <section id="section-written" class="tab-content hidden space-y-4 sm:space-y-6">
       
-      <!-- Timer & Exam Rules Banner -->
-      <div class="bg-slate-900 text-white rounded-2xl p-4 sm:p-5 shadow-lg border border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sticky top-14 sm:top-20 z-40">
+      <!-- Exam Timer & Header -->
+      <div class="bg-slate-900 text-white rounded-2xl p-4 shadow-lg border border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sticky top-14 sm:top-18 z-40">
         <div class="flex items-center justify-between sm:justify-start gap-3">
-          <div class="flex items-center gap-2.5">
-            <div class="p-2 sm:p-2.5 bg-red-600/20 border border-red-500/40 rounded-xl shrink-0">
-              <span class="text-xl sm:text-2xl">⏱️</span>
+          <div class="flex items-center gap-2">
+            <div class="p-2 bg-red-600/20 border border-red-500/40 rounded-xl shrink-0">
+              <span class="text-lg sm:text-xl">⏱️</span>
             </div>
             <div>
-              <div class="text-[10px] sm:text-xs text-slate-400 font-medium">เวลาทำข้อสอบ (2 ชม.)</div>
-              <div class="text-xl sm:text-2xl font-black font-prompt text-red-400 tracking-wider" id="exam-timer">02:00:00</div>
+              <div class="text-[10px] text-slate-400 font-medium">นาฬิกาจับเวลาสอบข้อเขียน (2 ชม.)</div>
+              <div class="text-lg sm:text-xl font-black font-prompt text-red-400 tracking-wider" id="exam-timer">02:00:00</div>
             </div>
           </div>
           <div class="sm:hidden text-right">
-            <span class="text-[11px] bg-red-800/80 px-2 py-1 rounded-md text-amber-300 font-bold">เลือกทำ 5/7 ข้อ</span>
+            <span class="text-[11px] bg-red-800/80 px-2 py-0.5 rounded text-amber-300 font-bold">คลังข้อเขียน 50 ข้อ</span>
           </div>
         </div>
 
         <div class="flex items-center gap-2">
-          <button id="btn-start-timer" onclick="toggleTimer()" class="flex-1 sm:flex-none px-3.5 sm:px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-xs sm:text-sm font-semibold rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm">
-            <span>▶️</span> เริ่มจับเวลา
+          <button id="btn-start-timer" onclick="toggleTimer()" class="flex-1 sm:flex-none px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-xs font-semibold rounded-xl transition flex items-center justify-center gap-1">
+            <span>▶️</span> จับเวลา
           </button>
-          <button onclick="resetExamTimer()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-slate-300 text-xs sm:text-sm font-medium rounded-xl transition">
+          <button onclick="resetExamTimer()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-slate-300 text-xs font-medium rounded-xl transition">
             รีเซ็ต
           </button>
         </div>
       </div>
 
-      <!-- Question Selector Bar -->
-      <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-          <span class="text-xs font-bold text-slate-500 uppercase font-prompt">เลือกข้อสอบที่ทำ:</span>
-          <div class="flex overflow-x-auto no-scrollbar gap-1.5 py-1" id="sim-question-pills">
-            <!-- Populated by JS -->
-          </div>
+      <!-- Written Question Category Filter & Index -->
+      <div class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-600 uppercase font-prompt">เลือกข้อเขียนฝึกทำ (1-50):</span>
+          <span class="text-xs text-slate-500">ทำแล้ว: <span id="written-count-badge" class="font-bold text-red-600">0</span> / 50 ข้อ</span>
         </div>
-        <div class="text-xs text-slate-500 text-right sm:text-left">
-          เลือกทำแล้ว: <span id="selected-questions-count" class="font-bold text-red-600 font-prompt">0</span> / 5 ข้อ
+        <div class="flex overflow-x-auto no-scrollbar gap-1 py-1" id="written-pills-container">
+          <!-- Populated via JS -->
         </div>
       </div>
 
-      <!-- Active Exam Writing Area -->
-      <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-sm space-y-4 sm:space-y-6" id="sim-editor-container">
+      <!-- Active Written Editor Card -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-sm space-y-4">
         
-        <!-- Active Question Header -->
-        <div class="border-b border-slate-200 pb-3 sm:pb-4">
-          <div class="flex items-center justify-between">
-            <span class="px-2.5 py-0.5 bg-red-100 text-red-800 rounded-lg text-xs font-bold font-prompt" id="sim-q-badge">ข้อที่ 1</span>
-            <span class="text-xs text-slate-400 font-medium">คะแนนเต็ม 20</span>
+        <div class="border-b border-slate-200 pb-3 flex items-start justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 bg-red-100 text-red-800 rounded-lg text-xs font-bold font-prompt" id="written-q-badge">ข้อที่ 1 / 50</span>
+              <span class="text-xs text-slate-400 font-medium" id="written-q-topic">หมวดการวางแผนยุทธศาสตร์</span>
+            </div>
+            <h3 class="text-sm sm:text-base font-bold text-slate-800 font-prompt mt-1.5 leading-snug" id="written-q-title">
+              1. จงอธิบายความหมายของการวางแผนยุทธศาสตร์ (Strategic Planning) และ 5 ขั้นตอนหลัก...
+            </h3>
           </div>
-          <h3 class="text-sm sm:text-base md:text-lg font-bold text-slate-800 font-prompt mt-2 leading-snug" id="sim-q-title">
-            1. จงอธิบายความหมายของ การวางแผนยุทธศาสตร์...
-          </h3>
+          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-lg shrink-0 font-medium font-prompt">เต็ม 20</span>
         </div>
 
-        <!-- Answer Textarea -->
+        <!-- Textarea input -->
         <div>
           <div class="flex justify-between items-center mb-1.5">
             <label class="text-xs font-bold text-slate-600 font-prompt flex items-center gap-1">
-              <span>✍️</span> พื้นที่พิมพ์คำตอบ:
+              <span>✍️</span> พิมพ์คำตอบของคุณ (ระบบสแกนคำสำคัญอัตโนมัติ):
             </label>
-            <span class="text-[11px] text-slate-400" id="sim-word-count">0 คำ</span>
+            <span class="text-[11px] text-slate-400" id="written-word-count">0 คำ</span>
           </div>
-          <textarea id="sim-answer-input" oninput="analyzeAnswerRealtime()" rows="8" placeholder="พิมพ์คำตอบของคุณที่นี่... ระบบจะตรวจจับ Keyword แบบ Real-time ทันที" class="w-full p-3.5 sm:p-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none text-xs sm:text-sm text-slate-800 leading-relaxed custom-scrollbar font-sarabun"></textarea>
+          <textarea id="written-answer-input" oninput="analyzeWrittenAnswerRealtime()" rows="6" placeholder="พิมพ์คำตอบแบบสั้นกระชับเป็นข้อๆ ที่นี่..." class="w-full p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none text-xs sm:text-sm text-slate-800 leading-relaxed custom-scrollbar font-sarabun"></textarea>
         </div>
 
-        <!-- Realtime Keyword Scan & Scoring Engine -->
-        <div class="bg-slate-50 rounded-xl p-3.5 sm:p-4 border border-slate-200 space-y-3">
-          <div class="flex flex-col xs:flex-row xs:items-center justify-between gap-1">
+        <!-- Realtime Keyword Scan -->
+        <div class="bg-slate-50 rounded-xl p-3.5 border border-slate-200 space-y-2.5">
+          <div class="flex items-center justify-between">
             <div class="flex items-center gap-1.5">
-              <span class="text-base">🔍</span>
+              <span>🔍</span>
               <h4 class="text-xs font-bold uppercase tracking-wider text-slate-700 font-prompt">AI Keyword Scanner (คำสำคัญที่พบ)</h4>
             </div>
-            <div class="text-xs font-bold text-right" id="sim-score-estimate">
+            <div class="text-xs font-bold" id="written-score-estimate">
               ประเมิน: <span class="text-red-600 font-prompt text-sm">0/20</span>
             </div>
           </div>
-
-          <!-- Keyword badges -->
-          <div class="flex flex-wrap gap-1.5 sm:gap-2" id="sim-keywords-list">
-            <!-- Injected via JS -->
+          <div class="flex flex-wrap gap-1.5" id="written-keywords-list">
+            <!-- Populated via JS -->
           </div>
-
-          <!-- Improvement Suggestions -->
-          <div id="sim-suggestions" class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-200 leading-relaxed">
-            💡 <em>เริ่มพิมพ์คำตอบเพื่อดูการตรวจจับคำสำคัญและคำแนะนำคะแนนเต็ม...</em>
+          <div id="written-suggestions" class="text-xs text-slate-600 bg-white p-2.5 rounded-lg border border-slate-200 leading-relaxed">
+            💡 <em>พิมพ์คำตอบเพื่อดูคำสำคัญที่ตรวจพบ...</em>
           </div>
         </div>
 
-        <!-- Actions -->
-        <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-          <button onclick="toggleModelAnswer()" class="order-2 sm:order-1 px-3.5 py-2.5 border border-slate-300 hover:border-slate-400 active:bg-slate-50 bg-white text-slate-700 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5">
-            <span>👁️</span> ดูเฉลยคำตอบมาตรฐาน (Model Answer)
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pt-1">
+          <button onclick="toggleWrittenModelAnswer()" class="order-2 sm:order-1 px-3.5 py-2 border border-slate-300 hover:border-slate-400 bg-white text-slate-700 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5">
+            <span>👁️</span> ดูแนวคำตอบสั้นกระชับ (Model Answer)
           </button>
-
-          <button onclick="saveCurrentAnswer()" class="order-1 sm:order-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded-xl text-xs font-semibold shadow-sm transition flex items-center justify-center gap-1.5">
-            <span>💾</span> บันทึกคำตอบข้อนี้
-          </button>
+          <div class="order-1 sm:order-2 flex gap-2">
+            <button onclick="prevWrittenQuestion()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+              ◀ ข้อก่อนหน้า
+            </button>
+            <button onclick="saveWrittenAnswer()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-semibold shadow-sm transition">
+              💾 บันทึก
+            </button>
+            <button onclick="nextWrittenQuestion()" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold transition">
+              ข้อถัดไป ▶
+            </button>
+          </div>
         </div>
 
         <!-- Model Answer Box -->
-        <div id="model-answer-box" class="hidden bg-emerald-50/70 border border-emerald-200 rounded-xl p-4 sm:p-5 space-y-2.5">
+        <div id="written-model-box" class="hidden bg-emerald-50/70 border border-emerald-200 rounded-xl p-4 space-y-2">
           <div class="flex items-center justify-between text-emerald-900">
             <h5 class="text-xs sm:text-sm font-bold font-prompt flex items-center gap-1.5">
-              <span>🏆</span> แนวทางการเขียนตอบมาตรฐาน (20 คะแนนเต็ม)
+              <span>🏆</span> แนวคำตอบมาตรฐานแบบสั้นกระชับ (คะแนนเต็ม 20)
             </h5>
-            <span class="text-[10px] sm:text-xs bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded font-medium">Standard เฉลย</span>
+            <span class="text-[10px] bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded font-medium">Standard</span>
           </div>
-          <div class="text-xs sm:text-sm text-slate-700 leading-relaxed space-y-1.5" id="model-answer-content">
-            <!-- Populated via JS -->
+          <div class="text-xs sm:text-sm text-slate-700 leading-relaxed space-y-1" id="written-model-content">
+            <!-- Injected via JS -->
           </div>
         </div>
 
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- GROUP 4: EXCEL FOR POLICY & PLANNING (คู่มือและโจทย์ EXCEL) -->
+    <!-- ========================================================================= -->
+    <section id="section-excel" class="tab-content hidden space-y-6">
+      
+      <!-- Excel Header -->
+      <div class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-2xl p-5 shadow-md">
+        <div class="flex items-center gap-3">
+          <span class="text-3xl sm:text-4xl">📊</span>
+          <div>
+            <h3 class="text-base sm:text-xl font-bold font-prompt">Microsoft Excel สำหรับนักวิเคราะห์นโยบายและแผน</h3>
+            <p class="text-xs sm:text-sm text-emerald-100 mt-0.5">
+              รวมสูตรยอดนิยม การคำนวณงบประมาณ ตัวชี้วัด และโจทย์ข้อสอบปฏิบัติจริง 10 ข้อ
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 Essential Formula Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        
+        <!-- Card 1 -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs font-prompt">การรวมตามเงื่อนไข</span>
+            <span class="text-xs font-mono font-bold text-slate-700">SUMIF / SUMIFS</span>
+          </div>
+          <p class="text-xs text-slate-600">ใช้รวมงบประมาณเฉพาะยุทธศาสตร์ หรือเฉพาะหน่วยงานที่ต้องการ</p>
+          <div class="bg-slate-900 text-emerald-300 font-mono text-[11px] p-2.5 rounded-lg">
+            =SUMIF(A:A, "ยุทธศาสตร์ที่ 1", B:B)
+          </div>
+          <div class="text-[11px] text-slate-500"><em>A:A คือคอลัมน์เงื่อนไข, B:B คือคอลัมน์จำนวนเงิน</em></div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs font-prompt">การนับตามเงื่อนไข</span>
+            <span class="text-xs font-mono font-bold text-slate-700">COUNTIF / COUNTIFS</span>
+          </div>
+          <p class="text-xs text-slate-600">ใช้นับจำนวนโครงการที่ผ่านเกณฑ์ หรือโครงการที่กำลังดำเนินการ</p>
+          <div class="bg-slate-900 text-emerald-300 font-mono text-[11px] p-2.5 rounded-lg">
+            =COUNTIF(C:C, "แล้วเสร็จ")
+          </div>
+          <div class="text-[11px] text-slate-500"><em>นับจำนวนแถวในคอลัมน์ C ที่มีคำว่า 'แล้วเสร็จ'</em></div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs font-prompt">การค้นหาและดึงข้อมูล</span>
+            <span class="text-xs font-mono font-bold text-slate-700">VLOOKUP / XLOOKUP</span>
+          </div>
+          <p class="text-xs text-slate-600">ใช้ค้นหาข้อมูลงบประมาณจากรหัสโครงการข้ามตาราง</p>
+          <div class="bg-slate-900 text-emerald-300 font-mono text-[11px] p-2.5 rounded-lg">
+            =VLOOKUP(A2, ProjectTable, 3, FALSE)
+          </div>
+          <div class="text-[11px] text-slate-500"><em>ค้นหารหัส A2 ในตาราง แล้วดึงข้อมูลคอลัมน์ที่ 3</em></div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs font-prompt">การตัดเกรด / เงื่อนไข</span>
+            <span class="text-xs font-mono font-bold text-slate-700">IF / IFS</span>
+          </div>
+          <p class="text-xs text-slate-600">ใช้ประเมินสถานะโครงการ เช่น 'บรรลุเป้าหมาย' หรือ 'ต้องปรับปรุง'</p>
+          <div class="bg-slate-900 text-emerald-300 font-mono text-[11px] p-2.5 rounded-lg">
+            =IF(D2>=80, "ผ่านเกณฑ์", "ไม่ผ่านเกณฑ์")
+          </div>
+          <div class="text-[11px] text-slate-500"><em>ถ้าคะแนน D2 >= 80 ให้แสดง 'ผ่านเกณฑ์'</em></div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs font-prompt">การคำนวณร้อยละ (%)</span>
+            <span class="text-xs font-mono font-bold text-slate-700">% อัตราเบิกจ่าย</span>
+          </div>
+          <p class="text-xs text-slate-600">สูตรคำนวณความก้าวหน้าและการเบิกจ่ายงบประมาณ</p>
+          <div class="bg-slate-900 text-emerald-300 font-mono text-[11px] p-2.5 rounded-lg">
+            =(เบิกจ่ายจริง / งบประมาณที่ได้รับ) * 100
+          </div>
+          <div class="text-[11px] text-slate-500"><em>เช่น =(E2/D2)*100 กำหนดรูปแบบเป็น Percentage</em></div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs font-prompt">การสรุปรายงานภาพรวม</span>
+            <span class="text-xs font-mono font-bold text-slate-700">PivotTable</span>
+          </div>
+          <p class="text-xs text-slate-600">เครื่องมือสรุปงบประมาณแยกตามยุทธศาสตร์/หน่วยงานใน 1 วินาที</p>
+          <div class="bg-slate-900 text-emerald-300 font-mono text-[11px] p-2.5 rounded-lg">
+            Insert ➔ PivotTable ➔ Drag Fields
+          </div>
+          <div class="text-[11px] text-slate-500"><em>ลาก 'ยุทธศาสตร์' ไว้ที่ Rows และ 'งบประมาณ' ไว้ที่ Values</em></div>
+        </div>
+
+      </div>
+
+      <!-- 10 Excel Practice Exam Questions -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-sm space-y-4">
+        <h4 class="text-base font-bold text-slate-800 font-prompt flex items-center gap-2">
+          <span>📝</span> 10 โจทย์ข้อสอบ Excel ยอดฮิตสำหรับตำแหน่งนโยบายและแผน
+        </h4>
+        <div class="space-y-3" id="excel-quiz-list">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- GROUP 5: MASTER SUMMARY & FLASHCARDS (สรุปเนื้อหา & การ์ด) -->
+    <!-- ========================================================================= -->
+    <section id="section-summary" class="tab-content hidden space-y-6">
+      
+      <!-- Flashcards section on top -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 class="text-base font-bold text-slate-800 font-prompt">🗂️ แฟลชการ์ด 3D ช่วยจำ 7 หัวข้อหลัก</h3>
+            <p class="text-xs text-slate-500">แตะที่การ์ดเพื่อพลิกดูแนวคำตอบสั้นกระชับ</p>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span>จำได้แล้ว: <strong id="card-mastered-count" class="text-emerald-600 font-prompt">0/7</strong></span>
+            <button onclick="resetFlashcards()" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 rounded text-slate-700">รีเซ็ต</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="flashcard-grid">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+
+      <!-- Detailed 7 Master Topics Notes -->
+      <div class="space-y-4" id="summary-cards-container">
+        <!-- Injected via JS -->
       </div>
 
     </section>
@@ -759,637 +667,20 @@
   <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-center text-xs no-print mt-auto w-full">
     <div class="max-w-7xl mx-auto px-4 space-y-1.5">
       <p class="font-prompt text-slate-300 font-medium text-xs sm:text-sm">คู่มือเตรียมสอบตำแหน่งเจ้าหน้าที่วิเคราะห์นโยบายและแผน 3-5 (สภากาชาดไทย)</p>
-      <p class="text-[11px] sm:text-xs text-slate-500">พัฒนาด้วย Responsive Web Design ครอบคลุมสูตรลัดและคลังข้อสอบ 50 ข้อ</p>
+      <p class="text-[11px] sm:text-xs text-slate-500">รวมสูตรลัด + ข้อกา 50 ข้อ + ข้อเขียน 50 ข้อ + คู่มือและโจทย์ Excel</p>
     </div>
   </footer>
 
   <!-- ========================================================================= -->
-  <!-- JAVASCRIPT APP LOGIC & FULL 50 QUIZ DATA -->
+  <!-- JAVASCRIPT APP DATA & LOGIC -->
   <!-- ========================================================================= -->
   <script>
-    // FULL 50 QUESTIONS DATASET
-    const QUIZ_DATA = [
-      // --- หมวด 1: วางแผนยุทธศาสตร์ (8 ข้อ) ---
+    // 50 WRITTEN QUESTIONS DATASET (Full 50 Short Essay Exam Bank)
+    const WRITTEN_DATA = [
+      // 1-8: Strategic Planning
       {
-        id: 1, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์",
-        question: "1. 'การวางแผนยุทธศาสตร์ (Strategic Planning)' มีหัวใจสำคัญที่สุดคือข้อใด?",
-        options: [
-          "ก. กระบวนการควบคุมการเบิกจ่ายงบประมาณประจำปีให้เป็นไปตามระเบียบ",
-          "ข. กระบวนการตัดสินใจเพื่อกำหนดทิศทางในอนาคตขององค์กรบนข้อมูลที่รอบด้าน",
-          "ค. การจัดสรรกำลังคนและโครงสร้างตำแหน่งงานภายในสำนักงาน",
-          "ง. การตรวจสอบและประเมินผลการทำงานรายวันของพนักงาน"
-        ],
-        answer: 1,
-        explanation: "การวางแผนยุทธศาสตร์ คือ 'กระบวนการตัดสินใจเพื่อกำหนดทิศทางในอนาคตขององค์กร' โดยกำหนดสภาพการณ์ที่ต้องการบรรลุบนพื้นฐานข้อมูลทั้งภายในและภายนอกอย่างเป็นระบบ"
-      },
-      {
-        id: 2, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์",
-        question: "2. สูตรจำ 'วิ - พัน - เป้า - ยุทธ - กล' ข้อใดเรียงลำดับขั้นตอนหลัก 5 ขั้นตอน ได้ถูกต้อง?",
-        options: [
-          "ก. พันธกิจ ➔ กลยุทธ์ ➔ วิสัยทัศน์ ➔ เป้าประสงค์ ➔ ประเด็นยุทธศาสตร์",
-          "ข. วิสัยทัศน์ ➔ พันธกิจ ➔ เป้าประสงค์ ➔ ประเด็นยุทธศาสตร์ ➔ กลยุทธ์/แนวทางพัฒนา",
-          "ค. เป้าประสงค์ ➔ วิสัยทัศน์ ➔ พันธกิจ ➔ แผนปฏิบัติการ ➔ การประเมินผล",
-          "ง. ประเด็นยุทธศาสตร์ ➔ พันธกิจ ➔ วิสัยทัศน์ ➔ แผนงาน ➔ งบประมาณ"
-        ],
-        answer: 1,
-        explanation: "5 ขั้นตอนหลัก: (1) วิสัยทัศน์ (Vision) ➔ (2) พันธกิจ (Mission) ➔ (3) เป้าประสงค์ (Goal) ➔ (4) ประเด็นยุทธศาสตร์ (Strategy) ➔ (5) กลยุทธ์หรือแนวทางการพัฒนา"
-      },
-      {
-        id: 3, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์",
-        question: "3. ในการวิเคราะห์สภาพแวดล้อมเพื่อวางแผนยุทธศาสตร์ ต้องคำนึงถึงสิ่งใดบ้าง?",
-        options: [
-          "ก. เฉพาะงบประมาณคงเหลือในบัญชี",
-          "ข. ศักยภาพขีดความสามารถภายใน และ สภาพแวดล้อมภายนอก (เศรษฐกิจ สังคม การเมือง สิ่งแวดล้อม)",
-          "ค. เฉพาะระเบียบข้อบังคับของฝ่ายบริหารบุคคล",
-          "ง. จำนวนชั่วโมงการทำงานของบุคลากร"
-        ],
-        answer: 1,
-        explanation: "ต้องพิจารณาอย่างรอบด้าน ทั้งสภาพการณ์ที่ต้องการให้เกิด ขีดความสามารถขององค์กร และการเปลี่ยนแปลงสภาพแวดล้อมภายนอก"
-      },
-      {
-        id: 4, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์",
-        question: "4. ขั้นตอน 'เป้าประสงค์ (Goal)' ในการวางแผนยุทธศาสตร์มีความหมายอย่างไร?",
-        options: [
-          "ก. ขอบเขตการจัดตั้งองค์กร",
-          "ข. จุดมุ่งหมายหรือผลสัมฤทธิ์ที่ต้องการให้เกิดขึ้นเพื่อการพัฒนา",
-          "ค. งบประมาณรายจ่ายประจำปี",
-          "ง. การแต่งตั้งคณะกรรมการจัดทำแผน"
-        ],
-        answer: 1,
-        explanation: "เป้าประสงค์ (Goal) คือ จุดมุ่งหมายเพื่อการพัฒนา หรือผลสัมฤทธิ์ที่ต้องการให้เกิดขึ้นอย่างชัดเจน"
-      },
-      {
-        id: 5, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์",
-        question: "5. 'ประเด็นยุทธศาสตร์ (Strategy / Strategic Issue)' คือข้อใด?",
-        options: [
-          "ก. เสาหลักหรือประเด็นหลักในการขับเคลื่อนองค์กรให้บรรลุเป้าหมาย",
-          "ข. รายการพัสดุครุภัณฑ์ที่ต้องจัดซื้อ",
-          "ค. ปัญหาความขัดแย้งส่วนบุคคลในที่ทำงาน",
-          "ง. เอกสารรายงานประจำปี"
-        ],
-        answer: 0,
-        explanation: "ประเด็นยุทธศาสตร์คือประเด็นหลักหรือทิศทางสำคัญที่จะใช้เป็นแกนในการขับเคลื่อนองค์กร"
-      },
-      {
-        id: 6, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์",
-        question: "6. ขั้นตอนสุดท้ายของกระบวนการวางแผนยุทธศาสตร์ 5 ขั้นตอนคืออะไร?",
-        options: [
-          "ก. การกำหนดวิสัยทัศน์",
-          "ข. การกำหนดกลยุทธ์หรือแนวทางการพัฒนา",
-          "ค. การยุบเลิกหน่วยงาน",
-          "ง. การจัดงานแถลงข่าว"
-        ],
-        answer: 1,
-        explanation: "ขั้นตอนที่ 5 คือ 'การกำหนดกลยุทธ์หรือแนวทางการพัฒนา' ซึ่งเป็นวิธีการและมาตรการที่จะนำไปสู่การปฏิบัติ"
-      },
-      {
-        id: 7, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์",
-        question: "7. การวางแผนยุทธศาสตร์แตกต่างจากการวางแผนทั่วไปอย่างไร?",
-        options: [
-          "ก. การวางแผนยุทธศาสตร์มองระยะยาว บูรณาการรอบด้าน และเน้นความได้เปรียบเชิงแข่งขัน/ประสิทธิผลสูงสุด",
-          "ข. การวางแผนยุทธศาสตร์ทำเฉพาะเรื่องการเงินเท่านั้น",
-          "ค. การวางแผนยุทธศาสตร์ไม่ต้องคำนึงถึงสภาพแวดล้อมภายนอก",
-          "ง. การวางแผนยุทธศาสตร์ไม่มีการกำหนดตัวชี้วัด"
-        ],
-        answer: 0,
-        explanation: "แผนยุทธศาสตร์จะเน้นการมองภาพรวม ทิศทางอนาคต และปรับตัวต่อสภาพแวดล้อมอย่างเป็นระบบ"
-      },
-      {
-        id: 8, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์",
-        question: "8. เครื่องมือใดที่นิยมนำมาใช้วิเคราะห์สภาพแวดล้อมทั้งภายในและภายนอกในการวางแผนยุทธศาสตร์?",
-        options: [
-          "ก. SWOT Analysis",
-          "ข. Petty Cash Form",
-          "ค. Punch Card",
-          "ง. Gantt Chart เพียงอย่างเดียว"
-        ],
-        answer: 0,
-        explanation: "SWOT Analysis (จุดแข็ง จุดอ่อน โอกาส อุปสรรค) เป็นเครื่องมือหลักในการวิเคราะห์สภาพแวดล้อมเชิงยุทธศาสตร์"
-      },
-
-      // --- หมวด 2: พันธกิจ & วิสัยทัศน์ (8 ข้อ) ---
-      {
-        id: 9, topicId: "2", topic: "ข้อ 2: Mission/Vision",
-        question: "9. 'พันธกิจ (Mission)' มีความหมายตรงกับข้อใดมากที่สุด?",
-        options: [
-          "ก. ภาพเป้าหมายในอนาคตระยะยาว 10-20 ปีข้างหน้า",
-          "ข. ความมุ่งหมายพื้นฐานในการจัดตั้งองค์กรที่จะดำเนินการในระยะยาว",
-          "ค. รายละเอียดขั้นตอนการดำเนินกิจกรรมประจำสัปดาห์",
-          "ง. งบประมาณที่ได้รับการจัดสรรจากรัฐบาลในแต่ละปี"
-        ],
-        answer: 1,
-        explanation: "พันธกิจ (Mission) คือ ความมุ่งหมายพื้นฐานในการจัดตั้งองค์กร บ่งบอกว่าองค์กรทำอะไร เพื่อใคร และมีคุณค่าอย่างไร"
-      },
-      {
-        id: 10, topicId: "2", topic: "ข้อ 2: Mission/Vision",
-        question: "10. ข้อใด ไม่ใช่ องค์ประกอบของข้อความพันธกิจที่ดี (5 ด้าน)?",
-        options: [
-          "ก. ขอบเขตที่องค์กรจะทำ (Domain) และ ลูกค้า/ผู้รับบริการ (Customers)",
-          "ข. ผลิตภัณฑ์/บริการหลัก (Products/Services) และ พื้นที่ดำเนินการ (Location)",
-          "ค. ปรัชญา/แนวทางการบริหารงาน (Philosophy)",
-          "ง. อัตราการขึ้นเงินเดือนประจำปีของเจ้าหน้าที่"
-        ],
-        answer: 3,
-        explanation: "พันธกิจที่ดี 5 ด้าน: Domain, Customers, Products/Services, Location, Philosophy"
-      },
-      {
-        id: 11, topicId: "2", topic: "ข้อ 2: Mission/Vision",
-        question: "11. 'วิสัยทัศน์ (Vision)' โดยทั่วไปกำหนดกรอบเวลาไว้ประมาณกี่ปี?",
-        options: [
-          "ก. 1-3 เดือน",
-          "ข. 3-10 ปี (ระยะกลางถึงระยะยาว)",
-          "ค. 50-100 ปี",
-          "ง. ไม่ต้องมีกรอบเวลา"
-        ],
-        answer: 1,
-        explanation: "วิสัยทัศน์เป็นเป้าหมายในระยะกลางถึงระยะยาว โดยทั่วไปอยู่ที่ประมาณ 3-10 ปี"
-      },
-      {
-        id: 12, topicId: "2", topic: "ข้อ 2: Mission/Vision",
-        question: "12. 'Stretch Goal' ในองค์ประกอบวิสัยทัศน์หมายถึงอะไร?",
-        options: [
-          "ก. การขยายเวลาทำงานล่วงเวลา",
-          "ข. เป้าหมายที่มีความท้าทาย แตกต่างจากปัจจุบัน และแสดงความทะเยอทะยานขององค์กร",
-          "ค. การลดขนาดองค์กรลง",
-          "ง. การตั้งเป้าหมายที่ทำได้ง่ายโดยไม่ต้องออกแรง"
-        ],
-        answer: 1,
-        explanation: "Stretch goal คือเป้าหมายที่มีความท้าทาย แสดงถึงความทะเยอทะยานและตำแหน่งใหม่ที่องค์กรต้องการไปถึง"
-      },
-      {
-        id: 13, topicId: "2", topic: "ข้อ 2: Mission/Vision",
-        question: "13. 'Definition of Niche' ในวิสัยทัศน์หมายถึงข้อใด?",
-        options: [
-          "ก. ตำแหน่งเชิงกลยุทธ์หรือจุดยืนเฉพาะขององค์กรในตลาด/สังคม",
-          "ข. ยี่ห้อของเครื่องคอมพิวเตอร์ในสำนักงาน",
-          "ค. ชื่อย่อของฝ่ายการเงิน",
-          "ง. ระเบียบการลาพักผ่อน"
-        ],
-        answer: 0,
-        explanation: "Definition of niche คือการกำหนดตำแหน่งเชิงกลยุทธ์หรือบทบาทเฉพาะที่โดดเด่นขององค์กร"
-      },
-      {
-        id: 14, topicId: "2", topic: "ข้อ 2: Mission/Vision",
-        question: "14. ข้อใดอธิบายความแตกต่างระหว่าง Mission และ Vision ได้ถูกต้องที่สุด?",
-        options: [
-          "ก. Mission คือ ภาพฝันในอนาคต ส่วน Vision คือ สิ่งที่ทำอยู่ในปัจจุบัน",
-          "ข. Mission คือ เหตุผลและขอบเขตการมีอยู่ขององค์กร ส่วน Vision คือ ภาพเป้าหมายในอนาคตที่ต้องการไปถึง",
-          "ค. ทั้งสองคำมีความหมายเหมือนกันทุกประการ",
-          "ง. Mission ใช้กับเอกชน ส่วน Vision ใช้กับราชการเท่านั้น"
-        ],
-        answer: 1,
-        explanation: "Mission = ปัจจุบันและขอบเขตหน้าที่ (เราเป็นใคร ทำอะไร เพื่อใคร) | Vision = อนาคต (เราต้องการเป็นอะไรใน 3-10 ปีข้างหน้า)"
-      },
-      {
-        id: 15, topicId: "2", topic: "ข้อ 2: Mission/Vision",
-        question: "15. ประโยชน์ของ 'วิสัยทัศน์' ต่อบุคลากรภายในองค์กรคือข้อใด?",
-        options: [
-          "ก. ช่วยกระตุ้นให้เกิดความตระหนัก ความผูกพัน และความมุ่งมั่นร่วมกันสู่เป้าหมายเดียว",
-          "ข. ใช้กำหนดเวลาเข้า-ออกงาน",
-          "ค. ใช้คำนวณภาษีหัก ณ ที่จ่าย",
-          "ง. บังคับให้ทุกคนต้องทำงานแบบเดียวกันทั้งหมด"
-        ],
-        answer: 0,
-        explanation: "วิสัยทัศน์ช่วยรวมใจบุคลากร สร้างความผูกพัน และชี้ให้เห็นว่างานของตนมีส่วนช่วยผลักดันองค์กรอย่างไร"
-      },
-      {
-        id: 16, topicId: "2", topic: "ข้อ 2: Mission/Vision",
-        question: "16. ข้อความพันธกิจที่ดีควรมีลักษณะอย่างไร?",
-        options: [
-          "ก. ยาวเกิน 10 หน้ากระดาษ",
-          "ข. มีความชัดเจน สื่อสารปรัชญาการบริหาร และบุคลากรเข้าใจตรงกัน",
-          "ค. เปลี่ยนแปลงทุกสัปดาห์",
-          "ง. ปิดเป็นความลับห้ามเผยแพร่"
-        ],
-        answer: 1,
-        explanation: "พันธกิจที่ดีต้องชัดเจน สื่อสารถึงปรัชญาและแนวทางบริหาร เพื่อให้บุคลากรปฏิบัติงานสอดคล้องกัน"
-      },
-
-      // --- หมวด 3: แผนปฏิบัติการ (Action Plan) (7 ข้อ) ---
-      {
-        id: 17, topicId: "3", topic: "ข้อ 3: Action Plan",
-        question: "17. 'แผนปฏิบัติการ (Action Plan)' มีหน้าที่สำคัญอย่างไรในกระบวนการเชิงกลยุทธ์?",
-        options: [
-          "ก. นำความคิดที่วิเคราะห์เชิงกลยุทธ์แล้วมาแปลงเป็นแนวทางชี้นำการปฏิบัติงานจริง",
-          "ข. ใช้เป็นเอกสารขอพระราชทานรางวัลประจำปี",
-          "ค. ใช้วิเคราะห์สภาพแวดล้อมภายนอกองค์กร",
-          "ง. ใช้กำหนดระเบียบวินัยและข้อบังคับของข้าราชการ/พนักงาน"
-        ],
-        answer: 0,
-        explanation: "Action Plan คือการนำกลยุทธ์มาแปลงเป็นแผนปฏิบัติการจริงเพื่อขับเคลื่อนสู่วิสัยทัศน์"
-      },
-      {
-        id: 18, topicId: "3", topic: "ข้อ 3: Action Plan",
-        question: "18. ข้อใดระบุ 6 องค์ประกอบของแผนปฏิบัติการได้ครบถ้วนถูกต้อง?",
-        options: [
-          "ก. ชื่อแผน, โครงการหลัก, กิจกรรมย่อย, วันเวลาสถานที่, ความเสี่ยง, แผนรองรับ/แผนสำรอง",
-          "ข. ชื่อผู้อำนวยการ, เงินเดือน, วันหยุด, เบี้ยเลี้ยง, ที่พัก, อาหาร",
-          "ค. วิสัยทัศน์, พันธกิจ, เป้าประสงค์, ยุทธศาสตร์, KPI, SWOT",
-          "ง. รายรับ, รายจ่าย, หนี้สิน, ดอกเบี้ย, กำไรสุทธิ, เงินปันผล"
-        ],
-        answer: 0,
-        explanation: "6 องค์ประกอบ: ชื่อแผน, โครงการหลัก, กิจกรรมย่อย, วันเวลาสถานที่, ความเสี่ยง, แผนสำรอง (Contingency Plan)"
-      },
-      {
-        id: 19, topicId: "3", topic: "ข้อ 3: Action Plan",
-        question: "19. เหตุใดแผนปฏิบัติการที่ดีต้องมีการระบุ 'ความเสี่ยง (Risk)' ของกิจกรรม?",
-        options: [
-          "ก. เพื่อใช้เป็นข้ออ้างในการยกเลิกโครงการ",
-          "ข. เพื่อให้เตรียมการป้องกันและมีแผนรองรับหากเกิดอุปสรรคไม่คาดฝัน",
-          "ค. เพื่อลดเงินเดือนผู้รับผิดชอบโครงการ",
-          "ง. เพื่อให้โครงการล่าช้ากว่ากำหนด"
-        ],
-        answer: 1,
-        explanation: "การระบุความเสี่ยงช่วยให้องค์กรเตรียมความพร้อม มีมาตรการรับมือ และลดความเสียหาย"
-      },
-      {
-        id: 20, topicId: "3", topic: "ข้อ 3: Action Plan",
-        question: "20. 'แผนปฏิบัติการสำรอง / แผนรองรับ' ภาษาอังกฤษเรียกว่าอะไร?",
-        options: [
-          "ก. Contingency Plan",
-          "ข. Marketing Plan",
-          "ค. Financial Statement",
-          "ง. Master Plan"
-        ],
-        answer: 0,
-        explanation: "Contingency Plan คือ แผนปฏิบัติการรองรับหรือแผนสำรองเมื่อเกิดเหตุฉุกเฉินหรือไม่เป็นไปตามแผน"
-      },
-      {
-        id: 21, topicId: "3", topic: "ข้อ 3: Action Plan",
-        question: "21. แผนปฏิบัติการ (Action Plan) มักมีระยะเวลาครอบคลุมเท่าใด?",
-        options: [
-          "ก. ระยะสั้น 1 ปี (ประจำปีงบประมาณ)",
-          "ข. 20 ปี",
-          "ค. 50 ปี",
-          "ง. 1 วัน"
-        ],
-        answer: 0,
-        explanation: "โดยทั่วไป แผนปฏิบัติการ (Action Plan) มักจัดทำเป็นแผนประจำปี (1 ปีงบประมาณ) เพื่อขับเคลื่อนงานจริง"
-      },
-      {
-        id: 22, topicId: "3", topic: "ข้อ 3: Action Plan",
-        question: "22. ความสัมพันธ์ระหว่าง Strategic Plan และ Action Plan คือข้อใด?",
-        options: [
-          "ก. Strategic Plan กำหนดทิศทางภาพใหญ่ ส่วน Action Plan แปลงสู่การปฏิบัติและรายละเอียดงาน",
-          "ข. Action Plan ใหญ่กว่า Strategic Plan",
-          "ค. ทั้งสองแผนไม่มีความเกี่ยวข้องใดๆ กัน",
-          "ง. Action Plan ใช้เฉพาะกรณีที่ Strategic Plan ล้มเหลว"
-        ],
-        answer: 0,
-        explanation: "Strategic Plan คือเข็มทิศทิศทางใหญ่ ส่วน Action Plan คือแผนที่รายละเอียดเพื่อเดินไปสู่เป้าหมาย"
-      },
-      {
-        id: 23, topicId: "3", topic: "ข้อ 3: Action Plan",
-        question: "23. ในการจัดทำแผนปฏิบัติการ หากไม่ระบุ 'ผู้รับผิดชอบและวันเวลาสถานที่' จะเกิดผลเสียอย่างไร?",
-        options: [
-          "ก. งานไม่มีความชัดเจน ติดตามยาก และเกิดการเกี่ยงความรับผิดชอบ",
-          "ข. ประหยัดงบประมาณได้มากขึ้น",
-          "ค. ทำให้โครงการเสร็จเร็วกว่ากำหนด",
-          "ง. ทำให้บุคลากรมีความสุขมากขึ้น"
-        ],
-        answer: 0,
-        explanation: "การขาดวันเวลาและผู้รับผิดชอบทำให้ไม่สามารถกำกับติดตามงาน (Accountability) ได้"
-      },
-
-      // --- หมวด 4: ตัวชี้วัด KPI & หลัก SMART (8 ข้อ) ---
-      {
-        id: 24, topicId: "4", topic: "ข้อ 4: KPI/SMART",
-        question: "24. 'KPI (Key Performance Indicator)' คืออะไร?",
-        options: [
-          "ก. ดัชนีชี้วัดความสำเร็จหรือเครื่องมือวัดผลการดำเนินงานขององค์กร",
-          "ข. โปรแกรมคอมพิวเตอร์สำหรับตัดเงินเดือน",
-          "ค. กฎหมายว่าด้วยการจัดซื้อจัดจ้าง",
-          "ง. แบบฟอร์มขออนุมัติเดินทางไปต่างจังหวัด"
-        ],
-        answer: 0,
-        explanation: "KPI คือ ดัชนีชี้วัดผลการดำเนินงานหลัก เพื่อประเมินผลเชิงปริมาณ/คุณภาพ"
-      },
-      {
-        id: 25, topicId: "4", topic: "ข้อ 4: KPI/SMART",
-        question: "25. ตัวชี้วัดที่ดีต้องสะท้อน 2 ด้านหลัก คือข้อใด?",
-        options: [
-          "ก. ประสิทธิภาพ (Efficiency) และ ประสิทธิผล (Effectiveness)",
-          "ข. ความสวยงาม และ ความเร็ว",
-          "ค. กำไรสุทธิ และ ราคาหุ้น",
-          "ง. ความอาวุโส และ วุฒิการศึกษา"
-        ],
-        answer: 0,
-        explanation: "ประสิทธิภาพ (ใช้ทรัพยากรคุ้มค่า) และ ประสิทธิผล (บรรลุวัตถุประสงค์ตามเป้าหมาย)"
-      },
-      {
-        id: 26, topicId: "4", topic: "ข้อ 4: KPI/SMART",
-        question: "26. ตัวอักษร 'S' ในหลัก SMART ย่อมาจากอะไร?",
-        options: [
-          "ก. Simple",
-          "ข. Specific (ชัดเจน เฉพาะเจาะจง)",
-          "ค. Systematic",
-          "ง. Standard"
-        ],
-        answer: 1,
-        explanation: "S = Specific หมายถึง ชัดเจน เฉพาะเจาะจง ตรงประเด็น ไม่คลุมเครือ"
-      },
-      {
-        id: 27, topicId: "4", topic: "ข้อ 4: KPI/SMART",
-        question: "27. ตัวอักษร 'M' ในหลัก SMART หมายถึงข้อใด?",
-        options: [
-          "ก. Measurable (สามารถวัดผลได้เป็นตัวเลขหรือเกณฑ์ชัดเจน)",
-          "ข. Money (เน้นเงินทองเท่านั้น)",
-          "ค. Management",
-          "ง. Maximum"
-        ],
-        answer: 0,
-        explanation: "M = Measurable คือ ต้องวัดผลได้ ประเมินผลได้จริง"
-      },
-      {
-        id: 28, topicId: "4", topic: "ข้อ 4: KPI/SMART",
-        question: "28. ตัวอักษร 'A' ในหลัก SMART (Achievable) มีความหมายว่าอย่างไร?",
-        options: [
-          "ก. ต้องเป็นเป้าหมายที่ง่ายที่สุดจนไม่ต้องทำงาน",
-          "ข. บรรลุผลได้ ไม่ง่ายเกินไปและไม่ยากจนเกินไป",
-          "ค. ต้องเป็นเป้าหมายที่เป็นไปไม่ได้เพื่อความท้าทาย",
-          "ง. เป็นเป้าหมายที่ลอกเลียนแบบมาจากหน่วยงานอื่น"
-        ],
-        answer: 1,
-        explanation: "Achievable = สามารถบรรลุผลสำเร็จได้จริง อยู่ในวิสัยที่ทำได้"
-      },
-      {
-        id: 29, topicId: "4", topic: "ข้อ 4: KPI/SMART",
-        question: "29. ตัวอักษร 'R' ในหลัก SMART (Realistic) หมายถึงข้อใด?",
-        options: [
-          "ก. สอดคล้องกับความเป็นจริง เหมาะสมกับองค์กร และไม่ใช้ต้นทุนการวัดผลสูงเกินไป",
-          "ข. การวิ่งแข่งเพื่อเอาชนะคู่แข่ง",
-          "ค. การรายงานผลต่อสื่อมวลชน",
-          "ง. การตั้งเป้าหมายตามความฝัน"
-        ],
-        answer: 0,
-        explanation: "Realistic = เป็นจริงได้ เหมาะสมกับทรัพยากร และต้นทุนการวัดไม่สูงเกินประโยชน์ที่ได้รับ"
-      },
-      {
-        id: 30, topicId: "4", topic: "ข้อ 4: KPI/SMART",
-        question: "30. ตัวอักษร 'T' ในหลัก SMART (Timely) หมายถึงสิ่งใด?",
-        options: [
-          "ก. ต้องมีกรอบระยะเวลาที่ชัดเจน และปรับปรุงให้ทันสมัยสม่ำเสมอ",
-          "ข. ต้องทำโครงการเฉพาะเวลากลางวัน",
-          "ค. ต้องส่งรายงานทุกชั่วโมง",
-          "ง. ต้องใช้นาฬิกาจับเวลาแบบดิจิทัล"
-        ],
-        answer: 0,
-        explanation: "Timely = มีกรอบเวลาที่ชัดเจนในการบรรลุผลและมีการวัดผลตามรอบเวลาที่เหมาะสม"
-      },
-      {
-        id: 31, topicId: "4", topic: "ข้อ 4: KPI/SMART",
-        question: "31. ข้อใดเป็นตัวอย่างตัวชี้วัดที่สอดคล้องตามหลัก SMART มากที่สุด?",
-        options: [
-          "ก. ประชาชนทุกคนในประเทศมีความสุขมากที่สุดในโลก",
-          "ข. ร้อยละของผู้ผ่านการอบรมที่มีคะแนนประเมินทักษะปฐมพยาบาลผ่านเกณฑ์ 80% ภายในไตรมาสที่ 2",
-          "ค. เจ้าหน้าที่จะทำงานให้ดีที่สุดเท่าที่จะทำได้",
-          "ง. ลดปัญหาทุกอย่างในสำนักงานให้หมดไปอย่างรวดเร็ว"
-        ],
-        answer: 1,
-        explanation: "ตัวเลือก ข มีความเฉพาะเจาะจง (S), วัดผลเป็นร้อยละได้ (M), บรรลุได้ (A), สอดคล้องความจริง (R) และมีกรอบเวลาไตรมาส 2 (T)"
-      },
-
-      // --- หมวด 5: ตารางเหตุผลสัมพันธ์ Logframe Matrix (7 ข้อ) ---
-      {
-        id: 32, topicId: "5", topic: "ข้อ 5: Logframe",
-        question: "32. ในตาราง Logical Framework ข้อใดคือความหมายของ 'ปัจจัยนำเข้า (Input)'?",
-        options: [
-          "ก. ทรัพยากรทั้งหมดที่ใช้สนับสนุนการดำเนินงาน เช่น คน เงิน วัสดุอุปกรณ์ และเวลา",
-          "ข. จำนวนผู้ที่ได้รับใบประกาศนียบัตร",
-          "ค. ความพึงพอใจของประชาชนในระยะยาว",
-          "ง. การประชุมสรุปผลงานประจำปี"
-        ],
-        answer: 0,
-        explanation: "Input (ปัจจัยนำเข้า) คือ ทรัพยากร (4Ms: Man, Money, Material, Management) ที่ใส่เข้าไปเพื่อเริ่มงาน"
-      },
-      {
-        id: 33, topicId: "5", topic: "ข้อ 5: Logframe",
-        question: "33. 'ผลผลิต (Output)' ใน Logical Framework มีลักษณะเด่นอย่างไร?",
-        options: [
-          "ก. เป็นผลที่เกิดขึ้นทันทีเมื่อกิจกรรมหรือโครงการแล้วเสร็จ นับจำนวนจับต้องได้โดยตรง",
-          "ข. เป็นผลกระทบระยะยาว 20 ปีข้างหน้า",
-          "ค. เป็นงบประมาณที่ยังไม่ได้เบิกจ่าย",
-          "ง. เป็นการเปลี่ยนแปลงทัศนคติของสังคมในระดับมหภาค"
-        ],
-        answer: 0,
-        explanation: "Output (ผลผลิต) คือ ผลตรงที่เกิดขึ้นทันทีหลังเสร็จสิ้นกิจกรรม เช่น จำนวนผู้รับการอบรม 100 คน"
-      },
-      {
-        id: 34, topicId: "5", topic: "ข้อ 5: Logframe",
-        question: "34. 'ผลลัพธ์ (Outcome)' หมายถึงข้อใด?",
-        options: [
-          "ก. ทรัพยากรที่ใช้จัดพิมพ์เอกสาร",
-          "ข. ผลที่ตามมาจากการนำผลผลิต (Output) ไปใช้ประโยชน์ หรือพฤติกรรมที่เปลี่ยนแปลงไป",
-          "ค. ค่าอาหารว่างและเครื่องดื่ม",
-          "ง. วันที่เริ่มเปิดโครงการ"
-        ],
-        answer: 1,
-        explanation: "Outcome (ผลลัพธ์) คือ ผลที่เกิดจากการนำผลผลิตไปใช้ประโยชน์ เช่น นำความรู้ไปช่วยชีวิตคนได้จริง"
-      },
-      {
-        id: 35, topicId: "5", topic: "ข้อ 5: Logframe",
-        question: "35. 'ผลกระทบ (Impact)' มีความหมายตรงกับข้อใด?",
-        options: [
-          "ก. ผลระยะยาวหรือผลสัมฤทธิ์สูงสุด (Results) ต่อสังคม เศรษฐกิจ หรือยุทธศาสตร์องค์กร",
-          "ข. เอกสารคู่มือที่แจกในห้องอบรม",
-          "ค. ใบเสร็จรับเงินค่าน้ำมัน",
-          "ง. การเช็คชื่อผู้เข้าประชุม"
-        ],
-        answer: 0,
-        explanation: "Impact (ผลกระทบ) คือ ผลระยะยาวสูงสุดต่อเป้าหมายยุทธศาสตร์และสังคม"
-      },
-      {
-        id: 36, topicId: "5", topic: "ข้อ 5: Logframe",
-        question: "36. 'สูตรความสัมพันธ์ของผลสัมฤทธิ์' ตามเฉลยข้อสอบข้อ 5 คือข้อใด?",
-        options: [
-          "ก. ผลสัมฤทธิ์ / ผลกระทบ (Impact) = ผลผลิต (Outputs) + ผลลัพธ์ (Outcomes)",
-          "ข. ผลสัมฤทธิ์ = ปัจจัยนำเข้า (Input) - ผลผลิต (Output)",
-          "ค. ผลสัมฤทธิ์ = งบประมาณ x จำนวนคน",
-          "ง. ผลสัมฤทธิ์ = การประเมินผล / การติดตาม"
-        ],
-        answer: 0,
-        explanation: "ผลสัมฤทธิ์ (Results / Impact) = Outputs (ผลผลิต) + Outcomes (ผลลัพธ์) เพื่อให้บรรลุเป้าหมายสูงสุด"
-      },
-      {
-        id: 37, topicId: "5", topic: "ข้อ 5: Logframe",
-        question: "37. โครงการบริจาคโลหิต: 'ปริมาณโลหิตที่ได้รับบริจาค 5,000 ยูนิต' จัดเป็นตัวชี้วัดระดับใด?",
-        options: [
-          "ก. ปัจจัยนำเข้า (Input)",
-          "ข. ผลผลิต (Output)",
-          "ค. ผลลัพธ์ (Outcome)",
-          "ง. ผลกระทบ (Impact)"
-        ],
-        answer: 1,
-        explanation: "ปริมาณโลหิตที่ได้ทันทีจากการรับบริจาคเป็น 'ผลผลิต (Output)' ตรงของโครงการ"
-      },
-      {
-        id: 38, topicId: "5", topic: "ข้อ 5: Logframe",
-        question: "38. โครงการบริจาคโลหิต: 'ผู้ป่วยฉุกเฉินในโรงพยาบาลรอดชีวิตเพราะมีโลหิตสำรองเพียงพอ' จัดเป็นตัวชี้วัดระดับใด?",
-        options: [
-          "ก. Input",
-          "ข. Output",
-          "ค. Outcome / Impact",
-          "ง. Process"
-        ],
-        answer: 2,
-        explanation: "การที่ผู้ป่วยรอดชีวิตจากการใช้โลหิต คือ ผลลัพธ์และผลกระทบเชิงบวก (Outcome/Impact) ที่เกิดขึ้น"
-      },
-
-      // --- หมวด 6: การติดตาม vs ประเมินผล (6 ข้อ) ---
-      {
-        id: 39, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน",
-        question: "39. จุดเน้นที่สำคัญที่สุดของ 'การติดตาม (Monitoring)' คืออะไร?",
-        options: [
-          "ก. การตรวจสอบ ควบคุม และกำกับการปฏิบัติงานให้เป็นไปตามแผนที่กำหนดไว้",
-          "ข. การตัดสินยุบเลิกโครงการ",
-          "ค. การจัดสรรรางวัลพนักงานดีเด่น",
-          "ง. การคำนวณเงินบำนาญ"
-        ],
-        answer: 0,
-        explanation: "การติดตามเน้น 'ตรวจสอบ ควบคุม กำกับ' ในขณะดำเนินงานเพื่อให้งานเป็นไปตามแผน"
-      },
-      {
-        id: 40, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน",
-        question: "40. 'การติดตาม (Monitoring)' จะเกิดขึ้นในช่วงเวลาใดของโครงการ?",
-        options: [
-          "ก. เกิดขึ้นอย่างต่อเนื่อง ในขณะที่โครงการกำลังดำเนินงานตามแผน",
-          "ข. ทำเฉพาะก่อนของบประมาณเท่านั้น",
-          "ค. ทำหลังจากโครงการจบไปแล้ว 10 ปี",
-          "ง. ทำเฉพาะเมื่อโครงการถูกฟ้องร้อง"
-        ],
-        answer: 0,
-        explanation: "การติดตามจะทำแบบ Real-time อย่างต่อเนื่องขณะที่โครงการกำลังดำเนินงาน"
-      },
-      {
-        id: 41, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน",
-        question: "41. 'การประเมินผล (Evaluation)' มีลักษณะการดำเนินงานอย่างไร?",
-        options: [
-          "ก. เป็นการเก็บรวบรวมและวิเคราะห์ข้อมูลอย่างเป็นระบบเพื่อตัดสินคุณค่าและประสิทธิภาพ",
-          "ข. เกิดขึ้นในทุกขั้นตอนของโครงการ (ก่อนเริ่ม, ระหว่างทำ, สิ้นสุด, และหลังโครงการ)",
-          "ค. นำผลไปใช้ในการตัดสินใจเชิงนโยบายและถอดบทเรียน",
-          "ง. ถูกต้องทุกข้อ"
-        ],
-        answer: 3,
-        explanation: "การประเมินผลเป็นกระบวนการวิเคราะห์เชิงระบบ เกิดขึ้นทุกช่วง และใช้ตัดสินใจเชิงนโยบาย"
-      },
-      {
-        id: 42, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน",
-        question: "42. การประเมินผลก่อนเริ่มดำเนินโครงการ (Ex-ante Evaluation) มีวัตถุประสงค์เพื่ออะไร?",
-        options: [
-          "ก. ประเมินความเป็นไปได้และความคุ้มค่าก่อนตัดสินใจลงทุนทำโครงการ",
-          "ข. เพื่อทำลายโครงการของคู่แข่ง",
-          "ค. เพื่อเบิกจ่ายเงินล่วงหน้า",
-          "ง. เพื่อจัดงานเลี้ยงฉลอง"
-        ],
-        answer: 0,
-        explanation: "การประเมินก่อนเริ่ม (Ex-ante) ทำเพื่อดูความเป็นไปได้ ความคุ้มค่า และความพร้อมก่อนเริ่มดำเนินงาน"
-      },
-      {
-        id: 43, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน",
-        question: "43. การประเมินผลหลังสิ้นสุดโครงการ (Ex-post Evaluation) มีประโยชน์หลักคือข้อใด?",
-        options: [
-          "ก. ตัดสินว่าโครงการบรรลุวัตถุประสงค์หรือไม่ และถอดบทเรียน (Lesson Learned) สำหรับอนาคต",
-          "ข. สั่งลงโทษเจ้าหน้าที่ทุกคน",
-          "ค. ยกเลิกรายงานทางการเงินทั้งหมด",
-          "ง. ลบข้อมูลโครงการทิ้ง"
-        ],
-        answer: 0,
-        explanation: "การประเมินเมื่อจบโครงการทำเพื่อสรุปผลสัมฤทธิ์ วัดความคุ้มค่า และถอดบทเรียน (Lesson Learned)"
-      },
-      {
-        id: 44, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน",
-        question: "44. หากขาด 'การติดตามและการประเมินผล' จะส่งผลกระทบต่อองค์กรอย่างไร?",
-        options: [
-          "ก. ไม่ทราบปัญหาความล่าช้า ไม่รู้ว่างบประมาณใช้คุ้มค่าหรือไม่ และไม่สามารถปรับปรุงงานได้ทันเวลา",
-          "ข. ประหยัดกระดาษได้มากขึ้น",
-          "ค. งานจะสำเร็จได้เร็วขึ้นโดยไม่มีใครมาตรวจสอบ",
-          "ง. ไม่มีผลกระทบใดๆ ทั้งสิ้น"
-        ],
-        answer: 0,
-        explanation: "การขาดระบบติดตามประเมินผลทำให้ไม่ทราบสถานะจริง ขาดความโปร่งใส และแก้ไขปัญหาไม่ทันท่วงที"
-      },
-
-      // --- หมวด 7: บทบาทนักวิเคราะห์นโยบายและแผน (6 ข้อ) ---
-      {
-        id: 45, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน",
-        question: "45. 'การศึกษาความเป็นไปได้ของโครงการ (Feasibility Study)' ควรทำในขั้นตอนใด?",
-        options: [
-          "ก. ก่อนการจัดทำและเสนออนุมัติโครงการ",
-          "ข. หลังปิดโครงการเสร็จสิ้น",
-          "ค. ขณะกำลังเบิกจ่ายเงินงวดสุดท้าย",
-          "ง. เมื่อโครงการถูกยกเลิกแล้ว"
-        ],
-        answer: 0,
-        explanation: "Feasibility Study ต้องทำเป็นอันดับแรกก่อนเริ่มจัดทำและเสนอโครงการเพื่อดูความคุ้มค่าและความเป็นไปได้"
-      },
-      {
-        id: 46, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน",
-        question: "46. ในฐานะนักวิเคราะห์นโยบายและแผน การเขียนโครงการที่ดีควรมีลักษณะอย่างไร?",
-        options: [
-          "ก. เขียนเป็นระบบ สอดคล้องกับยุทธศาสตร์ และกำหนดวัตถุประสงค์-ตัวชี้วัด SMART ชัดเจน",
-          "ข. ใช้ภาษากลอนยาวๆ เพื่อความไพเราะ",
-          "ค. เขียนให้คลุมเครือที่สุดเพื่อหลีกเลี่ยงการถูกตรวจ",
-          "ง. คัดลอกโครงการของหน่วยงานอื่นมาทั้งหมดโดยไม่ปรับปรุง"
-        ],
-        answer: 0,
-        explanation: "ต้องเขียนอย่างเป็นระบบ สอดคล้องกับยุทธศาสตร์องค์กร และมีตัวชี้วัด SMART ที่วัดผลได้จริง"
-      },
-      {
-        id: 47, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน",
-        question: "47. บทบาทสำคัญของนักวิเคราะห์นโยบายและแผนด้าน 'งบประมาณ' คือข้อใด?",
-        options: [
-          "ก. วางแผนจัดสรรงบประมาณให้สอดคล้องกับกิจกรรม ติดตามการเบิกจ่ายให้คุ้มค่าและโปร่งใส",
-          "ข. เก็บเงินสดไว้ในตู้เซฟของตนเอง",
-          "ค. อนุมัติงบประมาณโดยไม่ต้องมีเอกสารหลักฐาน",
-          "ง. ปล่อยให้แต่ละฝ่ายใช้จ่ายตามใจชอบ"
-        ],
-        answer: 0,
-        explanation: "นักวิเคราะห์ฯ ต้องวางแผนงบประมาณให้สอดรับกับ Timeline กิจกรรม และติดตามการใช้จ่ายอย่างคุ้มค่า"
-      },
-      {
-        id: 48, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน",
-        question: "48. การบูรณาการและสร้างความร่วมมือระหว่างหน่วยงาน มีประโยชน์อย่างไรต่อการบริหารโครงการ?",
-        options: [
-          "ก. ลดความซ้ำซ้อนของการใช้งบประมาณและทรัพยากร เพิ่มพลังในการขับเคลื่อนงานสู่เป้าหมาย",
-          "ข. เพิ่มขั้นตอนการทำงานให้ยุ่งยากขึ้น",
-          "ค. ทำให้โครงการต้องใช้เวลานานขึ้นเป็นสองเท่า",
-          "ง. เพื่อให้มีคนช่วยรับผิดชอบเมื่อเกิดความผิดพลาด"
-        ],
-        answer: 0,
-        explanation: "การบูรณาการช่วยลดความซ้ำซ้อน เกิดการแบ่งปันทรัพยากร และสร้างผลสัมฤทธิ์ที่ครอบคลุมยิ่งขึ้น"
-      },
-      {
-        id: 49, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน",
-        question: "49. บทบาทด้าน 'การรายงานผล' ของนักวิเคราะห์นโยบายและแผนมีความสำคัญต่อผู้บริหารอย่างไร?",
-        options: [
-          "ก. ให้ข้อมูลเชิงประจักษ์และความก้าวหน้า เพื่อให้ผู้บริหารตัดสินใจเชิงนโยบายและแก้ปัญหาได้ทันท่วงที",
-          "ข. เพื่อให้ผู้บริหารมีเอกสารเซ็นชื่อมากๆ",
-          "ค. ใช้เป็นของที่ระลึกในวันเกษียณอายุ",
-          "ง. ไม่มีความสำคัญ เป็นเพียงงานธุรการ"
-        ],
-        answer: 0,
-        explanation: "รายงานผลช่วยให้ผู้บริหารเห็นภาพรวม ทราบปัญหาอุปสรรค และตัดสินใจสั่งการแก้ไขได้อย่างถูกต้อง"
-      },
-      {
-        id: 50, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน",
-        question: "50. ขั้นตอน 'การปิดโครงการและการส่งมอบผลงาน' สิ่งใดสำคัญที่สุดเพื่อความยั่งยืนขององค์กร?",
-        options: [
-          "ก. การสรุปถอดบทเรียน (Lesson Learned) และส่งมอบผลลัพธ์ให้หน่วยงานที่เกี่ยวข้องนำไปต่อยอด",
-          "ข. การลบไฟล์ข้อมูลออกจากเครื่องคอมพิวเตอร์",
-          "ค. การจัดงานเลี้ยงสังสรรค์ส่งท้าย",
-          "ง. การหยุดปฏิบัติงานทันทีโดยไม่ทำรายงานสรุป"
-        ],
-        answer: 0,
-        explanation: "การสรุปบทเรียน (Lesson Learned) และการส่งมอบผลงานช่วยให้เกิดการเรียนรู้และนำผลสำเร็จไปต่อยอดอย่างยั่งยืน"
-      }
-    ];
-
-    // 7 Questions Dataset (Essay / Simulation - Ultra Concise & High-Yield)
-    const EXAM_DATA = [
-      {
-        id: 1,
-        title: "1. จงอธิบายความหมายของ การวางแผนยุทธศาสตร์ หรือ การวางแผนกลยุทธ์ (Strategic Planning) และ ยกตัวอย่างขั้นตอนหลักของกระบวนการวางแผนยุทธศาสตร์ มา 5 ขั้นตอน (20 คะแนน)",
-        shortTitle: "ข้อ 1: Strategic Planning",
+        id: 1, topicId: "1", topic: "การวางแผนยุทธศาสตร์",
+        title: "1. จงอธิบายความหมายของการวางแผนยุทธศาสตร์ (Strategic Planning) และ 5 ขั้นตอนหลัก",
         keywords: [
           { word: "กระบวนการตัดสินใจ", regex: /กระบวนการตัดสินใจ|การตัดสินใจ/i, points: 3 },
           { word: "กำหนดทิศทาง", regex: /กำหนดทิศทาง|ทิศทางในอนาคต/i, points: 3 },
@@ -1398,182 +689,516 @@
           { word: "พันธกิจ (Mission)", regex: /พันธกิจ|ภารกิจ|mission/i, points: 2 },
           { word: "เป้าประสงค์ (Goal)", regex: /เป้าประสงค์|จุดมุ่งหมาย|goal/i, points: 2 },
           { word: "ประเด็นยุทธศาสตร์ (Strategy)", regex: /ประเด็นยุทธศาสตร์|ยุทธศาสตร์|strategy/i, points: 2 },
-          { word: "กลยุทธ์ / แนวทางพัฒนา", regex: /กลยุทธ์|แนวทางพัฒนา|action/i, points: 2 }
+          { word: "กลยุทธ์ (Actions)", regex: /กลยุทธ์|แนวทางพัฒนา|action/i, points: 2 }
         ],
-        modelAnswer: `
-          <p><strong>1. ความหมาย:</strong> กระบวนการตัดสินใจเพื่อกำหนดทิศทางในอนาคตขององค์กร บนพื้นฐานข้อมูลสภาพแวดล้อมทั้งภายในและภายนอกอย่างรอบด้านและเป็นระบบ</p>
-          <p class="mt-2"><strong>2. 5 ขั้นตอนหลัก (วิ-พัน-เป้า-ยุทธ-กล):</strong></p>
-          <ol class="list-decimal list-inside space-y-1">
-            <li><strong>วิสัยทัศน์ (Vision):</strong> ภาพเป้าหมายในอนาคตระยะยาว</li>
-            <li><strong>พันธกิจ (Mission):</strong> ภารกิจและขอบเขตหลักในการจัดตั้งองค์กร</li>
-            <li><strong>เป้าประสงค์ (Goal):</strong> จุดมุ่งหมายและผลสัมฤทธิ์ที่ต้องการพัฒนา</li>
-            <li><strong>ประเด็นยุทธศาสตร์ (Strategy):</strong> เสาหลักหรือทิศทางการขับเคลื่อน</li>
-            <li><strong>กลยุทธ์ (Actions):</strong> วิธีการและมาตรการปฏิบัติสู่ผลสำเร็จ</li>
-          </ol>
-        `
+        modelAnswer: `<p><strong>1. ความหมาย:</strong> กระบวนการตัดสินใจเพื่อกำหนดทิศทางในอนาคตขององค์กร บนพื้นฐานข้อมูลสภาพแวดล้อมทั้งภายในและภายนอกอย่างรอบด้านและเป็นระบบ</p><p class="mt-1"><strong>2. 5 ขั้นตอนหลัก (วิ-พัน-เป้า-ยุทธ-กล):</strong> (1) วิสัยทัศน์ (Vision) (2) พันธกิจ (Mission) (3) เป้าประสงค์ (Goal) (4) ประเด็นยุทธศาสตร์ (Strategy) (5) กลยุทธ์/แนวทางพัฒนา (Actions)</p>`
       },
       {
-        id: 2,
-        title: "2. จงอธิบายความหมายของพันธกิจและวิสัยทัศน์ (Mission and Vision) (20 คะแนน)",
-        shortTitle: "ข้อ 2: Mission & Vision",
+        id: 2, topicId: "1", topic: "การวางแผนยุทธศาสตร์",
+        title: "2. การวิเคราะห์สภาพแวดล้อมภายในและภายนอก (SWOT) มีความสำคัญอย่างไรต่อการวางแผนยุทธศาสตร์?",
         keywords: [
-          { word: "พันธกิจ = ความมุ่งหมายพื้นฐาน", regex: /พันธกิจ|mission|ความมุ่งหมายพื้นฐาน|จัดตั้ง/i, points: 3 },
-          { word: "ขอบเขตการดำเนินงาน (Domain)", regex: /ขอบเขต|domain|ธุรกิจขององค์กร/i, points: 2 },
-          { word: "ลูกค้า/ผู้รับบริการ (Customers)", regex: /ลูกค้า|ผู้รับบริการ|customer/i, points: 2 },
-          { word: "ผลิตผล/บริการหลัก (Products/Services)", regex: /ผลิตภัณฑ|บริการ|product|service/i, points: 2 },
-          { word: "ปรัชญาการบริหาร (Philosophy)", regex: /ปรัชญา|philosophy|แนวทางบริหาร/i, points: 2 },
-          { word: "วิสัยทัศน์ = เป้าหมายระยะยาว 3-10 ปี", regex: /วิสัยทัศน์|vision|เป้าหมายระยะยาว|3-10/i, points: 3 },
-          { word: "Stretch Goal (ท้าทาย/ต่างจากปัจจุบัน)", regex: /stretch|ทะเยอทะยาน|ท้าทาย|ต่างจากปัจจุบัน/i, points: 2 },
-          { word: "Definition of Niche (ตำแหน่งในตลาด)", regex: /niche|ตำแหน่ง|จุดยืน/i, points: 2 },
-          { word: "Time Horizon (กรอบเวลาชัดเจน)", regex: /time|กรอบเวลา|ช่วงเวลา/i, points: 2 }
+          { word: "สภาพแวดล้อมภายใน (จุดแข็ง/จุดอ่อน)", regex: /สภาพแวดล้อมภายใน|จุดแข็ง|จุดอ่อน|ขีดความสามารถ/i, points: 6 },
+          { word: "สภาพแวดล้อมภายนอก (โอกาส/อุปสรรค)", regex: /สภาพแวดล้อมภายนอก|โอกาส|อุปสรรค|เศรษฐกิจ|สังคม|การเมือง/i, points: 6 },
+          { word: "กำหนดทิศทาง/กลยุทธ์ที่เหมาะสม", regex: /กำหนดทิศทาง|กำหนดกลยุทธ์|ความได้เปรียบ|สอดคล้อง/i, points: 8 }
         ],
-        modelAnswer: `
-          <p><strong>1. พันธกิจ (Mission):</strong> ความมุ่งหมายพื้นฐานในการจัดตั้งองค์กรในระยะยาว (ทำอะไร เพื่อใคร)</p>
-          <ul class="list-disc list-inside space-y-0.5 text-slate-600 mt-1">
-            <li><strong>5 ด้านหลัก:</strong> Domain (ขอบเขต), Customers (ผู้รับบริการ), Products/Services (งานหลัก), Location (พื้นที่), Philosophy (ปรัชญาบริหาร)</li>
-          </ul>
-          <p class="mt-2"><strong>2. วิสัยทัศน์ (Vision):</strong> ภาพเป้าหมายในอนาคตระยะกลางถึงระยะยาว (3–10 ปี)</p>
-          <ul class="list-disc list-inside space-y-0.5 text-slate-600 mt-1">
-            <li><strong>3 มิติหลัก:</strong> (1) Stretch goal (เป้าหมายท้าทาย), (2) Definition of niche (จุดยืนเชิงกลยุทธ์), (3) Time horizon (กรอบเวลาชัดเจน)</li>
-          </ul>
-        `
+        modelAnswer: `<p><strong>ความสำคัญของ SWOT:</strong></p><ul class="list-disc list-inside space-y-0.5"><li>1. <strong>วิเคราะห์ภายใน:</strong> รู้จักจุดแข็ง (Strengths) และจุดอ่อน (Weaknesses) ของศักยภาพและทรัพยากรองค์กร</li><li>2. <strong>วิเคราะห์ภายนอก:</strong> รู้เท่าทันโอกาส (Opportunities) และอุปสรรค (Threats) จากเศรษฐกิจ สังคม การเมือง เทคโนโลยี</li><li>3. <strong>ผลลัพธ์:</strong> นำมากำหนดกลยุทธ์ที่ใช้จุดแข็งคว้าโอกาส และแก้ไขจุดอ่อนเพื่อป้องกันภัยคุกคามได้อย่างแม่นยำ</li></ul>`
       },
       {
-        id: 3,
-        title: "3. จงอธิบายความหมายของแผนปฏิบัติการ (Action Plan) (20 คะแนน)",
-        shortTitle: "ข้อ 3: Action Plan",
+        id: 3, topicId: "1", topic: "การวางแผนยุทธศาสตร์",
+        title: "3. 'เป้าประสงค์ (Goal)' และ 'ประเด็นยุทธศาสตร์ (Strategy)' มีความสัมพันธ์กันอย่างไร?",
         keywords: [
-          { word: "แปลงกลยุทธ์สู่การปฏิบัติ", regex: /วิเคราะห์เชิงกลยุทธ์|ดำเนินการตามกลยุทธ์|นำไปสู่การปฏิบัติ|แปลง/i, points: 5 },
-          { word: "บรรลุวิสัยทัศน์", regex: /บรรลุวิสัยทัศน์|ทิศทาง/i, points: 3 },
-          { word: "ชื่อแผน / โครงการหลัก", regex: /ชื่อแผน|โครงการหลัก|ขั้นตอนหลัก/i, points: 2 },
-          { word: "กิจกรรม / โครงการย่อย", regex: /กิจกรรม|โครงการย่อย/i, points: 2 },
-          { word: "วัน เวลา สถานที่", regex: /วัน|เวลา|สถานที่|ระยะเวลา/i, points: 3 },
-          { word: "การวิเคราะห์ความเสี่ยง", regex: /ความเสี่ยง|risk/i, points: 2.5 },
-          { word: "แผนรองรับ / แผนสำรอง", regex: /แผนรองรับ|แผนสำรอง|contingency/i, points: 2.5 }
+          { word: "เป้าประสงค์ = ผลสัมฤทธิ์ที่ต้องการ", regex: /เป้าประสงค์|goal|ผลสัมฤทธิ์|ปลายทาง/i, points: 10 },
+          { word: "ประเด็นยุทธศาสตร์ = แนวทางขับเคลื่อน", regex: /ประเด็นยุทธศาสตร์|strategy|เสาหลัก|ทิศทาง|วิธีการ/i, points: 10 }
         ],
-        modelAnswer: `
-          <p><strong>1. ความหมาย:</strong> การนำกลยุทธ์มาแปลงเป็นแนวทางชี้นำการปฏิบัติงานจริง เพื่อขับเคลื่อนให้บรรลุวิสัยทัศน์</p>
-          <p class="mt-2"><strong>2. 6 องค์ประกอบสำคัญ:</strong></p>
-          <ol class="list-decimal list-inside space-y-1">
-            <li>ชื่อแผนปฏิบัติการ</li>
-            <li>ขั้นตอนหลัก / โครงการหลัก</li>
-            <li>กิจกรรม / โครงการย่อย</li>
-            <li>กำหนด วัน เวลา สถานที่</li>
-            <li>การประเมินความเสี่ยง</li>
-            <li>แผนปฏิบัติการรองรับ / สำรอง (Contingency Plan)</li>
-          </ol>
-        `
+        modelAnswer: `<p><strong>ความสัมพันธ์:</strong></p><p><strong>เป้าประสงค์ (Goal)</strong> คือ <em>'สิ่งที่ต้องการบรรลุ' (ผลสัมฤทธิ์ปลายทาง)</em> ในขณะที่ <strong>ประเด็นยุทธศาสตร์ (Strategy)</strong> คือ <em>'เสาหลักหรือทิศทางในการขับเคลื่อน'</em> เพื่อให้องค์กรสามารถบรรลุเป้าประสงค์นั้นได้อย่างเป็นรูปธรรม</p>`
       },
       {
-        id: 4,
-        title: "4. ตัวชี้วัด (Performance Indicator) ที่ดีควรมีคุณสมบัติอย่างไร (20 คะแนน)",
-        shortTitle: "ข้อ 4: KPI & SMART",
+        id: 4, topicId: "1", topic: "การวางแผนยุทธศาสตร์",
+        title: "4. เหตุใดการวางแผนยุทธศาสตร์จึงต้องมองระยะยาวและมีความยืดหยุ่น (Agility)?",
         keywords: [
-          { word: "KPI นิยาม (ประสิทธิภาพ & ประสิทธิผล)", regex: /เครื่องมือ|วัดผล|ประเมินผล|ประสิทธิภาพ|ประสิทธิผล/i, points: 5 },
-          { word: "S - Specific (ชัดเจน เจาะจง)", regex: /specific|เฉพาะเจาะจง|ชัดเจน/i, points: 3 },
-          { word: "M - Measurable (วัดผลได้)", regex: /measurable|วัดผลได้|เชิงปริมาณ/i, points: 3 },
-          { word: "A - Achievable (บรรลุได้ ไม่ยาก/ง่ายเกิน)", regex: /achievable|ไม่ง่ายเกินไป|ไม่ยากเกินไป|บรรลุได้/i, points: 3 },
-          { word: "R - Realistic (เป็นจริงได้ คุ้มต้นทุน)", regex: /realistic|เป็นจริงได้|เหมาะสม|ไม่ใช้ต้นทุนสูง/i, points: 3 },
-          { word: "T - Timely (กรอบเวลาชัดเจน ทันสมัย)", regex: /timely|ระยะเวลา|กรอบเวลา|ทันสมัย/i, points: 3 }
+          { word: "ความเปลี่ยนแปลงสภาพแวดล้อม", regex: /เปลี่ยนแปลง|ความไม่แน่นอน|พลวัต|วิกฤต/i, points: 10 },
+          { word: "ปรับตัวทันท่วงทีสู่เป้าหมาย", regex: /ปรับตัว|ยืดหยุ่น|บรรลุเป้าหมาย|ยั่งยืน/i, points: 10 }
         ],
-        modelAnswer: `
-          <p><strong>1. KPI:</strong> เครื่องมือวัดผลที่สะท้อน <em>ประสิทธิภาพ (ความคุ้มค่า)</em> และ <em>ประสิทธิผล (การบรรลุเป้าหมาย)</em></p>
-          <p class="mt-2"><strong>2. คุณสมบัติตามหลัก SMART:</strong></p>
-          <ul class="list-disc list-inside space-y-1">
-            <li><strong>S (Specific):</strong> ชัดเจน เฉพาะเจาะจง ไม่คลุมเครือ</li>
-            <li><strong>M (Measurable):</strong> วัดผลได้เป็นตัวเลขหรือเกณฑ์ที่แน่นอน</li>
-            <li><strong>A (Achievable):</strong> บรรลุได้ ไม่ง่ายและไม่ยากเกินไป</li>
-            <li><strong>R (Realistic):</strong> เป็นจริงได้ เหมาะสม คุ้มต้นทุน</li>
-            <li><strong>T (Timely):</strong> มีกรอบเวลาที่แน่นอน ทันสมัยเสมอ</li>
-          </ul>
-        `
+        modelAnswer: `<p>เพราะสภาพแวดล้อมภายนอก (เทคโนโลยี สังคม วิกฤตการณ์) มีความผันผวนสูง การมองระยะยาวทำให้ไม่หลงทิศทาง และความยืดหยุ่นทำให้องค์กรสามารถปรับเปลี่ยนแผนปฏิบัติการได้ทันท่วงทีโดยยังคงรักษาวิสัยทัศน์หลักไว้</p>`
       },
       {
-        id: 5,
-        title: "5. ในการจัดทำแผนที่ใช้ตารางเหตุผลสัมพันธ์ Logical Framework ได้กำหนดให้มี 4 ตัวชี้วัดสำคัญ คือ ปัจจัยนำเข้า (Input), ผลผลิต (Output), ผลลัพธ์ (Outcome), และ ผลกระทบ (Impact) ทั้ง 4 ตัวชี้วัดหมายถึงอะไร ให้อธิบายสั้นๆ โดยสังเขป (20 คะแนน)",
-        shortTitle: "ข้อ 5: Logical Framework",
+        id: 5, topicId: "1", topic: "การวางแผนยุทธศาสตร์",
+        title: "5. การแปลงยุทธศาสตร์สู่การปฏิบัติ (Strategy Implementation) มักพบอุปสรรคสำคัญใดบ้าง?",
         keywords: [
-          { word: "1. ปัจจัยนำเข้า (Input) = ทรัพยากร", regex: /ปัจจัยนำเข้า|input|ทรัพยากร|บุคลากร|งบประมาณ|วัสดุ/i, points: 5 },
-          { word: "2. ผลผลิต (Output) = ผลเกิดขึ้นทันที", regex: /ผลผลิต|output|เกิดขึ้นทันที|แล้วเสร็จ|จับต้องได้/i, points: 5 },
-          { word: "3. ผลลัพธ์ (Outcome) = ผลตามมา/ใช้ประโยชน์", regex: /ผลลัพธ์|outcome|ผลที่ตามมา|ใช้ประโยชน์|เปลี่ยนแปลง/i, points: 5 },
-          { word: "4. ผลกระทบ (Impact) = ผลระยะยาว/เป้าสูงสุด", regex: /ผลกระทบ|impact|ผลระยะยาว|เป้าหมายสูงสุด|ผลสัมฤทธิ์/i, points: 5 }
+          { word: "การสื่อสารไม่ทั่วถึง", regex: /การสื่อสาร|ความเข้าใจ|บุคลากรไม่เข้าใจ/i, points: 7 },
+          { word: "การจัดสรรทรัพยากร/งบประมาณ", regex: /ทรัพยากร|งบประมาณ|ไม่สอดคล้อง/i, points: 7 },
+          { word: "ขาดระบบติดตามประเมินผล", regex: /ขาดการติดตาม|ขาดการประเมินผล|kpi/i, points: 6 }
         ],
-        modelAnswer: `
-          <p><strong>4 ตัวชี้วัดสำคัญใน Logical Framework:</strong></p>
-          <ol class="list-decimal list-inside space-y-1.5">
-            <li><strong>ปัจจัยนำเข้า (Input):</strong> ทรัพยากรที่ใช้ดำเนินงาน (คน งบประมาณ วัสดุ เวลา)</li>
-            <li><strong>ผลผลิต (Output):</strong> ผลที่เกิดขึ้นทันทีหลังเสร็จกิจกรรม นับจำนวนได้ตรง (เช่น อบรมเสร็จ 50 คน)</li>
-            <li><strong>ผลลัพธ์ (Outcome):</strong> ผลประโยชน์ที่ตามมาจากการใช้ผลผลิต (เช่น นำไปปฐมพยาบาลได้จริง)</li>
-            <li><strong>ผลกระทบ (Impact):</strong> ผลระยะยาวหรือผลสัมฤทธิ์สูงสุดต่อสังคม/ยุทธศาสตร์ (เช่น อัตราการสูญเสียชีวิตลดลง)</li>
-          </ol>
-          <p class="mt-1.5 text-emerald-800 text-xs"><em>* สูตรจำ: ผลสัมฤทธิ์ (Results) = Output + Outcome นำไปสู่ Impact</em></p>
-        `
+        modelAnswer: `<p><strong>3 อุปสรรคหลัก:</strong> (1) บุคลากรระดับปฏิบัติการไม่เข้าใจวิสัยทัศน์ (2) การจัดสรรงบประมาณไม่ตรงกับประเด็นยุทธศาสตร์ (3) ขาดระบบติดตามประเมินผลที่เชื่อมโยงกับตัวชี้วัดจริง</p>`
       },
       {
-        id: 6,
-        title: "6. จงอธิบายความแตกต่างของการติดตามและการประเมินผลโครงการ (Monitoring and Evaluation) (20 คะแนน)",
-        shortTitle: "ข้อ 6: Monitoring vs Evaluation",
+        id: 6, topicId: "1", topic: "การวางแผนยุทธศาสตร์",
+        title: "6. อธิบายความหมายของ 'กลยุทธ์ (Strategic Tactics)' ในระดับปฏิบัติการ",
         keywords: [
-          { word: "การติดตาม (Monitoring) = ตรวจสอบ/กำกับ", regex: /ติดตาม|monitoring|ตรวจสอบ|ควบคุม|กำกับ/i, points: 5 },
-          { word: "ติดตาม = ทำขณะกำลังดำเนินงาน", regex: /ขณะที่โครงการกำลัง|ต่อเนื่อง|ระหว่างทำ/i, points: 5 },
-          { word: "การประเมินผล (Evaluation) = วิเคราะห์อย่างเป็นระบบ", regex: /ประเมินผล|evaluation|วิเคราะห์อย่างเป็นระบบ|คุณค่า|ตัดสิน/i, points: 5 },
-          { word: "ประเมินผล = ทำทุกช่วง/วัดความสำเร็จ", regex: /ทุกขั้นตอน|ก่อน|หลัง|สิ้นสุด|บรรลุวัตถุประสงค์/i, points: 5 }
+          { word: "วิธีการ/มาตรการ", regex: /วิธีการ|มาตรการ|โครงการ/i, points: 10 },
+          { word: "นำยุทธศาสตร์สู่ความสำเร็จ", regex: /บรรลุผล|สู่การปฏิบัติ|ขับเคลื่อน/i, points: 10 }
         ],
-        modelAnswer: `
-          <p><strong>ความแตกต่างระหว่าง Monitoring และ Evaluation:</strong></p>
-          <ul class="list-disc list-inside space-y-2 mt-1">
-            <li><strong>1. การติดตาม (Monitoring):</strong> ตรวจสอบ ควบคุม กำกับการปฏิบัติงาน ทำ <em>"อย่างต่อเนื่องขณะกำลังดำเนินงาน"</em> เพื่อแก้ไขปัญหาหน้างานให้เป็นไปตามแผน</li>
-            <li><strong>2. การประเมินผล (Evaluation):</strong> วิเคราะห์อย่างเป็นระบบ ทำ <em>"ทุกขั้นตอน (ก่อน/ระหว่าง/หลัง)"</em> เพื่อตัดสินคุณค่า ความคุ้มค่า และถอดบทเรียน (Lesson Learned)</li>
-          </ul>
-        `
+        modelAnswer: `<p>คือ วิธีการ มาตรการ หรือชุดโครงการที่เป็นรูปธรรม สำหรับนำยุทธศาสตร์ไปปฏิบัติ เพื่อตอบโจทย์เป้าประสงค์และขับเคลื่อนสู่ผลสำเร็จ</p>`
       },
       {
-        id: 7,
-        title: "7. ในฐานะเจ้าหน้าที่วิเคราะห์นโยบายและแผน ท่านจะมีส่วนสนับสนุนส่งเสริมให้ การจัดทำแผนงานโครงการและแผนงบประมาณ บรรลุเป้าหมายและสามารถดำเนินงานได้สำเร็จ ตามแผนที่กำหนดไว้อย่างไร? (20 คะแนน)",
-        shortTitle: "ข้อ 7: บทบาท นโยบาย&แผน",
+        id: 7, topicId: "1", topic: "การวางแผนยุทธศาสตร์",
+        title: "7. การมีส่วนร่วมของผู้มีส่วนได้ส่วนเสีย (Stakeholders) สำคัญอย่างไรต่อการจัดทำแผนยุทธศาสตร์?",
         keywords: [
-          { word: "ศึกษาความเป็นไปได้ (Feasibility)", regex: /ความเป็นไปได้|feasibility|วิเคราะห์ความคุ้มค่า/i, points: 3 },
-          { word: "วางแผนและเขียนโครงการเป็นระบบ", regex: /เขียนโครงการ|เป็นระบบ|วางแผน/i, points: 3 },
-          { word: "วัตถุประสงค์/เป้าหมายชัดเจน", regex: /วัตถุประสงค์|เป้าหมาย|วิธีการดำเนินงาน/i, points: 3 },
-          { word: "บริหารงบประมาณและเวลา", regex: /งบประมาณ|ระยะเวลา|ผู้รับผิดชอบ|ทีมงาน/i, points: 3 },
-          { word: "การประสานงานและสนับสนุน", regex: /หน่วยงานรับผิดชอบ|สนับสนุน|บูรณาการ/i, points: 2.5 },
-          { word: "ระบบติดตามประเมินผลและรายงาน", regex: /ระบบการติดตาม|ประเมินผล|รายงาน/i, points: 3 },
-          { word: "การปิดโครงการและส่งมอบผลงาน", regex: /ปิดโครงการ|ส่งมอบ|บทเรียน|lesson/i, points: 2.5 }
+          { word: "ตอบสนองความต้องการที่แท้จริง", regex: /ตรงความต้องการ|แก้ปัญหาตรงจุด|ประชาชน/i, points: 10 },
+          { word: "สร้างการยอมรับและความร่วมมือ", regex: /ยอมรับ|ร่วมมือ|บูรณาการ|ความผูกพัน/i, points: 10 }
         ],
-        modelAnswer: `
-          <p><strong>7 แนวทางขับเคลื่อนในฐานะนักวิเคราะห์นโยบายและแผน:</strong></p>
-          <ol class="list-decimal list-inside space-y-1 mt-1">
-            <li><strong>ศึกษาความเป็นไปได้ (Feasibility Study):</strong> วิเคราะห์ความคุ้มค่าและความพร้อมก่อนเริ่มทำ</li>
-            <li><strong>วางแผนและเขียนโครงการเป็นระบบ:</strong> เชื่อมโยงยุทธศาสตร์ตามหลัก Logframe</li>
-            <li><strong>กำหนดวัตถุประสงค์และตัวชี้วัด SMART:</strong> มีเกณฑ์วัดผลสำเร็จที่ชัดเจน</li>
-            <li><strong>จัดสรรงบประมาณและเวลา:</strong> วางแผนการใช้จ่ายงบประมาณอย่างโปร่งใสและคุ้มค่า</li>
-            <li><strong>บูรณาการและประสานงาน:</strong> ร่วมมือกับหน่วยงานที่เกี่ยวข้องเพื่อลดความซ้ำซ้อน</li>
-            <li><strong>ติดตามประเมินผลต่อเนื่อง:</strong> รายงานความก้าวหน้าและข้อเสนอแนะแก่ผู้บริหาร</li>
-            <li><strong>ปิดโครงการและส่งมอบผลงาน:</strong> ถอดบทเรียน (Lesson Learned) เพื่อนำไปต่อยอด</li>
-          </ol>
-        `
+        modelAnswer: `<p>ช่วยให้แผนงานสะท้อนความต้องการที่แท้จริงของประชาชน/ผู้รับบริการ และสร้างความรู้สึกเป็นเจ้าของร่วมกัน (Ownership) ทำให้การผลักดันแผนสู่การปฏิบัติราบรื่นและประสบความสำเร็จ</p>`
+      },
+      {
+        id: 8, topicId: "1", topic: "การวางแผนยุทธศาสตร์",
+        title: "8. จงสรุปความเชื่อมโยงของ 'วิสัยทัศน์ ➔ พันธกิจ ➔ เป้าประสงค์ ➔ ยุทธศาสตร์ ➔ กลยุทธ์'",
+        keywords: [
+          { word: "ความเชื่อมโยงอย่างเป็นระบบ", regex: /เชื่อมโยง|สอดคล้อง|บันได|ทิศทางเดียวกัน/i, points: 20 }
+        ],
+        modelAnswer: `<p><strong>วิสัยทัศน์ (ปลายทาง)</strong> กำหนดจาก <strong>พันธกิจ (หน้าที่จัดตั้ง)</strong> นำไปสู่การตั้ง <strong>เป้าประสงค์ (ผลสัมฤทธิ์ที่ต้องการ)</strong> แล้วกำหนดยุทธศาสตร์เป็น <strong>เสาหลักขับเคลื่อน</strong> และแตกเป็น <strong>กลยุทธ์ (วิธีการปฏิบัติ)</strong> อย่างสอดคล้องเป็นลูกโซ่</p>`
+      },
+
+      // 9-16: Mission & Vision
+      {
+        id: 9, topicId: "2", topic: "พันธกิจและวิสัยทัศน์",
+        title: "9. จงอธิบายความหมายของพันธกิจและวิสัยทัศน์ (Mission & Vision) พร้อมองค์ประกอบหลัก",
+        keywords: [
+          { word: "พันธกิจ = ความมุ่งหมายพื้นฐาน (5 ด้าน)", regex: /พันธกิจ|ความมุ่งหมายพื้นฐาน|domain|customers/i, points: 10 },
+          { word: "วิสัยทัศน์ = ภาพอนาคต 3-10 ปี (3 มิติ)", regex: /วิสัยทัศน์|เป้าหมายระยะยาว|stretch|niche|time/i, points: 10 }
+        ],
+        modelAnswer: `<p><strong>1. พันธกิจ (Mission):</strong> ความมุ่งหมายพื้นฐานในการจัดตั้งองค์กรในระยะยาว (Domain, Customers, Products, Location, Philosophy)</p><p><strong>2. วิสัยทัศน์ (Vision):</strong> ภาพเป้าหมายในอนาคตระยะกลางถึงระยะยาว 3–10 ปี (Stretch goal, Niche, Time horizon)</p>`
+      },
+      {
+        id: 10, topicId: "2", topic: "พันธกิจและวิสัยทัศน์",
+        title: "10. จงระบุองค์ประกอบ 5 ด้านของข้อความพันธกิจที่ดี (Good Mission Statement)",
+        keywords: [
+          { word: "Domain, Customers, Products, Location, Philosophy", regex: /domain|customers|products|location|philosophy|ขอบเขต|ลูกค้า|สินค้า|พื้นที่|ปรัชญา/i, points: 20 }
+        ],
+        modelAnswer: `<ol class="list-decimal list-inside space-y-0.5"><li><strong>Domain:</strong> ขอบเขตภารกิจที่องค์กรทำ</li><li><strong>Customers:</strong> กลุ่มลูกค้า/ผู้รับบริการเป้าหมาย</li><li><strong>Products/Services:</strong> บริการหรือผลผลิตหลัก</li><li><strong>Location:</strong> พื้นที่หรือสถานที่ปฏิบัติการ</li><li><strong>Philosophy:</strong> ปรัชญาและค่านิยมในการบริหารงาน</li></ol>`
+      },
+      {
+        id: 11, topicId: "2", topic: "พันธกิจและวิสัยทัศน์",
+        title: "11. จงอธิบาย 3 มิติของวิสัยทัศน์ที่ดี (Stretch goal, Niche, Time horizon)",
+        keywords: [
+          { word: "Stretch goal = ท้าทายต่างจากปัจจุบัน", regex: /stretch|ท้าทาย|ทะเยอทะยาน/i, points: 7 },
+          { word: "Niche = จุดยืนในตลาด", regex: /niche|ตำแหน่ง|จุดยืน/i, points: 7 },
+          { word: "Time horizon = กรอบเวลาชัดเจน", regex: /time|กรอบเวลา|ช่วงเวลา/i, points: 6 }
+        ],
+        modelAnswer: `<ul class="list-disc list-inside space-y-0.5"><li>1. <strong>Stretch goal:</strong> เป้าหมายท้าทายที่แสดงความทะเยอทะยานและต่างจากสถานะปัจจุบัน</li><li>2. <strong>Definition of niche:</strong> ตำแหน่งเชิงกลยุทธ์หรือจุดยืนเฉพาะที่โดดเด่น</li><li>3. <strong>Time horizon:</strong> กรอบระยะเวลาบรรลุผลที่ชัดเจน (เช่น ภายใน 5 ปี)</li></ul>`
+      },
+      {
+        id: 12, topicId: "2", topic: "พันธกิจและวิสัยทัศน์",
+        title: "12. พันธกิจและวิสัยทัศน์มีบทบาทอย่างไรในการสื่อสารกับบุคลากรภายในองค์กร?",
+        keywords: [
+          { word: "สร้างความเข้าใจและเป้าหมายร่วมกัน", regex: /เป้าหมายร่วม|ทิศทางเดียวกัน|แรงบันดาลใจ|ผูกพัน/i, points: 20 }
+        ],
+        modelAnswer: `<p>ช่วยให้บุคลากรทุกคนเข้าใจว่าตนทำงานไปเพื่ออะไร (Mission) และกำลังร่วมกันมุ่งหน้าไปสู่อนาคตแบบใด (Vision) ช่วยสร้างแรงบันดาลใจ ความผูกพันในองค์กร และการทำงานที่สอดประสานกัน</p>`
+      },
+      {
+        id: 13, topicId: "2", topic: "พันธกิจและวิสัยทัศน์",
+        title: "13. หากองค์กรไม่มีวิสัยทัศน์ที่ชัดเจน จะส่งผลเสียอย่างไรต่อการวางแผนงาน?",
+        keywords: [
+          { word: "ขาดทิศทาง / ทำงานสะเปะสะปะ", regex: /ขาดทิศทาง|สะเปะสะปะ|ไม่รู้เป้าหมาย|สิ้นเปลืองงบ/i, points: 20 }
+        ],
+        modelAnswer: `<p>องค์กรจะขาดทิศทางที่ชัดเจน การจัดทำโครงการและงบประมาณจะเป็นไปอย่างไร้เป้าหมาย สิ้นเปลืองทรัพยากร และไม่สามารถสร้างความได้เปรียบหรือผลสัมฤทธิ์ที่ยั่งยืนได้</p>`
+      },
+      {
+        id: 14, topicId: "2", topic: "พันธกิจและวิสัยทัศน์",
+        title: "14. เปรียบเทียบความแตกต่างด้าน 'มิติกาลเวลา' ระหว่าง Mission กับ Vision",
+        keywords: [
+          { word: "Mission = ปัจจุบันถึงระยะยาว / Vision = ภาพอนาคต", regex: /mission|vision|ปัจจุบัน|อนาคต/i, points: 20 }
+        ],
+        modelAnswer: `<p><strong>Mission:</strong> บ่งบอกสถานะปัจจุบันและภารกิจหน้าที่ที่ต้องทำอย่างต่อเนื่องในระยะยาว | <strong>Vision:</strong> บ่งบอกภาพฝันหรือเป้าหมายความสำเร็จในอนาคต (3-10 ปีข้างหน้า) ที่ต้องการไปให้ถึง</p>`
+      },
+      {
+        id: 15, topicId: "2", topic: "พันธกิจและวิสัยทัศน์",
+        title: "15. ยกตัวอย่างการกำหนดวิสัยทัศน์ที่ดีของหน่วยงานบริการสาธารณะ 1 ตัวอย่าง",
+        keywords: [
+          { word: "มีเป้าหมายท้าทาย + กรอบเวลา", regex: /องค์กร|เป็นเลิศ|ระดับสากล|ภายในปี/i, points: 20 }
+        ],
+        modelAnswer: `<p><em>'เป็นองค์กรชั้นนำด้านมนุษยธรรมและการแพทย์ฉุกเฉินที่ประชาชนเชื่อมั่นระดับสากล ภายในปี 2570'</em> (ครบทั้ง Stretch goal, Niche ด้านมนุษยธรรม, และ Time horizon)</p>`
+      },
+      {
+        id: 16, topicId: "2", topic: "พันธกิจและวิสัยทัศน์",
+        title: "16. เมื่อใดที่องค์กรควรทบทวน (Review) พันธกิจและวิสัยทัศน์?",
+        keywords: [
+          { word: "เมื่อสภาพแวดล้อมเปลี่ยน / บรรลุวิสัยทัศน์เดิม", regex: /เปลี่ยนรอบแผน|สภาพแวดล้อมเปลี่ยน|บรรลุเป้าหมายเดิม|วิกฤต/i, points: 20 }
+        ],
+        modelAnswer: `<p>ควรทบทวนเมื่อ: (1) ครบรอบระยะเวลาตามแผนยุทธศาสตร์ (ทุก 3-5 ปี) (2) เกิดการเปลี่ยนแปลงสภาพแวดล้อมภายนอกครั้งใหญ่ หรือ (3) องค์กรบรรลุวิสัยทัศน์เดิมแล้ว</p>`
+      },
+
+      // 17-23: Action Plan
+      {
+        id: 17, topicId: "3", topic: "แผนปฏิบัติการ",
+        title: "17. จงอธิบายความหมายและระบุ 6 องค์ประกอบของแผนปฏิบัติการ (Action Plan)",
+        keywords: [
+          { word: "แปลงกลยุทธ์สู่การปฏิบัติจริง", regex: /แปลงกลยุทธ์|นำสู่การปฏิบัติ/i, points: 8 },
+          { word: "6 องค์ประกอบ", regex: /ชื่อแผน|โครงการหลัก|กิจกรรมย่อย|วันเวลา|ความเสี่ยง|แผนสำรอง/i, points: 12 }
+        ],
+        modelAnswer: `<p><strong>1. ความหมาย:</strong> การนำกลยุทธ์มาแปลงเป็นแนวทางชี้นำการปฏิบัติงานจริงเพื่อขับเคลื่อนสู่วิสัยทัศน์</p><p><strong>2. 6 องค์ประกอบ:</strong> 1. ชื่อแผน 2. โครงการหลัก 3. กิจกรรมย่อย 4. วันเวลาสถานที่ 5. การประเมินความเสี่ยง 6. แผนสำรอง (Contingency Plan)</p>`
+      },
+      {
+        id: 18, topicId: "3", topic: "แผนปฏิบัติการ",
+        title: "18. เหตุใดแผนปฏิบัติการจึงต้องมี 'แผนรองรับหรือแผนสำรอง (Contingency Plan)'?",
+        keywords: [
+          { word: "รองรับความเสี่ยงและเหตุฉุกเฉิน", regex: /ความเสี่ยง|ฉุกเฉิน|ไม่คาดฝัน|ต่อเนื่อง/i, points: 20 }
+        ],
+        modelAnswer: `<p>เพื่อเตรียมมาตรการรองรับเมื่อเกิดเหตุการณ์ไม่คาดฝันหรืออุปสรรค ช่วยให้โครงการดำเนินต่อไปได้อย่างต่อเนื่องโดยไม่สะดุดและลดความเสียหายต่อทรัพยากร</p>`
+      },
+      {
+        id: 19, topicId: "3", topic: "แผนปฏิบัติการ",
+        title: "19. ในการจัดทำแผนปฏิบัติการ การกำหนด 'Timeline (วัน เวลา)' มีความสำคัญอย่างไร?",
+        keywords: [
+          { word: "ควบคุมเวลาและติดตามความก้าวหน้า", regex: /ควบคุมเวลา|ติดตาม|ตรงเวลา|ไม่ล่าช้า/i, points: 20 }
+        ],
+        modelAnswer: `<p>ช่วยสร้างกรอบเวลาการทำงานที่ชัดเจน ป้องกันความล่าช้า และใช้เป็นเกณฑ์ในการติดตามตรวจสอบความก้าวหน้ารายไตรมาส/รายเดือน</p>`
+      },
+      {
+        id: 20, topicId: "3", topic: "แผนปฏิบัติการ",
+        title: "20. อธิบายความแตกต่างระหว่าง 'โครงการหลัก' กับ 'กิจกรรมย่อย' ในแผนปฏิบัติการ",
+        keywords: [
+          { word: "โครงการหลัก = ภาพรวมชุดงาน / กิจกรรมย่อย = ขั้นตอนย่อย", regex: /โครงการหลัก|กิจกรรมย่อย|ขั้นตอน/i, points: 20 }
+        ],
+        modelAnswer: `<p><strong>โครงการหลัก:</strong> ชุดของภารกิจใหญ่เพื่อตอบสนองวัตถุประสงค์หลัก | <strong>กิจกรรมย่อย:</strong> ขั้นตอนการดำเนินงานย่อยๆ ภายใต้โครงการหลักที่ระบุการกระทำชัดเจน</p>`
+      },
+      {
+        id: 21, topicId: "3", topic: "แผนปฏิบัติการ",
+        title: "21. แผนปฏิบัติการประจำปีมีความเชื่อมโยงกับ 'แผนงบประมาณรายจ่าย' อย่างไร?",
+        keywords: [
+          { word: "ใช้ตั้งงบประมาณและจัดสรรทรัพยากร", regex: /ตั้งงบประมาณ|จัดสรรงบ|สอดคล้องกับกิจกรรม/i, points: 20 }
+        ],
+        modelAnswer: `<p>แผนปฏิบัติการเป็นเอกสารอ้างอิงหลักในการขอตั้งและจัดสรรงบประมาณรายจ่าย ทุกกิจกรรมในแผนต้องมีการคิดคำนวณงบประมาณรองรับอย่างสมเหตุสมผล</p>`
+      },
+      {
+        id: 22, topicId: "3", topic: "แผนปฏิบัติการ",
+        title: "22. หากเกิดปัญหาโครงการในแผนปฏิบัติการไม่บรรลุเป้าหมาย ควรแก้ไขอย่างไร?",
+        keywords: [
+          { word: "นำแผนสำรองมาใช้ / ปรับกระบวนการ", regex: /แผนสำรอง|ปรับปรุง|วิเคราะห์สาเหตุ|ติดตาม/i, points: 20 }
+        ],
+        modelAnswer: `<p>1. วิเคราะห์หาสาเหตุของปัญหาจากข้อมูลการติดตาม 2. นำแผนสำรอง (Contingency Plan) มาปรับใช้ 3. ปรับเปลี่ยนวิธีการหรือจัดสรรทรัพยากรเพิ่มเติมให้ทันต่อสถานการณ์</p>`
+      },
+      {
+        id: 23, topicId: "3", topic: "แผนปฏิบัติการ",
+        title: "23. ใครคือผู้มีบทบาทหลักในการจัดทำและขับเคลื่อนแผนปฏิบัติการในองค์กร?",
+        keywords: [
+          { word: "นักวิเคราะห์นโยบายและแผน ร่วมกับ หน่วยงานผู้รับผิดชอบ", regex: /นักวิเคราะห์|หน่วยงานเจ้าของโครงการ|ทีมงาน/i, points: 20 }
+        ],
+        modelAnswer: `<p><strong>นักวิเคราะห์นโยบายและแผน</strong> เป็นผู้ออกแบบโครงสร้างและประสานงาน โดยมี <strong>หน่วยงานเจ้าของโครงการ/ทีมงานปฏิบัติการ</strong> เป็นผู้ให้ข้อมูลรายละเอียดและลงมือปฏิบัติจริง</p>`
+      },
+
+      // 24-31: KPI & SMART
+      {
+        id: 24, topicId: "4", topic: "ตัวชี้วัด (KPI & SMART)",
+        title: "24. จงอธิบายความหมายของ KPI และคุณสมบัติตัวชี้วัดที่ดีตามหลัก SMART ทั้ง 5 ข้อ",
+        keywords: [
+          { word: "KPI = วัดประสิทธิภาพ & ประสิทธิผล", regex: /ประสิทธิภาพ|ประสิทธิผล|เครื่องมือวัด/i, points: 5 },
+          { word: "S-M-A-R-T ครบ 5 ข้อ", regex: /specific|measurable|achievable|realistic|timely/i, points: 15 }
+        ],
+        modelAnswer: `<p><strong>1. KPI:</strong> เครื่องมือวัดผลสะท้อน <em>ประสิทธิภาพ (ความคุ้มค่า)</em> และ <em>ประสิทธิผล (การบรรลุเป้าหมาย)</em></p><p><strong>2. SMART:</strong> S (Specific-ชัดเจนเจาะจง), M (Measurable-วัดได้ตัวเลข), A (Achievable-บรรลุได้), R (Realistic-เป็นจริงคุ้มทุน), T (Timely-มีกรอบเวลาชัดเจน)</p>`
+      },
+      {
+        id: 25, topicId: "4", topic: "ตัวชี้วัด (KPI & SMART)",
+        title: "25. อธิบายความแตกต่างระหว่าง 'ประสิทธิภาพ (Efficiency)' และ 'ประสิทธิผล (Effectiveness)'",
+        keywords: [
+          { word: "ประสิทธิภาพ = คุ้มค่าทรัพยากร / ประสิทธิผล = บรรลุเป้าหมาย", regex: /ประสิทธิภาพ|ประสิทธิผล|ทรัพยากร|เป้าหมาย/i, points: 20 }
+        ],
+        modelAnswer: `<p><strong>ประสิทธิภาพ (Efficiency):</strong> การใช้ทรัพยากร (คน เงิน เวลา) อย่างคุ้มค่า รวดเร็ว และประหยัดที่สุด | <strong>ประสิทธิผล (Effectiveness):</strong> การบรรลุวัตถุประสงค์และเป้าหมายตามที่ตั้งใจไว้</p>`
+      },
+      {
+        id: 26, topicId: "4", topic: "ตัวชี้วัด (KPI & SMART)",
+        title: "26. ยกตัวอย่างตัวชี้วัดเชิงปริมาณ (Quantitative) และเชิงคุณภาพ (Qualitative)",
+        keywords: [
+          { word: "เชิงปริมาณ = นับจำนวนได้ / เชิงคุณภาพ = ความพึงพอใจ/มาตรฐาน", regex: /เชิงปริมาณ|เชิงคุณภาพ|ร้อยละ|จำนวน|ความพึงพอใจ/i, points: 20 }
+        ],
+        modelAnswer: `<p><strong>เชิงปริมาณ:</strong> จำนวนผู้รับบริการ 1,000 คน, ร้อยละการเบิกจ่ายงบประมาณ 95% | <strong>เชิงคุณภาพ:</strong> ระดับความพึงพอใจของผู้รับบริการอยู่ในระดับมาก (ค่าเฉลี่ย 4.5/5)</p>`
+      },
+      {
+        id: 27, topicId: "4", topic: "ตัวชี้วัด (KPI & SMART)",
+        title: "27. เหตุใดตัวชี้วัดตามหลัก SMART จึงต้องมี 'T - Timely'?",
+        keywords: [
+          { word: "มีกรอบเวลาประเมินผลที่แน่นอน", regex: /กรอบเวลา|กำหนดเวลา|รอบการประเมิน/i, points: 20 }
+        ],
+        modelAnswer: `<p>เพราะหากไม่มีกรอบเวลา จะไม่สามารถประเมินความสำเร็จได้ว่าเป้าหมายนั้นบรรลุผลเมื่อใด และช่วยให้เกิดการวัดผลและปรับปรุงอย่างสม่ำเสมอตามรอบเวลา</p>`
+      },
+      {
+        id: 28, topicId: "4", topic: "ตัวชี้วัด (KPI & SMART)",
+        title: "28. 'R - Realistic' ในหลัก SMART มีข้อควรระวังเรื่องต้นทุนการวัดผลอย่างไร?",
+        keywords: [
+          { word: "ต้นทุนการวัดผลต้องไม่สูงเกินประโยชน์ที่ได้รับ", regex: /ต้นทุนการวัดผล|คุ้มค่า|เหมาะสมกับองค์กร/i, points: 20 }
+        ],
+        modelAnswer: `<p>การตั้งตัวชี้วัดที่ซับซ้อนเกินไปอาจทำให้เสียค่าใช้จ่ายและเวลาในการเก็บข้อมูลสูงเกินความจำเป็น ดังนั้นตัวชี้วัดที่ดีต้องเก็บข้อมูลง่าย เป็นจริงได้ และคุ้มค่ากับต้นทุน</p>`
+      },
+      {
+        id: 29, topicId: "4", topic: "ตัวชี้วัด (KPI & SMART)",
+        title: "29. จงปรับปรุงตัวชี้วัด 'ประชาชนได้รับการดูแลอย่างดี' ให้เป็นตัวชี้วัดตามหลัก SMART",
+        keywords: [
+          { word: "ใส่ตัวเลข + กรอบเวลา + เกณฑ์วัด", regex: /ร้อยละ|จำนวน|ภายในปี|ความพึงพอใจ/i, points: 20 }
+        ],
+        modelAnswer: `<p><strong>ตัวชี้วัดที่ปรับปรุง:</strong> <em>'ร้อยละของผู้รับบริการที่มีความพึงพอใจในระดับมากถึงมากที่สุดไม่น้อยกว่า 85% ภายในปีงบประมาณ 2568'</em></p>`
+      },
+      {
+        id: 30, topicId: "4", topic: "ตัวชี้วัด (KPI & SMART)",
+        title: "30. ค่าเป้าหมาย (Target) แตกต่างจาก ตัวชี้วัด (Indicator) อย่างไร?",
+        keywords: [
+          { word: "ตัวชี้วัด = สิ่งที่ใช้วัด / ค่าเป้าหมาย = ตัวเลขที่ต้องการให้ถึง", regex: /สิ่งที่ใช้วัด|ค่าเป้าหมาย|เกณฑ์ตัวเลข/i, points: 20 }
+        ],
+        modelAnswer: `<p><strong>ตัวชี้วัด:</strong> คือ สิ่งที่เราเลือกมาวัด (เช่น ร้อยละการเบิกจ่ายงบ) | <strong>ค่าเป้าหมาย:</strong> คือ ตัวเลขหรือระดับผลงานที่ต้องการทำให้ถึง (เช่น ไม่น้อยกว่า 95%)</p>`
+      },
+      {
+        id: 31, topicId: "4", topic: "ตัวชี้วัด (KPI & SMART)",
+        title: "31. เมื่อดำเนินโครงการเสร็จ แต่ KPI ไม่บรรลุเป้าหมาย จะต้องทำอย่างไร?",
+        keywords: [
+          { word: "วิเคราะห์หาสาเหตุและถอดบทเรียน", regex: /วิเคราะห์สาเหตุ|ถอดบทเรียน|ปรับปรุงแผน/i, points: 20 }
+        ],
+        modelAnswer: `<p>ต้องวิเคราะห์หาสาเหตุที่แท้จริง (Gap Analysis) ว่าเกิดจากปัจจัยภายใน ภายนอก หรือการตั้งเป้าหมายที่ไม่สมจริง เพื่อนำไปปรับปรุงในรอบแผนถัดไป</p>`
+      },
+
+      // 32-38: Logical Framework
+      {
+        id: 32, topicId: "5", topic: "ตารางเหตุผลสัมพันธ์",
+        title: "32. จงอธิบาย 4 ระดับตัวชี้วัดในตาราง Logical Framework (Input, Output, Outcome, Impact)",
+        keywords: [
+          { word: "Input, Output, Outcome, Impact ครบ 4 ตัว", regex: /input|output|outcome|impact|ปัจจัยนำเข้า|ผลผลิต|ผลลัพธ์|ผลกระทบ/i, points: 20 }
+        ],
+        modelAnswer: `<ol class="list-decimal list-inside space-y-0.5"><li><strong>Input:</strong> ทรัพยากรที่ใช้ (คน งบ วัสดุ เวลา)</li><li><strong>Output:</strong> ผลที่เกิดขึ้นทันทีหลังเสร็จกิจกรรม (นับจำนวนได้ตรง)</li><li><strong>Outcome:</strong> ผลประโยชน์ที่ตามมาจากผลผลิต (การเปลี่ยนแปลงพฤติกรรม/นำไปใช้)</li><li><strong>Impact:</strong> ผลระยะยาวสูงสุดต่อสังคม/ยุทธศาสตร์</li></ol>`
+      },
+      {
+        id: 33, topicId: "5", topic: "ตารางเหตุผลสัมพันธ์",
+        title: "33. จงยกตัวอย่าง Input, Output, Outcome, Impact ของ 'โครงการอบรมปฐมพยาบาลเบื้องต้น'",
+        keywords: [
+          { word: "ยกตัวอย่างเชื่อมโยงครบ 4 ระดับ", regex: /งบประมาณ|ผู้ผ่านการอบรม|ปฐมพยาบาลได้|สูญเสียชีวิตลดลง/i, points: 20 }
+        ],
+        modelAnswer: `<ul class="list-disc list-inside space-y-0.5"><li><strong>Input:</strong> งบประมาณ 50,000 บาท และวิทยากร 2 คน</li><li><strong>Output:</strong> ผู้ผ่านการอบรม 50 คน</li><li><strong>Outcome:</strong> ผู้ผ่านการอบรมสามารถทำ CPR และปฐมพยาบาลได้ถูกต้อง</li><li><strong>Impact:</strong> อัตราการรอดชีวิตของผู้ป่วยฉุกเฉินในชุมชนสูงขึ้นในระยะยาว</li></ul>`
+      },
+      {
+        id: 34, topicId: "5", topic: "ตารางเหตุผลสัมพันธ์",
+        title: "34. ทำไมจึงกล่าวว่า 'ผลสัมฤทธิ์ (Results) = Output + Outcome'?",
+        keywords: [
+          { word: "ผลผลิตรวมกับผลลัพธ์นำไปสู่ความสำเร็จสูงสุด", regex: /ผลผลิต|ผลลัพธ์|ผลสัมฤทธิ์|ปลายทาง/i, points: 20 }
+        ],
+        modelAnswer: `<p>เพราะโครงการจะสำเร็จได้ ต้องมีทั้ง <strong>ผลผลิต (Output)</strong> ที่เสร็จตามกำหนด และผลผลิตนั้นต้องถูกนำไปใช้ประโยชน์จนเกิด <strong>ผลลัพธ์ (Outcome)</strong> ซึ่งสองส่วนนี้รวมกันจึงจะเรียกว่าผลสัมฤทธิ์ที่แท้จริง</p>`
+      },
+      {
+        id: 35, topicId: "5", topic: "ตารางเหตุผลสัมพันธ์",
+        title: "35. Logical Framework Matrix ช่วยให้นักวิเคราะห์นโยบายและแผนทำงานง่ายขึ้นอย่างไร?",
+        keywords: [
+          { word: "มองเห็นความเชื่อมโยงเชิงเหตุผลและตรวจสอบได้", regex: /เชื่อมโยง|เป็นระบบ|เหตุและผล|ตรวจสอบง่าย/i, points: 20 }
+        ],
+        modelAnswer: `<p>ช่วยให้เห็นความสัมพันธ์เชิงเหตุและผล (Cause-and-Effect) ของโครงการตั้งแต่ต้นจนจบ ทำให้วางแผน เขียนโครงการ และกำหนดตัวชี้วัดได้อย่างเป็นระบบและรัดกุม</p>`
+      },
+      {
+        id: 36, topicId: "5", topic: "ตารางเหตุผลสัมพันธ์",
+        title: "36. ข้อสมมติฐาน (Assumptions) ในตาราง Logical Framework คืออะไร และสำคัญอย่างไร?",
+        keywords: [
+          { word: "ปัจจัยภายนอกที่อยู่นอกเหนือการควบคุม", regex: /ปัจจัยภายนอก|ควบคุมไม่ได้|ความเสี่ยง/i, points: 20 }
+        ],
+        modelAnswer: `<p>คือ ปัจจัยภายนอกหรือเงื่อนไขที่อยู่นอกเหนือการควบคุมของโครงการ แต่จำเป็นต้องเกิดขึ้นเพื่อให้โครงการดำเนินสู่ระดับถัดไปได้อย่างสำเร็จ</p>`
+      },
+      {
+        id: 37, topicId: "5", topic: "ตารางเหตุผลสัมพันธ์",
+        title: "37. ความแตกต่างระหว่าง Output กับ Outcome จุดที่คนมักสับสนคืออะไร?",
+        keywords: [
+          { word: "Output = สิ่งที่ผู้ทำส่งมอบ / Outcome = สิ่งที่ผู้รับได้ประโยชน์", regex: /output|outcome|ส่งมอบ|ประโยชน์|พฤติกรรม/i, points: 20 }
+        ],
+        modelAnswer: `<p><strong>Output:</strong> คือสิ่งที่เราทำเสร็จและส่งมอบได้ทันที (เช่น จัดพิมพ์คู่มือ 100 เล่ม) | <strong>Outcome:</strong> คือผลที่ผู้รับนำคู่นั้นไปอ่านแล้วเกิดการเปลี่ยนแปลงพฤติกรรมหรือการทำงานที่ดีขึ้น</p>`
+      },
+      {
+        id: 38, topicId: "5", topic: "ตารางเหตุผลสัมพันธ์",
+        title: "38. แหล่งข้อมูลเพื่อการตรวจสอบ (Means of Verification: MoV) ใน Logframe คืออะไร?",
+        keywords: [
+          { word: "หลักฐานและเอกสารยืนยันผลการวัด", regex: /หลักฐาน|เอกสาร|แบบสอบถาม|รายงาน/i, points: 20 }
+        ],
+        modelAnswer: `<p>คือ แหล่งข้อมูล เอกสาร หรือหลักฐานที่ใช้ยืนยันว่าตัวชี้วัดนั้นบรรลุผลจริง เช่น ทะเบียนรายชื่อผู้เข้าอบรม แบบประเมินความพึงพอใจ หรือรายงานการเงิน</p>`
+      },
+
+      // 39-44: Monitoring vs Evaluation
+      {
+        id: 39, topicId: "6", topic: "การติดตาม vs ประเมินผล",
+        title: "39. จงเปรียบเทียบความแตกต่างระหว่าง การติดตาม (Monitoring) และ การประเมินผล (Evaluation)",
+        keywords: [
+          { word: "ติดตาม = คุมตอนทำ (Realtime)", regex: /ติดตาม|monitoring|ต่อเนื่อง|ขณะกำลัง/i, points: 10 },
+          { word: "ประเมินผล = วิเคราะห์ทุกช่วง (ตัดสินใจ/ถอดบทเรียน)", regex: /ประเมินผล|evaluation|วิเคราะห์อย่างเป็นระบบ|ทุกขั้นตอน/i, points: 10 }
+        ],
+        modelAnswer: `<p><strong>1. การติดตาม (Monitoring):</strong> ตรวจสอบ ควบคุม กำกับการทำงาน ทำ <em>'อย่างต่อเนื่องขณะกำลังดำเนินงาน'</em> เพื่อแก้ปัญหาหน้างานให้เป็นไปตามแผน</p><p><strong>2. การประเมินผล (Evaluation):</strong> วิเคราะห์อย่างเป็นระบบ ทำ <em>'ทุกขั้นตอน (ก่อน/ระหว่าง/หลัง)'</em> เพื่อตัดสินคุณค่า ความคุ้มค่า และถอดบทเรียน</p>`
+      },
+      {
+        id: 40, topicId: "6", topic: "การติดตาม vs ประเมินผล",
+        title: "40. จงอธิบายช่วงเวลาการประเมินผลโครงการ 3 ระยะ (ก่อนเริ่ม, ระหว่างดำเนินงาน, หลังสิ้นสุด)",
+        keywords: [
+          { word: "Ex-ante, On-going, Ex-post", regex: /ก่อนเริ่ม|ระหว่างทำ|หลังเสร็จ|ex-ante|ex-post/i, points: 20 }
+        ],
+        modelAnswer: `<ul class="list-disc list-inside space-y-0.5"><li>1. <strong>ก่อนเริ่ม (Ex-ante):</strong> ประเมินความเป็นไปได้และความคุ้มค่าก่อนลงทุน</li><li>2. <strong>ระหว่างทำ (Formative/On-going):</strong> ประเมินความก้าวหน้าเพื่อปรับปรุงแก้ไขงาน</li><li>3. <strong>หลังเสร็จสิ้น (Summative/Ex-post):</strong> ประเมินผลสัมฤทธิ์ ความสำเร็จ และผลกระทบระยะยาว</li></ul>`
+      },
+      {
+        id: 41, topicId: "6", topic: "การติดตาม vs ประเมินผล",
+        title: "41. เครื่องมือใดบ้างที่นิยมนำมาใช้ในการ 'ติดตามงาน (Monitoring)'?",
+        keywords: [
+          { word: "รายงานความก้าวหน้า, Gantt Chart, Dashboard", regex: /gantt|dashboard|รายงานความก้าวหน้า|ประชุม/i, points: 20 }
+        ],
+        modelAnswer: `<p>1. Gantt Chart ติดตาม Timeline 2. รายงานความก้าวหน้าประจำเดือน/ไตรมาส (Progress Report) 3. Dashboard แสดงสถานะงบประมาณ 4. การลงพื้นที่ตรวจเยี่ยมหน้างาน</p>`
+      },
+      {
+        id: 42, topicId: "6", topic: "การติดตาม vs ประเมินผล",
+        title: "42. การถอดบทเรียน (Lesson Learned) จากการประเมินผลมีประโยชน์ต่อองค์กรอย่างไร?",
+        keywords: [
+          { word: "สร้างองค์ความรู้ ป้องกันข้อผิดพลาดซ้ำ", regex: /บทเรียน|องค์ความรู้|ไม่ทำผิดซ้ำ|ต่อยอด/i, points: 20 }
+        ],
+        modelAnswer: `<p>ช่วยรวบรวมสิ่งที่ทำได้ดีและปัญหาที่เคยเกิดขึ้น เพื่อเป็นแนวทางปฏิบัติที่ดี (Best Practices) และป้องกันไม่ให้เกิดข้อผิดพลาดเดิมซ้ำในการทำโครงการรุ่นถัดไป</p>`
+      },
+      {
+        id: 43, topicId: "6", topic: "การติดตาม vs ประเมินผล",
+        title: "43. ใครเป็นผู้ใช้ประโยชน์หลักจากรายงานผลการประเมินโครงการ?",
+        keywords: [
+          { word: "ผู้บริหารระดับสูง และ หน่วยงานเจ้าของโครงการ", regex: /ผู้บริหาร|เจ้าของโครงการ|ผู้สนับสนุนงบประมาณ/i, points: 20 }
+        ],
+        modelAnswer: `<p>1. <strong>ผู้บริหาร:</strong> ใช้ตัดสินใจเชิงนโยบาย (ทำต่อ ขยายผล หรือยุติ) 2. <strong>ผู้รับผิดชอบโครงการ:</strong> ใช้ปรับปรุงการทำงาน 3. <strong>แหล่งทุน/ประชาชน:</strong> รับทราบความโปร่งใสและคุ้มค่า</p>`
+      },
+      {
+        id: 44, topicId: "6", topic: "การติดตาม vs ประเมินผล",
+        title: "44. สรุปความสำคัญของระบบ Monitoring & Evaluation ต่อความสำเร็จขององค์กรใน 2 บรรทัด",
+        keywords: [
+          { word: "รู้สถานะ แก้ไขทัน ตัดสินใจแม่นยำ คุ้มค่า", regex: /แก้ปัญหาทัน|โปร่งใส|คุ้มค่า|บรรลุเป้าหมาย/i, points: 20 }
+        ],
+        modelAnswer: `<p>M&E คือกระจกเงาสะท้อนสถานะจริง ช่วยให้รู้ปัญหาและแก้ไขได้ทันเวลา พร้อมให้ข้อมูลเชิงประจักษ์แก่ผู้บริหารในการตัดสินใจได้อย่างถูกต้องและคุ้มค่างบประมาณ</p>`
+      },
+
+      // 45-50: Role of Policy & Plan Analyst
+      {
+        id: 45, topicId: "7", topic: "บทบาทนักวิเคราะห์นโยบายและแผน",
+        title: "45. ในฐานะนักวิเคราะห์นโยบายและแผน ท่านจะสนับสนุนโครงการและงบประมาณให้สำเร็จได้อย่างไร (7 แนวทาง)",
+        keywords: [
+          { word: "7 แนวทางหลัก", regex: /ความเป็นไปได้|เขียนโครงการ|smart|งบประมาณ|บูรณาการ|ติดตาม|ปิดโครงการ/i, points: 20 }
+        ],
+        modelAnswer: `<ol class="list-decimal list-inside space-y-0.5"><li>ศึกษาความเป็นไปได้ (Feasibility) 2. วางแผนเขียนโครงการเป็นระบบ 3. กำหนดตัวชี้วัด SMART 4. จัดสรรงบประมาณและเวลา 5. บูรณาการและประสานงาน 6. ติดตามประเมินผลต่อเนื่อง 7. ปิดโครงการส่งมอบบทเรียน</ol>`
+      },
+      {
+        id: 46, topicId: "7", topic: "บทบาทนักวิเคราะห์นโยบายและแผน",
+        title: "46. 'Feasibility Study (การศึกษาความเป็นไปได้)' มี 4 มิติสำคัญอะไรบ้างที่ต้องวิเคราะห์?",
+        keywords: [
+          { word: "เทคนิค/ความพร้อม, งบประมาณ/การเงิน, กฎหมาย, ความต้องการ", regex: /การเงิน|งบประมาณ|กฎหมาย|ความต้องการ|เทคนิค/i, points: 20 }
+        ],
+        modelAnswer: `<ul class="list-disc list-inside space-y-0.5"><li>1. <strong>ด้านเทคนิคและความพร้อม:</strong> มีบุคลากรและอุปกรณ์พร้อมทำหรือไม่</li><li>2. <strong>ด้านการเงิน/งบประมาณ:</strong> คุ้มค่าและมีงบประมาณเพียงพอหรือไม่</li><li>3. <strong>ด้านกฎหมาย/ระเบียบ:</strong> ขัดต่อกฎระเบียบราชการหรือไม่</li><li>4. <strong>ด้านสังคม:</strong> ตอบโจทย์กลุ่มเป้าหมายจริงหรือไม่</li></ul>`
+      },
+      {
+        id: 47, topicId: "7", topic: "บทบาทนักวิเคราะห์นโยบายและแผน",
+        title: "47. นักวิเคราะห์นโยบายและแผนมีบทบาทอย่างไรในการลด 'ความซ้ำซ้อนของการใช้งบประมาณ'?",
+        keywords: [
+          { word: "บูรณาการแผนงานและประสานระหว่างหน่วยงาน", regex: /บูรณาการ|ประสานงาน|ตรวจสอบความซ้ำซ้อน|เชื่อมโยง/i, points: 20 }
+        ],
+        modelAnswer: `<p>ทำหน้าที่เป็นศูนย์กลางรวบรวมแผนงาน ตรวจสอบความซ้ำซ้อนของกลุ่มเป้าหมายและกิจกรรมระหว่างหน่วยงาน และผลักดันการทำงานแบบบูรณาการเพื่อแบ่งปันทรัพยากรร่วมกัน</p>`
+      },
+      {
+        id: 48, topicId: "7", topic: "บทบาทนักวิเคราะห์นโยบายและแผน",
+        title: "48. ทักษะดิจิทัล (Digital Skills) ใดที่นักวิเคราะห์นโยบายและแผนยุคใหม่จำเป็นต้องมี?",
+        keywords: [
+          { word: "Data Analytics, Excel ขั้นสูง, Data Visualization", regex: /excel|analytics|visualization|dashboard|dashboard/i, points: 20 }
+        ],
+        modelAnswer: `<p>1. การวิเคราะห์ข้อมูลเชิงตัวเลขและงบประมาณด้วย <strong>Advanced Excel / BI Tools</strong> 2. การสร้าง <strong>Dashboard / Data Visualization</strong> รายงานผู้บริหาร 3. การจัดการฐานข้อมูลโครงการ</p>`
+      },
+      {
+        id: 49, topicId: "7", topic: "บทบาทนักวิเคราะห์นโยบายและแผน",
+        title: "49. ในการประชุมคณะกรรมการบริหารแผน นักวิเคราะห์นโยบายและแผนควรเตรียมตัวอย่างไร?",
+        keywords: [
+          { word: "เตรียมข้อมูลเชิงประจักษ์ สรุปประเด็นชัดเจน และมีข้อเสนอแนะ", regex: /ข้อมูลเชิงประจักษ์|ข้อเสนอแนะ|สรุปประเด็น|กราฟ/i, points: 20 }
+        ],
+        modelAnswer: `<p>เตรียมข้อมูลสถานะความก้าวหน้าเชิงตัวเลข สรุปปัญหาอุปสรรคสำคัญ และเตรียม <strong>ข้อเสนอแนะเชิงกลยุทธ์ (Strategic Recommendations)</strong> เพื่อให้ผู้บริหารใช้ตัดสินใจได้ทันที</p>`
+      },
+      {
+        id: 50, topicId: "7", topic: "บทบาทนักวิเคราะห์นโยบายและแผน",
+        title: "50. สรุปหัวใจสำคัญที่สุดของตำแหน่ง 'นักวิเคราะห์นโยบายและแผน' ใน 1 ประโยค",
+        keywords: [
+          { word: "ผู้วางทิศทาง แปลงแผนสู่ปฏิบัติ และขับเคลื่อนผลสัมฤทธิ์", regex: /วางทิศทาง|แปลงแผน|ขับเคลื่อน|ผลสัมฤทธิ์|ยั่งยืน/i, points: 20 }
+        ],
+        modelAnswer: `<p><strong>'เป็นมันสมองในการวางทิศทาง แปลงนโยบายสู่การปฏิบัติจริงอย่างคุ้มค่า และขับเคลื่อนองค์กรสู่ผลสัมฤทธิ์อย่างยั่งยืน'</strong></p>`
       }
     ];
 
-    // State Variables
+    // 10 EXCEL PRACTICE EXAM QUESTIONS
+    const EXCEL_QUIZ_DATA = [
+      {
+        q: "1. หากต้องการหา 'ผลรวมงบประมาณทั้งหมด' ในคอลัมน์ D ตั้งแต่แถวที่ 2 ถึง 100 ต้องเขียนสูตรอย่างไร?",
+        ans: "=SUM(D2:D100)",
+        expl: "ฟังก์ชัน =SUM(D2:D100) ใช้หาผลรวมของช่วงเซลล์ตัวเลข D2 ถึง D100"
+      },
+      {
+        q: "2. หากต้องการรวมเฉพาะงบประมาณในคอลัมน์ E สำหรับโครงการที่มี 'ยุทธศาสตร์ที่ 1' ในคอลัมน์ B ต้องเขียนสูตรอย่างไร?",
+        ans: '=SUMIF(B:B, "ยุทธศาสตร์ที่ 1", E:E)',
+        expl: "SUMIF(ช่วงเงื่อนไข, เงื่อนไข, ช่วงที่ต้องการบวก) =SUMIF(B:B, \"ยุทธศาสตร์ที่ 1\", E:E)"
+      },
+      {
+        q: "3. หากต้องการนับ 'จำนวนโครงการที่สถานะเป็น แล้วเสร็จ' ในคอลัมน์ F ต้องเขียนสูตรอย่างไร?",
+        ans: '=COUNTIF(F:F, "แล้วเสร็จ")',
+        expl: "COUNTIF ใช้สำหรับนับจำนวนเซลล์ที่ตรงกับเงื่อนไขที่กำหนด"
+      },
+      {
+        q: "4. หากต้องการคำนวณ 'ร้อยละการเบิกจ่ายงบประมาณ' เมื่อเบิกจ่ายจริงอยู่ที่เซลล์ F2 และงบที่ได้รับอยู่ที่เซลล์ E2 ต้องเขียนสูตรอย่างไร?",
+        ans: "=(F2/E2)*100  หรือ  =F2/E2 (แล้วจัด Format เป็น %)",
+        expl: "สูตรร้อยละ = (เบิกจ่ายจริง / งบประมาณ) * 100 หรือพิมพ์ =F2/E2 แล้วกดปุ่ม % บน Ribbon"
+      },
+      {
+        q: "5. หากต้องการค้นหา 'งบประมาณโครงการ' โดยอ้างอิงรหัสโครงการจากเซลล์ A2 ในตารางข้อมูลช่วง $A$2:$E$100 และดึงข้อมูลคอลัมน์ที่ 4 ต้องเขียนสูตร VLOOKUP อย่างไร?",
+        ans: "=VLOOKUP(A2, $A$2:$E$100, 4, FALSE)",
+        expl: "VLOOKUP(ค่าที่หา, ตารางข้อมูล, ลำดับคอลัมน์ที่ต้องการ, FALSE เพื่อหาแบบตรงตัวเป๊ะ)"
+      },
+      {
+        q: "6. หากต้องการใส่เงื่อนไข: ถ้าร้อยละความก้าวหน้าในเซลล์ G2 มากกว่าหรือเท่ากับ 80 ให้แสดง 'ผ่านเกณฑ์' หากไม่ถึงให้แสดง 'ปรับปรุง' ต้องเขียนสูตร IF อย่างไร?",
+        ans: '=IF(G2>=80, "ผ่านเกณฑ์", "ปรับปรุง")',
+        expl: "ไวยากรณ์: =IF(เงื่อนไข, ผลถ้าจริง, ผลถ้าเท็จ)"
+      },
+      {
+        q: "7. ฟังก์ชันใดใช้สำหรับ 'หาค่าเฉลี่ยงบประมาณโครงการ' ในช่วงเซลล์ C2 ถึง C50?",
+        ans: "=AVERAGE(C2:C50)",
+        expl: "AVERAGE ใช้หาค่าเฉลี่ยเลขคณิตของข้อมูลตัวเลข"
+      },
+      {
+        q: "8. หากต้องการปัดเศษทศนิยมของผลลัพธ์ในเซลล์ H2 ให้เหลือ 2 ตำแหน่ง ต้องใช้สูตรใด?",
+        ans: "=ROUND(H2, 2)",
+        expl: "ROUND(ตัวเลข, จำนวนตำแหน่งทศนิยม) เช่น =ROUND(H2, 2)"
+      },
+      {
+        q: "9. หากต้องการสร้างตารางสรุปผลรวมงบประมาณแยกตามยุทธศาสตร์และหน่วยงานอย่างรวดเร็วโดยไม่ต้องเขียนสูตร ควรใช้เครื่องมือใดใน Excel?",
+        ans: "PivotTable (ตารางสรุปผลข้อมูล)",
+        expl: "PivotTable เป็นเครื่องมือที่ทรงพลังที่สุดในการจัดกลุ่ม รวมผล และวิเคราะห์ข้อมูลงบประมาณในไม่กี่คลิก"
+      },
+      {
+        q: "10. หากต้องการให้เซลล์ที่มี 'งบประมาณเบิกจ่ายล่าช้ากว่ากำหนด' เปลี่ยนเป็นสีแดงอัตโนมัติ ต้องใช้ฟีเจอร์ใด?",
+        ans: "Conditional Formatting (การจัดรูปแบบตามเงื่อนไข)",
+        expl: "Conditional Formatting ใช้เน้นสีเซลล์อัตโนมัติตามเกณฑ์ที่กำหนดเพื่อสร้าง Dashboard ติดตามงาน"
+      }
+    ];
+
+    // FLASHCARD 7 DATASET
+    const FLASHCARDS_DATA = [
+      { id: 1, title: "1. การวางแผนยุทธศาสตร์ (Strategic Planning)", frontNote: "จำ 5 ขั้นตอนหลัก (วิ-พัน-เป้า-ยุทธ-กล)", backText: "<strong>ความหมาย:</strong> กระบวนการตัดสินใจกำหนดทิศทางในอนาคตบนข้อมูลรอบด้าน<br><strong>5 ขั้นตอน:</strong> (1) Vision (2) Mission (3) Goal (4) Strategy (5) Actions" },
+      { id: 2, title: "2. พันธกิจ & วิสัยทัศน์ (Mission & Vision)", frontNote: "พันธกิจ 5 ด้าน | วิสัยทัศน์ 3 มิติ", backText: "<strong>พันธกิจ (หน้าที่จัดตั้ง):</strong> Domain, Customers, Products, Location, Philosophy<br><strong>วิสัยทัศน์ (เป้า 3-10 ปี):</strong> Stretch goal, Niche, Time horizon" },
+      { id: 3, title: "3. แผนปฏิบัติการ (Action Plan)", frontNote: "แปลงกลยุทธ์สู่การปฏิบัติ + 6 องค์ประกอบ", backText: "<strong>6 องค์ประกอบ:</strong> 1. ชื่อแผน 2. โครงการหลัก 3. กิจกรรมย่อย 4. วันเวลาสถานที่ 5. ความเสี่ยง 6. แผนสำรอง (Contingency)" },
+      { id: 4, title: "4. ตัวชี้วัดที่ดี (KPI & SMART)", frontNote: "วัด ประสิทธิภาพ + ประสิทธิผล", backText: "<strong>S</strong>-Specific (ชัดเจน), <strong>M</strong>-Measurable (วัดได้), <strong>A</strong>-Achievable (บรรลุได้), <strong>R</strong>-Realistic (เป็นจริงคุ้มทุน), <strong>T</strong>-Timely (มีกรอบเวลา)" },
+      { id: 5, title: "5. ตารางเหตุผลสัมพันธ์ (Logical Framework)", frontNote: "Input ➔ Output ➔ Outcome ➔ Impact", backText: "<strong>Input:</strong> ทรัพยากร (คน เงิน ของ)<br><strong>Output:</strong> ผลเสร็จทันทีนับได้<br><strong>Outcome:</strong> ผลประโยชน์ที่ตามมา<br><strong>Impact:</strong> ผลระยะยาวสูงสุดต่อสังคม" },
+      { id: 6, title: "6. ติดตาม vs ประเมินผล (M&E)", frontNote: "คุมตอนทำ vs วัดสำเร็จทุกช่วง", backText: "<strong>ติดตาม (Monitoring):</strong> ทำต่อเนื่องขณะกำลังดำเนินงานเพื่อแก้ปัญหาหน้างาน<br><strong>ประเมินผล (Evaluation):</strong> ทำทุกขั้นตอนเพื่อตัดสินคุณค่าและถอดบทเรียน" },
+      { id: 7, title: "7. บทบาทนักวิเคราะห์นโยบายและแผน", frontNote: "7 มาตรการขับเคลื่อนโครงการและงบประมาณ", backText: "1. ศึกษา Feasibility 2. เขียนโครงการเป็นระบบ 3. ตั้งเป้า SMART 4. คุมงบเวลา 5. บูรณาการ 6. ติดตามประเมินผล 7. ปิดส่งมอบบทเรียน" }
+    ];
+
+    // STATE VARIABLES
     let userQuizAnswers = {};
+    let userWrittenAnswers = {};
+    let currentWrittenIndex = 0;
     let masteredCards = new Set();
-    let currentSimQuestionIndex = 0;
-    let userAnswers = {};
     let examTimerInterval = null;
-    let remainingSeconds = 120 * 60; // 2 hours
+    let remainingSeconds = 120 * 60;
     let isTimerRunning = false;
     let currentQuizFilter = "all";
 
-    // Initialization
+    // INITIALIZATION
     document.addEventListener('DOMContentLoaded', () => {
       renderQuiz();
+      renderWrittenPills();
+      loadWrittenQuestion(0);
+      renderExcelQuiz();
       renderFlashcards();
-      renderSimPills();
-      loadSimQuestion(0);
+      renderSummaryCards();
     });
 
-    // Responsive Tab Switching
+    // NAVIGATION
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       
@@ -1612,8 +1237,352 @@
     }
 
     // =========================================================================
-    // QUIZ LOGIC (50 QUESTIONS)
+    // WRITTEN 50 QUESTIONS LOGIC
     // =========================================================================
+
+    function renderWrittenPills() {
+      const container = document.getElementById('written-pills-container');
+      container.innerHTML = '';
+
+      WRITTEN_DATA.forEach((q, idx) => {
+        const isDone = !!userWrittenAnswers[q.id] && userWrittenAnswers[q.id].trim().length > 15;
+        const btn = document.createElement('button');
+        btn.id = `written-pill-${idx}`;
+        btn.className = `shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold font-prompt transition ${
+          idx === currentWrittenIndex 
+            ? 'bg-red-600 text-white shadow-sm' 
+            : isDone 
+              ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+        }`;
+        btn.innerText = `ข้อ ${q.id} ${isDone ? '✓' : ''}`;
+        btn.onclick = () => loadWrittenQuestion(idx);
+        container.appendChild(btn);
+      });
+
+      const answeredCount = Object.keys(userWrittenAnswers).filter(k => userWrittenAnswers[k] && userWrittenAnswers[k].trim().length > 15).length;
+      document.getElementById('written-count-badge').innerText = answeredCount;
+      document.getElementById('written-overall-stat').innerText = `${answeredCount} / 50 ข้อ`;
+    }
+
+    function loadWrittenQuestion(index) {
+      // Save current first
+      const curQ = WRITTEN_DATA[currentWrittenIndex];
+      const val = document.getElementById('written-answer-input').value;
+      if (val.trim()) {
+        userWrittenAnswers[curQ.id] = val;
+      }
+
+      currentWrittenIndex = index;
+      const q = WRITTEN_DATA[index];
+
+      document.getElementById('written-q-badge').innerText = `ข้อที่ ${q.id} / 50`;
+      document.getElementById('written-q-topic').innerText = `หมวด: ${q.topic}`;
+      document.getElementById('written-q-title').innerText = q.title;
+      document.getElementById('written-answer-input').value = userWrittenAnswers[q.id] || '';
+      document.getElementById('written-model-content').innerHTML = q.modelAnswer;
+      document.getElementById('written-model-box').classList.add('hidden');
+
+      renderWrittenPills();
+      analyzeWrittenAnswerRealtime();
+    }
+
+    function prevWrittenQuestion() {
+      if (currentWrittenIndex > 0) {
+        loadWrittenQuestion(currentWrittenIndex - 1);
+      }
+    }
+
+    function nextWrittenQuestion() {
+      if (currentWrittenIndex < WRITTEN_DATA.length - 1) {
+        loadWrittenQuestion(currentWrittenIndex + 1);
+      }
+    }
+
+    function analyzeWrittenAnswerRealtime() {
+      const text = document.getElementById('written-answer-input').value;
+      const q = WRITTEN_DATA[currentWrittenIndex];
+
+      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      document.getElementById('written-word-count').innerText = `${words} คำ / ${text.length} ตัวอักษร`;
+
+      let score = 0;
+      const keywordsContainer = document.getElementById('written-keywords-list');
+      keywordsContainer.innerHTML = '';
+      let missingKeywords = [];
+
+      q.keywords.forEach(kw => {
+        const found = kw.regex.test(text);
+        if (found) {
+          score += kw.points;
+        } else {
+          missingKeywords.push(kw.word);
+        }
+
+        const badge = document.createElement('span');
+        badge.className = `text-[11px] px-2 py-0.5 rounded-md font-medium flex items-center gap-1 ${
+          found 
+            ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
+            : 'bg-slate-200/70 text-slate-500 line-through opacity-70'
+        }`;
+        badge.innerHTML = `${found ? '✅' : '❌'} ${kw.word} <span class="text-[9px] opacity-75">(+${kw.points})</span>`;
+        keywordsContainer.appendChild(badge);
+      });
+
+      const finalScore = Math.min(20, Math.round(score));
+      document.getElementById('written-score-estimate').innerHTML = `ประเมิน: <span class="${finalScore >= 16 ? 'text-emerald-600' : finalScore >= 10 ? 'text-amber-600' : 'text-red-600'} font-prompt text-sm font-bold">${finalScore}/20 คะแนน</span>`;
+
+      const suggBox = document.getElementById('written-suggestions');
+      if (text.trim().length === 0) {
+        suggBox.innerHTML = `💡 <em>พิมพ์คำตอบเพื่อดูการตรวจจับคำสำคัญและคำแนะนำคะแนนเต็ม...</em>`;
+      } else if (missingKeywords.length === 0) {
+        suggBox.innerHTML = `🎉 <strong>ยอดเยี่ยมมาก!</strong> คุณตอบครอบคลุมคำสำคัญทั้งหมดของข้อนี้ มีโอกาสได้ 20 คะแนนเต็มสูงมาก!`;
+      } else {
+        suggBox.innerHTML = `⚠️ <strong>คำสำคัญที่ยังขาด:</strong> <span class="text-red-700 font-semibold">${missingKeywords.join(', ')}</span>`;
+      }
+    }
+
+    function toggleWrittenModelAnswer() {
+      document.getElementById('written-model-box').classList.toggle('hidden');
+    }
+
+    function saveWrittenAnswer() {
+      const q = WRITTEN_DATA[currentWrittenIndex];
+      const val = document.getElementById('written-answer-input').value;
+      userWrittenAnswers[q.id] = val;
+      renderWrittenPills();
+
+      confetti({
+        particleCount: 30,
+        spread: 40,
+        origin: { y: 0.7 }
+      });
+      alert(`บันทึกคำตอบข้อที่ ${q.id} เรียบร้อยแล้ว!`);
+    }
+
+    // =========================================================================
+    // EXCEL PRACTICE LOGIC
+    // =========================================================================
+
+    function renderExcelQuiz() {
+      const container = document.getElementById('excel-quiz-list');
+      container.innerHTML = '';
+
+      EXCEL_QUIZ_DATA.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2';
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <h5 class="text-xs sm:text-sm font-bold text-slate-800 font-prompt">${item.q}</h5>
+            <button onclick="toggleExcelAnswer(${idx})" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shrink-0 transition">
+              ดูสูตรเฉลย ↩
+            </button>
+          </div>
+          <div id="excel-ans-box-${idx}" class="hidden pt-2 border-t border-slate-200/80 space-y-1">
+            <div class="bg-slate-900 text-emerald-300 font-mono text-xs p-2 rounded-lg">
+              ${item.ans}
+            </div>
+            <p class="text-xs text-slate-600"><strong>คำอธิบาย:</strong> ${item.expl}</p>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleExcelAnswer(idx) {
+      document.getElementById(`excel-ans-box-${idx}`).classList.toggle('hidden');
+    }
+
+    // =========================================================================
+    // FLASHCARDS & SUMMARY LOGIC
+    // =========================================================================
+
+    function renderFlashcards() {
+      const container = document.getElementById('flashcard-grid');
+      container.innerHTML = '';
+
+      FLASHCARDS_DATA.forEach(q => {
+        const isMastered = masteredCards.has(q.id);
+        const card = document.createElement('div');
+        card.className = `card-flip min-h-[220px] rounded-2xl cursor-pointer ${isMastered ? 'ring-2 ring-emerald-500' : ''}`;
+        card.onclick = (e) => {
+          if (e.target.closest('.action-btn')) return;
+          card.classList.toggle('card-flipped');
+        };
+
+        card.innerHTML = `
+          <div class="card-inner relative w-full h-full">
+            <div class="card-front absolute inset-0 bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-between shadow-sm">
+              <div>
+                <div class="flex justify-between items-center mb-2">
+                  <span class="px-2 py-0.5 bg-red-100 text-red-700 font-bold text-xs rounded font-prompt">ข้อ ${q.id}</span>
+                  <span class="text-[11px] text-slate-400">แตะเพื่อพลิก ↩</span>
+                </div>
+                <h4 class="font-bold text-slate-800 text-xs sm:text-sm font-prompt">${q.title}</h4>
+              </div>
+              <div class="text-[11px] text-slate-500 bg-slate-50 p-2 rounded border border-slate-100 mt-2">
+                ${q.frontNote}
+              </div>
+            </div>
+
+            <div class="card-back absolute inset-0 bg-slate-900 text-white rounded-2xl p-4 flex flex-col justify-between shadow-lg overflow-y-auto custom-scrollbar">
+              <div>
+                <div class="text-[10px] font-bold text-amber-400 uppercase font-prompt mb-1">🔑 คำตอบสั้นกระชับ</div>
+                <div class="text-xs text-slate-200 leading-relaxed font-sarabun">${q.backText}</div>
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex justify-between items-center mt-2">
+                <button onclick="toggleMasterCard(${q.id})" class="action-btn px-2.5 py-1 text-[11px] rounded font-semibold transition ${isMastered ? 'bg-emerald-600 text-white' : 'bg-white/10 text-emerald-300'}">
+                  ${isMastered ? '✓ จำได้แล้ว' : 'Mark ว่าจำได้'}
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleMasterCard(id) {
+      if (masteredCards.has(id)) {
+        masteredCards.delete(id);
+      } else {
+        masteredCards.add(id);
+        confetti({ particleCount: 30, spread: 45, origin: { y: 0.8 } });
+      }
+      document.getElementById('card-mastered-count').innerText = `${masteredCards.size}/7`;
+      renderFlashcards();
+    }
+
+    function resetFlashcards() {
+      masteredCards.clear();
+      document.getElementById('card-mastered-count').innerText = `0/7`;
+      renderFlashcards();
+    }
+
+    function renderSummaryCards() {
+      const container = document.getElementById('summary-cards-container');
+      container.innerHTML = '';
+
+      FLASHCARDS_DATA.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-2';
+        div.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 bg-red-100 text-red-800 font-bold text-xs rounded font-prompt">ข้อ ${item.id}</span>
+            <h4 class="text-sm sm:text-base font-bold text-slate-800 font-prompt">${item.title}</h4>
+          </div>
+          <div class="text-xs sm:text-sm text-slate-700 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-100">
+            ${item.backText}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // =========================================================================
+    // TIMER LOGIC
+    // =========================================================================
+    function toggleTimer() {
+      const btn = document.getElementById('btn-start-timer');
+      if (isTimerRunning) {
+        clearInterval(examTimerInterval);
+        isTimerRunning = false;
+        btn.innerHTML = '<span>▶️</span> ทำต่อ';
+        btn.classList.remove('bg-amber-600');
+        btn.classList.add('bg-emerald-600');
+      } else {
+        isTimerRunning = true;
+        btn.innerHTML = '<span>⏸️</span> พัก';
+        btn.classList.remove('bg-emerald-600');
+        btn.classList.add('bg-amber-600');
+
+        examTimerInterval = setInterval(() => {
+          if (remainingSeconds > 0) {
+            remainingSeconds--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(examTimerInterval);
+            isTimerRunning = false;
+            alert('⏰ หมดเวลาทำข้อสอบ 2 ชั่วโมงแล้ว!');
+          }
+        }, 1000);
+      }
+    }
+
+    function resetExamTimer() {
+      clearInterval(examTimerInterval);
+      isTimerRunning = false;
+      remainingSeconds = 120 * 60;
+      updateTimerDisplay();
+      const btn = document.getElementById('btn-start-timer');
+      btn.innerHTML = '<span>▶️</span> จับเวลา';
+      btn.classList.remove('bg-amber-600');
+      btn.classList.add('bg-emerald-600');
+    }
+
+    function updateTimerDisplay() {
+      const hrs = Math.floor(remainingSeconds / 3600);
+      const mins = Math.floor((remainingSeconds % 3600) / 60);
+      const secs = remainingSeconds % 60;
+      document.getElementById('exam-timer').innerText = 
+        `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    // =========================================================================
+    // FULL 50 MULTIPLE CHOICE QUIZ DATA
+    // =========================================================================
+    const QUIZ_DATA = [
+      { id: 1, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์", question: "1. 'การวางแผนยุทธศาสตร์ (Strategic Planning)' มีหัวใจสำคัญที่สุดคือข้อใด?", options: ["ก. กระบวนการควบคุมการเบิกจ่ายงบประมาณประจำปีให้เป็นไปตามระเบียบ", "ข. กระบวนการตัดสินใจเพื่อกำหนดทิศทางในอนาคตขององค์กรบนข้อมูลที่รอบด้าน", "ค. การจัดสรรกำลังคนและโครงสร้างตำแหน่งงานภายในสำนักงาน", "ง. การตรวจสอบและประเมินผลการทำงานรายวันของพนักงาน"], answer: 1, explanation: "การวางแผนยุทธศาสตร์ คือ 'กระบวนการตัดสินใจเพื่อกำหนดทิศทางในอนาคตขององค์กร' บนข้อมูลรอบด้านอย่างเป็นระบบ" },
+      { id: 2, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์", question: "2. สูตรจำ 'วิ - พัน - เป้า - ยุทธ - กล' ข้อใดเรียงลำดับขั้นตอนหลัก 5 ขั้นตอน ได้ถูกต้อง?", options: ["ก. พันธกิจ ➔ กลยุทธ์ ➔ วิสัยทัศน์ ➔ เป้าประสงค์ ➔ ประเด็นยุทธศาสตร์", "ข. วิสัยทัศน์ ➔ พันธกิจ ➔ เป้าประสงค์ ➔ ประเด็นยุทธศาสตร์ ➔ กลยุทธ์/แนวทางพัฒนา", "ค. เป้าประสงค์ ➔ วิสัยทัศน์ ➔ พันธกิจ ➔ แผนปฏิบัติการ ➔ การประเมินผล", "ง. ประเด็นยุทธศาสตร์ ➔ พันธกิจ ➔ วิสัยทัศน์ ➔ แผนงาน ➔ งบประมาณ"], answer: 1, explanation: "5 ขั้นตอนหลัก: (1) Vision ➔ (2) Mission ➔ (3) Goal ➔ (4) Strategy ➔ (5) กลยุทธ์" },
+      { id: 3, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์", question: "3. ในการวิเคราะห์สภาพแวดล้อมเพื่อวางแผนยุทธศาสตร์ ต้องคำนึงถึงสิ่งใดบ้าง?", options: ["ก. เฉพาะงบประมาณคงเหลือในบัญชี", "ข. ศักยภาพขีดความสามารถภายใน และ สภาพแวดล้อมภายนอก (เศรษฐกิจ สังคม การเมือง สิ่งแวดล้อม)", "ค. เฉพาะระเบียบข้อบังคับของฝ่ายบริหารบุคคล", "ง. จำนวนชั่วโมงการทำงานของบุคลากร"], answer: 1, explanation: "ต้องพิจารณาทั้งขีดความสามารถภายใน และสภาพแวดล้อมภายนอกอย่างรอบด้าน" },
+      { id: 4, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์", question: "4. ขั้นตอน 'เป้าประสงค์ (Goal)' ในการวางแผนยุทธศาสตร์มีความหมายอย่างไร?", options: ["ก. ขอบเขตการจัดตั้งองค์กร", "ข. จุดมุ่งหมายหรือผลสัมฤทธิ์ที่ต้องการให้เกิดขึ้นเพื่อการพัฒนา", "ค. งบประมาณรายจ่ายประจำปี", "ง. การแต่งตั้งคณะกรรมการจัดทำแผน"], answer: 1, explanation: "เป้าประสงค์ (Goal) คือ จุดมุ่งหมายเพื่อการพัฒนาที่ต้องการให้เกิดขึ้น" },
+      { id: 5, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์", question: "5. 'ประเด็นยุทธศาสตร์ (Strategy / Strategic Issue)' คือข้อใด?", options: ["ก. เสาหลักหรือประเด็นหลักในการขับเคลื่อนองค์กรให้บรรลุเป้าหมาย", "ข. รายการพัสดุครุภัณฑ์ที่ต้องจัดซื้อ", "ค. ปัญหาความขัดแย้งส่วนบุคคลในที่ทำงาน", "ง. เอกสารรายงานประจำปี"], answer: 0, explanation: "ประเด็นยุทธศาสตร์คือประเด็นหลักหรือเสาหลักการขับเคลื่อน" },
+      { id: 6, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์", question: "6. ขั้นตอนสุดท้ายของกระบวนการวางแผนยุทธศาสตร์ 5 ขั้นตอนคืออะไร?", options: ["ก. การกำหนดวิสัยทัศน์", "ข. การกำหนดกลยุทธ์หรือแนวทางการพัฒนา", "ค. การยุบเลิกหน่วยงาน", "ง. การจัดงานแถลงข่าว"], answer: 1, explanation: "ขั้นตอนที่ 5 คือ การกำหนดกลยุทธ์หรือแนวทางการพัฒนา" },
+      { id: 7, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์", question: "7. การวางแผนยุทธศาสตร์แตกต่างจากการวางแผนทั่วไปอย่างไร?", options: ["ก. มองระยะยาว บูรณาการรอบด้าน และเน้นประสิทธิผลสูงสุด", "ข. ทำเฉพาะเรื่องการเงินเท่านั้น", "ค. ไม่ต้องคำนึงถึงสภาพแวดล้อมภายนอก", "ง. ไม่มีการกำหนดตัวชี้วัด"], answer: 0, explanation: "แผนยุทธศาสตร์จะเน้นการมองระยะยาว บูรณาการรอบด้าน และทิศทางอนาคต" },
+      { id: 8, topicId: "1", topic: "ข้อ 1: ยุทธศาสตร์", question: "8. เครื่องมือใดที่นิยมนำมาใช้วิเคราะห์สภาพแวดล้อมทั้งภายในและภายนอก?", options: ["ก. SWOT Analysis", "ข. Petty Cash Form", "ค. Punch Card", "ง. Gantt Chart เพียงอย่างเดียว"], answer: 0, explanation: "SWOT Analysis เป็นเครื่องมือหลักในการวิเคราะห์สภาพแวดล้อมเชิงยุทธศาสตร์" },
+      { id: 9, topicId: "2", topic: "ข้อ 2: Mission/Vision", question: "9. 'พันธกิจ (Mission)' มีความหมายตรงกับข้อใดมากที่สุด?", options: ["ก. ภาพเป้าหมายในอนาคตระยะยาว 10-20 ปีข้างหน้า", "ข. ความมุ่งหมายพื้นฐานในการจัดตั้งองค์กรที่จะดำเนินการในระยะยาว", "ค. รายละเอียดขั้นตอนการดำเนินกิจกรรมประจำสัปดาห์", "ง. งบประมาณที่ได้รับการจัดสรรจากรัฐบาลในแต่ละปี"], answer: 1, explanation: "พันธกิจ คือ ความมุ่งหมายพื้นฐานในการจัดตั้งองค์กรในระยะยาว" },
+      { id: 10, topicId: "2", topic: "ข้อ 2: Mission/Vision", question: "10. ข้อใด ไม่ใช่ องค์ประกอบของข้อความพันธกิจที่ดี (5 ด้าน)?", options: ["ก. Domain (ขอบเขต) และ Customers (ลูกค้า)", "ข. Products/Services (บริการ) และ Location (พื้นที่)", "ค. Philosophy (ปรัชญาบริหาร)", "ง. อัตราการขึ้นเงินเดือนประจำปีของเจ้าหน้าที่"], answer: 3, explanation: "พันธกิจที่ดี 5 ด้าน: Domain, Customers, Products/Services, Location, Philosophy" },
+      { id: 11, topicId: "2", topic: "ข้อ 2: Mission/Vision", question: "11. 'วิสัยทัศน์ (Vision)' โดยทั่วไปกำหนดกรอบเวลาไว้ประมาณกี่ปี?", options: ["ก. 1-3 เดือน", "ข. 3-10 ปี (ระยะกลางถึงระยะยาว)", "ค. 50-100 ปี", "ง. ไม่ต้องมีกรอบเวลา"], answer: 1, explanation: "วิสัยทัศน์กำหนดในระยะกลางถึงระยะยาว ประมาณ 3-10 ปี" },
+      { id: 12, topicId: "2", topic: "ข้อ 2: Mission/Vision", question: "12. 'Stretch Goal' ในองค์ประกอบวิสัยทัศน์หมายถึงอะไร?", options: ["ก. การขยายเวลาทำงานล่วงเวลา", "ข. เป้าหมายที่มีความท้าทาย แตกต่างจากปัจจุบัน และแสดงความทะเยอทะยาน", "ค. การลดขนาดองค์กรลง", "ง. การตั้งเป้าหมายที่ทำได้ง่าย"], answer: 1, explanation: "Stretch goal คือเป้าหมายที่มีความท้าทายและทะเยอทะยาน" },
+      { id: 13, topicId: "2", topic: "ข้อ 2: Mission/Vision", question: "13. 'Definition of Niche' ในวิสัยทัศน์หมายถึงข้อใด?", options: ["ก. ตำแหน่งเชิงกลยุทธ์หรือจุดยืนเฉพาะขององค์กรในตลาด/สังคม", "ข. ยี่ห้อของเครื่องคอมพิวเตอร์ในสำนักงาน", "ค. ชื่อย่อของฝ่ายการเงิน", "ง. ระเบียบการลาพักผ่อน"], answer: 0, explanation: "Definition of niche คือการกำหนดตำแหน่งเชิงกลยุทธ์หรือจุดยืนเฉพาะ" },
+      { id: 14, topicId: "2", topic: "ข้อ 2: Mission/Vision", question: "14. ข้อใดอธิบายความแตกต่างระหว่าง Mission และ Vision ได้ถูกต้อง?", options: ["ก. Mission คือ ภาพฝันอนาคต ส่วน Vision คือ สิ่งที่ทำปัจจุบัน", "ข. Mission คือ หน้าที่จัดตั้งองค์กร ส่วน Vision คือ ภาพเป้าหมายในอนาคตที่ต้องการไปถึง", "ค. ทั้งสองคำเหมือนกันทุกประการ", "ง. ใช้แทนกันได้โดยไม่มีความต่าง"], answer: 1, explanation: "Mission = ปัจจุบันและหน้าที่จัดตั้ง | Vision = ภาพเป้าหมายในอนาคต" },
+      { id: 15, topicId: "2", topic: "ข้อ 2: Mission/Vision", question: "15. ประโยชน์ของ 'วิสัยทัศน์' ต่อบุคลากรภายในองค์กรคือข้อใด?", options: ["ก. ช่วยกระตุ้นให้เกิดความตระหนัก ความผูกพัน และความมุ่งมั่นร่วมกัน", "ข. ใช้กำหนดเวลาเข้า-ออกงาน", "ค. ใช้คำนวณภาษีหัก ณ ที่จ่าย", "ง. บังคับให้ทุกคนต้องทำงานแบบเดียวกัน"], answer: 0, explanation: "วิสัยทัศน์ช่วยรวมใจบุคลากรและสร้างความผูกพันสู่เป้าหมายเดียว" },
+      { id: 16, topicId: "2", topic: "ข้อ 2: Mission/Vision", question: "16. ข้อความพันธกิจที่ดีควรมีลักษณะอย่างไร?", options: ["ก. ยาวเกิน 10 หน้ากระดาษ", "ข. มีความชัดเจน สื่อสารปรัชญาการบริหาร และบุคลากรเข้าใจตรงกัน", "ค. เปลี่ยนแปลงทุกสัปดาห์", "ง. ปิดเป็นความลับ"], answer: 1, explanation: "พันธกิจที่ดีต้องชัดเจน สื่อสารปรัชญาและแนวทางบริหารให้บุคลากรเข้าใจตรงกัน" },
+      { id: 17, topicId: "3", topic: "ข้อ 3: Action Plan", question: "17. 'แผนปฏิบัติการ (Action Plan)' มีหน้าที่สำคัญอย่างไร?", options: ["ก. นำความคิดเชิงกลยุทธ์มาแปลงเป็นแนวทางชี้นำการปฏิบัติงานจริง", "ข. ใช้เป็นเอกสารขอพระราชทานรางวัล", "ค. ใช้วิเคราะห์สิ่งแวดล้อมภายนอก", "ง. ใช้กำหนดระเบียบวินัย"], answer: 0, explanation: "Action Plan คือการนำกลยุทธ์มาแปลงเป็นแผนปฏิบัติการจริง" },
+      { id: 18, topicId: "3", topic: "ข้อ 3: Action Plan", question: "18. ข้อใดระบุ 6 องค์ประกอบของแผนปฏิบัติการได้ครบถ้วน?", options: ["ก. ชื่อแผน, โครงการหลัก, กิจกรรมย่อย, วันเวลาสถานที่, ความเสี่ยง, แผนสำรอง", "ข. ชื่อผู้อำนวยการ, เงินเดือน, วันหยุด, เบี้ยเลี้ยง, ที่พัก, อาหาร", "ค. วิสัยทัศน์, พันธกิจ, เป้าประสงค์, ยุทธศาสตร์, KPI, SWOT", "ง. รายรับ, รายจ่าย, หนี้สิน, ดอกเบี้ย, กำไรสุทธิ, เงินปันผล"], answer: 0, explanation: "6 องค์ประกอบ: ชื่อแผน, โครงการหลัก, กิจกรรมย่อย, วันเวลาสถานที่, ความเสี่ยง, แผนสำรอง (Contingency)" },
+      { id: 19, topicId: "3", topic: "ข้อ 3: Action Plan", question: "19. เหตุใดแผนปฏิบัติการที่ดีต้องมีการระบุ 'ความเสี่ยง (Risk)'?", options: ["ก. เพื่อใช้เป็นข้ออ้างในการยกเลิกโครงการ", "ข. เพื่อเตรียมการป้องกันและมีแผนรองรับหากเกิดอุปสรรคไม่คาดฝัน", "ค. เพื่อลดเงินเดือนผู้รับผิดชอบ", "ง. เพื่อให้งานล่าช้า"], answer: 1, explanation: "การระบุความเสี่ยงช่วยให้องค์กรเตรียมแผนสำรองรองรับได้ทันท่วงที" },
+      { id: 20, topicId: "3", topic: "ข้อ 3: Action Plan", question: "20. 'แผนปฏิบัติการสำรอง / แผนรองรับ' ภาษาอังกฤษเรียกว่าอะไร?", options: ["ก. Contingency Plan", "ข. Marketing Plan", "ค. Financial Statement", "ง. Master Plan"], answer: 0, explanation: "Contingency Plan คือ แผนปฏิบัติการรองรับหรือแผนสำรอง" },
+      { id: 21, topicId: "3", topic: "ข้อ 3: Action Plan", question: "21. แผนปฏิบัติการ (Action Plan) มักมีระยะเวลาครอบคลุมเท่าใด?", options: ["ก. ระยะสั้น 1 ปี (ประจำปีงบประมาณ)", "ข. 20 ปี", "ค. 50 ปี", "ง. 1 วัน"], answer: 0, explanation: "แผนปฏิบัติการมักจัดทำเป็นแผนประจำปีงบประมาณ (1 ปี)" },
+      { id: 22, topicId: "3", topic: "ข้อ 3: Action Plan", question: "22. ความสัมพันธ์ระหว่าง Strategic Plan และ Action Plan คือข้อใด?", options: ["ก. Strategic Plan กำหนดทิศทางใหญ่ ส่วน Action Plan แปลงสู่การปฏิบัติ", "ข. Action Plan ใหญ่กว่า Strategic Plan", "ค. ไม่มีความเกี่ยวข้องใดๆ กัน", "ง. Action Plan ใช้เฉพาะกรณีที่ล้มเหลว"], answer: 0, explanation: "Strategic Plan คือทิศทางใหญ่ ส่วน Action Plan แปลงสู่การปฏิบัติจริง" },
+      { id: 23, topicId: "3", topic: "ข้อ 3: Action Plan", question: "23. ในการจัดทำแผนปฏิบัติการ หากไม่ระบุ 'ผู้รับผิดชอบและวันเวลาสถานที่' จะเกิดผลเสียอย่างไร?", options: ["ก. งานไม่มีความชัดเจน ติดตามยาก และเกิดการเกี่ยงงาน", "ข. ประหยัดงบประมาณ", "ค. งานเสร็จเร็วขึ้น", "ง. ไม่มีผลเสีย"], answer: 0, explanation: "ทำให้ขาดผู้รับผิดชอบ (Accountability) และกำกับติดตามไม่ได้" },
+      { id: 24, topicId: "4", topic: "ข้อ 4: KPI/SMART", question: "24. 'KPI (Key Performance Indicator)' คืออะไร?", options: ["ก. เครื่องมือวัดและประเมินผลการดำเนินงานขององค์กร", "ข. โปรแกรมตัดเงินเดือน", "ค. กฎหมายจัดซื้อจัดจ้าง", "ง. แบบฟอร์มขอไปต่างจังหวัด"], answer: 0, explanation: "KPI คือดัชนีชี้วัดผลงานหลักเพื่อประเมินประสิทธิภาพและประสิทธิผล" },
+      { id: 25, topicId: "4", topic: "ข้อ 4: KPI/SMART", question: "25. ตัวชี้วัดที่ดีต้องสะท้อน 2 ด้านหลัก คือข้อใด?", options: ["ก. ประสิทธิภาพ (Efficiency) และ ประสิทธิผล (Effectiveness)", "ข. ความสวยงาม และ ความเร็ว", "ค. กำไรสุทธิ และ ราคาหุ้น", "ง. ความอาวุโส และ วุฒิการศึกษา"], answer: 0, explanation: "สะท้อน ประสิทธิภาพ (ความคุ้มค่า) และ ประสิทธิผล (การบรรลุเป้าหมาย)" },
+      { id: 26, topicId: "4", topic: "ข้อ 4: KPI/SMART", question: "26. ตัวอักษร 'S' ในหลัก SMART ย่อมาจากอะไร?", options: ["ก. Simple", "ข. Specific (ชัดเจน เฉพาะเจาะจง)", "ค. Systematic", "ง. Standard"], answer: 1, explanation: "S = Specific (ชัดเจน เฉพาะเจาะจง ไม่คลุมเครือ)" },
+      { id: 27, topicId: "4", topic: "ข้อ 4: KPI/SMART", question: "27. ตัวอักษร 'M' ในหลัก SMART หมายถึงข้อใด?", options: ["ก. Measurable (สามารถวัดผลได้เป็นตัวเลขหรือเกณฑ์ชัดเจน)", "ข. Money", "ค. Management", "ง. Maximum"], answer: 0, explanation: "M = Measurable (สามารถวัดผลได้ชัดเจน)" },
+      { id: 28, topicId: "4", topic: "ข้อ 4: KPI/SMART", question: "28. ตัวอักษร 'A' ในหลัก SMART (Achievable) มีความหมายว่าอย่างไร?", options: ["ก. เป้าหมายที่ง่ายจนไม่ต้องทำงาน", "ข. บรรลุผลได้ ไม่ง่ายเกินไปและไม่ยากจนเกินไป", "ค. เป้าหมายที่เป็นไปไม่ได้", "ง. ลอกเลียนแบบมาจากที่อื่น"], answer: 1, explanation: "A = Achievable (บรรลุได้ อยู่ในวิสัยที่ทำได้)" },
+      { id: 29, topicId: "4", topic: "ข้อ 4: KPI/SMART", question: "29. ตัวอักษร 'R' ในหลัก SMART (Realistic) หมายถึงข้อใด?", options: ["ก. สอดคล้องกับความเป็นจริง เหมาะสม และไม่ใช้ต้นทุนการวัดสูงเกินไป", "ข. การวิ่งแข่ง", "ค. การรายงานข่าว", "ง. การตั้งเป้าตามความฝัน"], answer: 0, explanation: "R = Realistic (เป็นจริงได้ คุ้มต้นทุนการวัดผล)" },
+      { id: 30, topicId: "4", topic: "ข้อ 4: KPI/SMART", question: "30. ตัวอักษร 'T' ในหลัก SMART (Timely) หมายถึงสิ่งใด?", options: ["ก. มีกรอบเวลาที่ชัดเจน และปรับปรุงให้ทันสมัยสม่ำเสมอ", "ข. ทำโครงการเฉพาะกลางวัน", "ค. ส่งรายงานทุกชั่วโมง", "ง. ใช้นาฬิกาดิจิทัล"], answer: 0, explanation: "T = Timely (มีกรอบระยะเวลาที่แน่นอนและทันสมัย)" },
+      { id: 31, topicId: "4", topic: "ข้อ 4: KPI/SMART", question: "31. ข้อใดเป็นตัวอย่างตัวชี้วัด SMART มากที่สุด?", options: ["ก. ประชาชนมีความสุขที่สุดในโลก", "ข. ร้อยละของผู้ผ่านการอบรมที่ผ่านเกณฑ์ 80% ภายในไตรมาสที่ 2", "ค. ทำงานให้ดีที่สุด", "ง. ลดปัญหาทุกอย่าง"], answer: 1, explanation: "ตัวเลือก ข มีทั้งตัวเลข (M), เจาะจง (S), บรรลุได้ (A), เป็นจริง (R), และมีกรอบเวลาไตรมาส 2 (T)" },
+      { id: 32, topicId: "5", topic: "ข้อ 5: Logframe", question: "32. ในตาราง Logical Framework 'ปัจจัยนำเข้า (Input)' หมายถึงข้อใด?", options: ["ก. ทรัพยากรที่ใช้สนับสนุนการดำเนินงาน เช่น คน เงิน วัสดุ เวลา", "ข. จำนวนผู้ได้รับวุฒิบัตร", "ค. ความพึงพอใจระยะยาว", "ง. การประชุมสรุปผล"], answer: 0, explanation: "Input คือ ทรัพยากรทั้งหมดที่ใส่เข้าไปเพื่อดำเนินงาน" },
+      { id: 33, topicId: "5", topic: "ข้อ 5: Logframe", question: "33. 'ผลผลิต (Output)' ใน Logical Framework มีลักษณะเด่นอย่างไร?", options: ["ก. เป็นผลที่เกิดขึ้นทันทีเมื่อกิจกรรมแล้วเสร็จ นับจำนวนได้ตรง", "ข. ผลกระทบ 20 ปีข้างหน้า", "ค. งบประมาณที่ยังไม่เบิกจ่าย", "ง. การเปลี่ยนแปลงสังคมมหภาค"], answer: 0, explanation: "Output คือ ผลตรงที่เกิดขึ้นทันทีหลังเสร็จสิ้นกิจกรรม" },
+      { id: 34, topicId: "5", topic: "ข้อ 5: Logframe", question: "34. 'ผลลัพธ์ (Outcome)' หมายถึงข้อใด?", options: ["ก. ทรัพยากรจัดพิมพ์", "ข. ผลที่ตามมาจากการนำผลผลิตไปใช้ประโยชน์ หรือพฤติกรรมที่เปลี่ยนไป", "ค. ค่าอาหารว่าง", "ง. วันที่เริ่มโครงการ"], answer: 1, explanation: "Outcome คือ ผลที่เกิดจากการนำผลผลิตไปใช้ประโยชน์จริง" },
+      { id: 35, topicId: "5", topic: "ข้อ 5: Logframe", question: "35. 'ผลกระทบ (Impact)' มีความหมายตรงกับข้อใด?", options: ["ก. ผลระยะยาวหรือผลสัมฤทธิ์สูงสุด (Results) ต่อสังคมหรือยุทธศาสตร์", "ข. คู่มือที่แจก", "ค. ใบเสร็จรับเงิน", "ง. การเช็คชื่อ"], answer: 0, explanation: "Impact คือ ผลระยะยาวสูงสุดต่อยุทธศาสตร์และสังคม" },
+      { id: 36, topicId: "5", topic: "ข้อ 5: Logframe", question: "36. 'สูตรความสัมพันธ์ของผลสัมฤทธิ์' คือข้อใด?", options: ["ก. ผลสัมฤทธิ์ / ผลกระทบ (Impact) = ผลผลิต (Outputs) + ผลลัพธ์ (Outcomes)", "ข. ผลสัมฤทธิ์ = Input - Output", "ค. ผลสัมฤทธิ์ = งบ x คน", "ง. ผลสัมฤทธิ์ = การประเมิน / การติดตาม"], answer: 0, explanation: "ผลสัมฤทธิ์ (Impact) = Outputs + Outcomes เพื่อบรรลุเป้าหมายสูงสุด" },
+      { id: 37, topicId: "5", topic: "ข้อ 5: Logframe", question: "37. โครงการบริจาคโลหิต: 'ปริมาณโลหิตที่ได้รับ 5,000 ยูนิต' จัดเป็นตัวชี้วัดระดับใด?", options: ["ก. Input", "ข. Output", "ค. Outcome", "ง. Impact"], answer: 1, explanation: "ปริมาณโลหิตที่ได้รับบริจาคทันทีคือ ผลผลิต (Output)" },
+      { id: 38, topicId: "5", topic: "ข้อ 5: Logframe", question: "38. โครงการบริจาคโลหิต: 'ผู้ป่วยฉุกเฉินรอดชีวิตเพราะมีโลหิตสำรองเพียงพอ' จัดเป็นระดับใด?", options: ["ก. Input", "ข. Output", "ค. Outcome / Impact", "ง. Process"], answer: 2, explanation: "การรอดชีวิตของผู้ป่วยคือ ผลลัพธ์/ผลกระทบเชิงบวก (Outcome/Impact)" },
+      { id: 39, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน", question: "39. จุดเน้นที่สำคัญที่สุดของ 'การติดตาม (Monitoring)' คืออะไร?", options: ["ก. ตรวจสอบ ควบคุม กำกับการปฏิบัติงานให้เป็นไปตามแผน", "ข. การสั่งยุบเลิกโครงการ", "ค. การจัดงานเลี้ยง", "ง. การคำนวณเงินบำนาญ"], answer: 0, explanation: "การติดตามเน้น 'ตรวจสอบ ควบคุม กำกับ' ขณะดำเนินงาน" },
+      { id: 40, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน", question: "40. 'การติดตาม (Monitoring)' เกิดขึ้นในช่วงเวลาใด?", options: ["ก. เกิดขึ้นอย่างต่อเนื่อง ในขณะที่โครงการกำลังดำเนินงานตามแผน", "ข. ทำเฉพาะก่อนของบประมาณ", "ค. ทำหลังโครงการจบไปแล้ว 10 ปี", "ง. ทำเฉพาะเมื่อถูกฟ้องร้อง"], answer: 0, explanation: "การติดตามทำอย่างต่อเนื่องขณะที่โครงการกำลังดำเนินการ" },
+      { id: 41, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน", question: "41. 'การประเมินผล (Evaluation)' มีลักษณะการดำเนินงานอย่างไร?", options: ["ก. วิเคราะห์อย่างเป็นระบบเพื่อตัดสินคุณค่าและประสิทธิภาพ", "ข. เกิดขึ้นในทุกขั้นตอน (ก่อนเริ่ม, ระหว่างทำ, สิ้นสุด, หลังเสร็จ)", "ค. นำผลไปใช้ตัดสินใจเชิงนโยบายและถอดบทเรียน", "ง. ถูกต้องทุกข้อ"], answer: 3, explanation: "การประเมินผลทำทุกช่วงเวลาและใช้ตัดสินใจเชิงนโยบาย" },
+      { id: 42, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน", question: "42. การประเมินผลก่อนเริ่มดำเนินโครงการ (Ex-ante Evaluation) มีวัตถุประสงค์เพื่ออะไร?", options: ["ก. ประเมินความเป็นไปได้และความคุ้มค่าก่อนตัดสินใจทำโครงการ", "ข. เพื่อทำลายคู่แข่ง", "ค. เพื่อเบิกเงินล่วงหน้า", "ง. เพื่อจัดเลี้ยงฉลอง"], answer: 0, explanation: "Ex-ante Evaluation ทำเพื่อดูความเป็นไปได้และความคุ้มค่าก่อนเริ่ม" },
+      { id: 43, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน", question: "43. การประเมินผลหลังสิ้นสุดโครงการ (Ex-post Evaluation) มีประโยชน์หลักคือข้อใด?", options: ["ก. ตัดสินว่าโครงการบรรลุวัตถุประสงค์หรือไม่ และถอดบทเรียน (Lesson Learned)", "ข. สั่งลงโทษทุกคน", "ค. ยกเลิกรายงานการเงิน", "ง. ลบข้อมูลทิ้ง"], answer: 0, explanation: "Ex-post Evaluation สรุปผลสัมฤทธิ์และถอดบทเรียน" },
+      { id: 44, topicId: "6", topic: "ข้อ 6: ติดตาม/ประเมิน", question: "44. หากขาด 'การติดตามและการประเมินผล' จะเกิดผลเสียอย่างไร?", options: ["ก. ไม่ทราบปัญหาความล่าช้า ไม่รู้ว่างบประมาณคุ้มค่าหรือไม่ และแก้ปัญหาไม่ทัน", "ข. ประหยัดกระดาษ", "ค. งานเสร็จเร็วขึ้น", "ง. ไม่มีผลกระทบ"], answer: 0, explanation: "ทำให้ไม่รู้สถานะจริง ขาดความโปร่งใส และแก้ไขปัญหาไม่ทันท่วงที" },
+      { id: 45, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน", question: "45. 'การศึกษาความเป็นไปได้ (Feasibility Study)' ควรทำในขั้นตอนใด?", options: ["ก. ก่อนการจัดทำและเสนออนุมัติโครงการ", "ข. หลังปิดโครงการ", "ค. ขณะเบิกเงินงวดสุดท้าย", "ง. เมื่อโครงการถูกยกเลิก"], answer: 0, explanation: "Feasibility Study ต้องทำเป็นอันดับแรกก่อนเริ่มจัดทำและเสนอโครงการ" },
+      { id: 46, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน", question: "46. การเขียนโครงการที่ดีควรมีลักษณะอย่างไร?", options: ["ก. เขียนเป็นระบบ สอดคล้องกับยุทธศาสตร์ และกำหนดตัวชี้วัด SMART ชัดเจน", "ข. ใช้ภาษากลอนยาวๆ", "ค. เขียนให้คลุมเครือ", "ง. คัดลอกโครงการอื่นมาทั้งหมด"], answer: 0, explanation: "ต้องเขียนเป็นระบบ เชื่อมโยงยุทธศาสตร์ และมีตัวชี้วัด SMART ชัดเจน" },
+      { id: 47, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน", question: "47. บทบาทสำคัญของนักวิเคราะห์นโยบายและแผนด้าน 'งบประมาณ' คือข้อใด?", options: ["ก. วางแผนจัดสรรงบประมาณให้สอดคล้องกับกิจกรรม ติดตามการเบิกจ่ายให้คุ้มค่าและโปร่งใส", "ข. เก็บเงินสดไว้ในตู้เซฟ", "ค. อนุมัติงบโดยไม่มีหลักฐาน", "ง. ปล่อยให้ใช้จ่ายตามใจชอบ"], answer: 0, explanation: "วางแผนงบประมาณให้สอดรับกับ Timeline และติดตามให้โปร่งใสคุ้มค่า" },
+      { id: 48, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน", question: "48. การบูรณาการและสร้างความร่วมมือระหว่างหน่วยงาน มีประโยชน์อย่างไร?", options: ["ก. ลดความซ้ำซ้อนของการใช้งบประมาณ เพิ่มพลังขับเคลื่อนสู่เป้าหมาย", "ข. เพิ่มขั้นตอนให้ยุ่งยาก", "ค. ใช้เวลานานขึ้นสองเท่า", "ง. หาคนมารับผิดแทน"], answer: 0, explanation: "การบูรณาการช่วยลดความซ้ำซ้อนและเพิ่มประสิทธิภาพการใช้ทรัพยากร" },
+      { id: 49, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน", question: "49. บทบาทด้าน 'การรายงานผล' สำคัญต่อผู้บริหารอย่างไร?", options: ["ก. ให้ข้อมูลเชิงประจักษ์และความก้าวหน้า เพื่อให้ผู้บริหารตัดสินใจและแก้ปัญหาได้ทันท่วงที", "ข. ให้มีเอกสารเซ็นชื่อมากๆ", "ค. ใช้เป็นของที่ระลึก", "ง. เป็นเพียงงานธุรการ"], answer: 0, explanation: "ช่วยให้ผู้บริหารเห็นภาพรวมและตัดสินใจสั่งการแก้ไขได้ถูกต้อง" },
+      { id: 50, topicId: "7", topic: "ข้อ 7: บทบาท นโยบาย&แผน", question: "50. ขั้นตอน 'การปิดโครงการและการส่งมอบผลงาน' สิ่งใดสำคัญที่สุดเพื่อความยั่งยืน?", options: ["ก. การถอดบทเรียน (Lesson Learned) และส่งมอบผลลัพธ์เพื่อนำไปต่อยอด", "ข. การลบไฟล์ทิ้ง", "ค. การจัดงานเลี้ยงส่งท้าย", "ง. การหยุดทำงานทันที"], answer: 0, explanation: "การถอดบทเรียน (Lesson Learned) และส่งมอบผลงานช่วยให้เกิดการต่อยอดอย่างยั่งยืน" }
+    ];
 
     function filterQuiz(filterKey) {
       currentQuizFilter = filterKey;
@@ -1641,7 +1610,7 @@
         const isCorrect = isAnswered && userAnswer === q.answer;
 
         const card = document.createElement('div');
-        card.className = `bg-white rounded-2xl border p-4 sm:p-5 shadow-sm transition ${
+        card.className = `bg-white rounded-2xl border p-3.5 sm:p-4 shadow-sm transition ${
           isAnswered 
             ? (isCorrect ? 'border-emerald-300 bg-emerald-50/20' : 'border-rose-300 bg-rose-50/20')
             : 'border-slate-200 hover:border-slate-300'
@@ -1649,10 +1618,10 @@
 
         let optionsHtml = '';
         q.options.forEach((opt, optIdx) => {
-          let optClass = "p-3 rounded-xl border text-xs sm:text-sm font-medium transition cursor-pointer flex items-center justify-between ";
+          let optClass = "p-2.5 sm:p-3 rounded-xl border text-xs sm:text-sm font-medium transition cursor-pointer flex items-center justify-between ";
           
           if (!isAnswered) {
-            optClass += "bg-slate-50 border-slate-200 hover:bg-slate-100 hover:border-slate-300 text-slate-700";
+            optClass += "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700";
           } else {
             if (optIdx === q.answer) {
               optClass += "bg-emerald-100 border-emerald-400 text-emerald-900 font-bold";
@@ -1673,23 +1642,23 @@
 
         card.innerHTML = `
           <div>
-            <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px] font-bold font-prompt">${q.topic}</span>
-              <span class="text-[11px] text-slate-400 font-medium">ข้อที่ ${q.id} / ${QUIZ_DATA.length}</span>
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold font-prompt">${q.topic}</span>
+              <span class="text-[10px] text-slate-400 font-medium">ข้อที่ ${q.id} / ${QUIZ_DATA.length}</span>
             </div>
-            <h4 class="text-xs sm:text-sm font-bold text-slate-800 font-prompt leading-snug mb-3">
+            <h4 class="text-xs sm:text-sm font-bold text-slate-800 font-prompt leading-snug mb-2.5">
               ${q.question}
             </h4>
-            <div class="grid grid-cols-1 gap-2">
+            <div class="grid grid-cols-1 gap-1.5">
               ${optionsHtml}
             </div>
 
             ${isAnswered ? `
-              <div class="mt-3 p-3 rounded-xl text-xs ${isCorrect ? 'bg-emerald-100/70 text-emerald-900 border border-emerald-200' : 'bg-rose-100/70 text-rose-900 border border-rose-200'}">
+              <div class="mt-2.5 p-2.5 rounded-xl text-xs ${isCorrect ? 'bg-emerald-100/70 text-emerald-900 border border-emerald-200' : 'bg-rose-100/70 text-rose-900 border border-rose-200'}">
                 <div class="font-bold mb-0.5 flex items-center gap-1.5">
                   <span>${isCorrect ? '🎉 ถูกต้อง!' : '⚠️ ตอบยังไม่ถูกต้อง'}</span>
                 </div>
-                <p class="leading-relaxed"><strong>คำอธิบาย:</strong> ${q.explanation}</p>
+                <p class="leading-relaxed text-[11px] sm:text-xs"><strong>คำอธิบาย:</strong> ${q.explanation}</p>
               </div>
             ` : ''}
           </div>
@@ -1706,11 +1675,7 @@
 
       const q = QUIZ_DATA.find(item => item.id === questionId);
       if (q && selectedOption === q.answer) {
-        confetti({
-          particleCount: 25,
-          spread: 40,
-          origin: { y: 0.8 }
-        });
+        confetti({ particleCount: 20, spread: 35, origin: { y: 0.8 } });
       }
 
       renderQuiz();
@@ -1733,256 +1698,6 @@
       const total = QUIZ_DATA.length;
       document.getElementById('quiz-live-score').innerText = `${correctCount} / ${total}`;
       document.getElementById('quiz-overall-stat').innerText = `${correctCount} / ${total} ข้อ`;
-
-      const badge = document.getElementById('quiz-badge-icon');
-      if (correctCount === total) {
-        badge.innerText = "🏆";
-        badge.className = "w-10 h-10 sm:w-12 sm:h-12 rounded-full border-4 border-amber-400 flex items-center justify-center font-bold text-xs sm:text-sm text-amber-700 font-prompt bg-amber-50 shrink-0";
-      } else {
-        badge.innerText = "🎯";
-      }
-    }
-
-    // =========================================================================
-    // FLASHCARD LOGIC
-    // =========================================================================
-
-    function renderFlashcards() {
-      const container = document.getElementById('flashcard-grid');
-      container.innerHTML = '';
-
-      EXAM_DATA.forEach((q) => {
-        const isMastered = masteredCards.has(q.id);
-        const card = document.createElement('div');
-        card.className = `card-flip min-h-[320px] sm:h-80 rounded-2xl cursor-pointer ${isMastered ? 'ring-2 ring-emerald-500' : ''}`;
-        card.id = `fc-card-${q.id}`;
-        card.onclick = (e) => {
-          if (e.target.closest('.action-btn')) return;
-          card.classList.toggle('card-flipped');
-        };
-
-        card.innerHTML = `
-          <div class="card-inner relative w-full h-full">
-            <div class="card-front absolute inset-0 bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition">
-              <div>
-                <div class="flex justify-between items-center mb-2 sm:mb-3">
-                  <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-red-100 text-red-700 font-bold text-xs rounded-lg font-prompt">ข้อที่ ${q.id}</span>
-                  <span class="text-[11px] text-slate-400">แตะเพื่อพลิก ↩️</span>
-                </div>
-                <h4 class="font-bold text-slate-800 text-xs sm:text-sm font-prompt leading-snug">${q.title}</h4>
-              </div>
-              <div class="space-y-2 mt-2">
-                <div class="text-[11px] sm:text-xs text-slate-500 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                  🎯 <strong>เป้าหมาย:</strong> จำองค์ประกอบหลักและนิยามคำศัพท์ให้ครบ
-                </div>
-                <div class="flex justify-between items-center text-xs">
-                  <span class="text-[11px] sm:text-xs text-slate-400">สถานะ: ${isMastered ? '<span class="text-emerald-600 font-bold">✅ จำได้แล้ว</span>' : '⏳ รอทบทวน'}</span>
-                  <span class="text-red-500 font-semibold text-[11px] sm:text-xs">พลิกการ์ด ➔</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-back absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-4 sm:p-6 flex flex-col justify-between shadow-lg overflow-y-auto custom-scrollbar">
-              <div>
-                <div class="flex justify-between items-center mb-2">
-                  <span class="text-xs font-bold text-red-400 uppercase tracking-wider font-prompt">🔑 คำตอบหัวใจหลัก</span>
-                  <span class="text-[11px] text-slate-400">แตะเพื่อพลิกกลับ</span>
-                </div>
-                <div class="text-[11px] sm:text-xs leading-relaxed text-slate-200 space-y-1 font-sarabun">
-                  ${q.modelAnswer}
-                </div>
-              </div>
-              <div class="pt-3 border-t border-slate-700/80 flex items-center justify-between mt-2">
-                <button onclick="toggleMasterCard(${q.id})" class="action-btn px-3 py-1.5 text-[11px] sm:text-xs rounded-lg font-semibold transition ${isMastered ? 'bg-emerald-600 text-white' : 'bg-white/10 hover:bg-white/20 text-emerald-300'}">
-                  ${isMastered ? '✓ จำได้แล้ว' : 'Mark ว่าจำได้'}
-                </button>
-                <span class="text-[11px] text-slate-400 font-prompt">20 คะแนนเต็ม</span>
-              </div>
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function toggleMasterCard(id) {
-      if (masteredCards.has(id)) {
-        masteredCards.delete(id);
-      } else {
-        masteredCards.add(id);
-        confetti({
-          particleCount: 40,
-          spread: 50,
-          origin: { y: 0.8 }
-        });
-      }
-      document.getElementById('card-mastered-count').innerText = `${masteredCards.size}/7`;
-      renderFlashcards();
-    }
-
-    function resetFlashcards() {
-      masteredCards.clear();
-      document.getElementById('card-mastered-count').innerText = `0/7`;
-      renderFlashcards();
-    }
-
-    // =========================================================================
-    // EXAM SIMULATION ENGINE
-    // =========================================================================
-
-    function renderSimPills() {
-      const container = document.getElementById('sim-question-pills');
-      container.innerHTML = '';
-
-      EXAM_DATA.forEach((q, idx) => {
-        const isAnswered = !!userAnswers[q.id] && userAnswers[q.id].trim().length > 20;
-        const btn = document.createElement('button');
-        btn.id = `sim-pill-${idx}`;
-        btn.className = `shrink-0 px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold font-prompt transition ${
-          idx === currentSimQuestionIndex 
-            ? 'bg-red-600 text-white shadow-sm' 
-            : isAnswered 
-              ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
-              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-        }`;
-        btn.innerText = `ข้อ ${q.id} ${isAnswered ? '✓' : ''}`;
-        btn.onclick = () => loadSimQuestion(idx);
-        container.appendChild(btn);
-      });
-
-      const answeredCount = Object.keys(userAnswers).filter(k => userAnswers[k] && userAnswers[k].trim().length > 20).length;
-      document.getElementById('selected-questions-count').innerText = answeredCount;
-    }
-
-    function loadSimQuestion(index) {
-      const currentQ = EXAM_DATA[currentSimQuestionIndex];
-      const textInput = document.getElementById('sim-answer-input').value;
-      if (textInput.trim()) {
-        userAnswers[currentQ.id] = textInput;
-      }
-
-      currentSimQuestionIndex = index;
-      const q = EXAM_DATA[index];
-
-      document.getElementById('sim-q-badge').innerText = `ข้อที่ ${q.id}`;
-      document.getElementById('sim-q-title').innerText = q.title;
-      document.getElementById('sim-answer-input').value = userAnswers[q.id] || '';
-      document.getElementById('model-answer-content').innerHTML = q.modelAnswer;
-      document.getElementById('model-answer-box').classList.add('hidden');
-
-      renderSimPills();
-      analyzeAnswerRealtime();
-    }
-
-    function analyzeAnswerRealtime() {
-      const text = document.getElementById('sim-answer-input').value;
-      const q = EXAM_DATA[currentSimQuestionIndex];
-      
-      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-      document.getElementById('sim-word-count').innerText = `${words} คำ / ${text.length} ตัวอักษร`;
-
-      let score = 0;
-      const keywordsContainer = document.getElementById('sim-keywords-list');
-      keywordsContainer.innerHTML = '';
-
-      let missingKeywords = [];
-
-      q.keywords.forEach(kw => {
-        const found = kw.regex.test(text);
-        if (found) {
-          score += kw.points;
-        } else {
-          missingKeywords.push(kw.word);
-        }
-
-        const badge = document.createElement('span');
-        badge.className = `text-[11px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md font-medium flex items-center gap-1 ${
-          found 
-            ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
-            : 'bg-slate-200/70 text-slate-500 line-through opacity-70'
-        }`;
-        badge.innerHTML = `${found ? '✅' : '❌'} ${kw.word} <span class="text-[9px] sm:text-[10px] opacity-75">(+${kw.points})</span>`;
-        keywordsContainer.appendChild(badge);
-      });
-
-      const finalScore = Math.min(20, Math.round(score));
-      const scoreElem = document.getElementById('sim-score-estimate');
-      scoreElem.innerHTML = `ประเมิน: <span class="${finalScore >= 16 ? 'text-emerald-600' : finalScore >= 10 ? 'text-amber-600' : 'text-red-600'} font-prompt text-sm sm:text-base font-bold">${finalScore}/20 คะแนน</span>`;
-
-      const suggBox = document.getElementById('sim-suggestions');
-      if (text.trim().length === 0) {
-        suggBox.innerHTML = `💡 <em>เริ่มพิมพ์คำตอบเพื่อดูการตรวจจับคำสำคัญและคำแนะนำคะแนนเต็ม...</em>`;
-      } else if (missingKeywords.length === 0) {
-        suggBox.innerHTML = `🎉 <strong>ยอดเยี่ยมมาก!</strong> คุณตอบครอบคลุมคำสำคัญทั้งหมดของข้อนี้ มีโอกาสได้ 20 คะแนนเต็มสูงมาก!`;
-      } else {
-        suggBox.innerHTML = `⚠️ <strong>คำสำคัญที่ยังขาด:</strong> <span class="text-red-700">${missingKeywords.join(', ')}</span> (ลองเสริมประเด็นเหล่านี้เพื่อคะแนนเต็ม)`;
-      }
-    }
-
-    function toggleModelAnswer() {
-      const box = document.getElementById('model-answer-box');
-      box.classList.toggle('hidden');
-    }
-
-    function saveCurrentAnswer() {
-      const q = EXAM_DATA[currentSimQuestionIndex];
-      const text = document.getElementById('sim-answer-input').value;
-      userAnswers[q.id] = text;
-      renderSimPills();
-
-      confetti({
-        particleCount: 35,
-        spread: 45,
-        origin: { y: 0.7 }
-      });
-      alert(`บันทึกคำตอบข้อ ${q.id} เรียบร้อยแล้ว!`);
-    }
-
-    // Timer Logic
-    function toggleTimer() {
-      const btn = document.getElementById('btn-start-timer');
-      if (isTimerRunning) {
-        clearInterval(examTimerInterval);
-        isTimerRunning = false;
-        btn.innerHTML = '<span>▶️</span> ทำต่อ';
-        btn.classList.remove('bg-amber-600');
-        btn.classList.add('bg-emerald-600');
-      } else {
-        isTimerRunning = true;
-        btn.innerHTML = '<span>⏸️</span> พักเวลา';
-        btn.classList.remove('bg-emerald-600');
-        btn.classList.add('bg-amber-600');
-
-        examTimerInterval = setInterval(() => {
-          if (remainingSeconds > 0) {
-            remainingSeconds--;
-            updateTimerDisplay();
-          } else {
-            clearInterval(examTimerInterval);
-            isTimerRunning = false;
-            alert('⏰ หมดเวลาทำข้อสอบ 2 ชั่วโมงแล้ว!');
-          }
-        }, 1000);
-      }
-    }
-
-    function resetExamTimer() {
-      clearInterval(examTimerInterval);
-      isTimerRunning = false;
-      remainingSeconds = 120 * 60;
-      updateTimerDisplay();
-      const btn = document.getElementById('btn-start-timer');
-      btn.innerHTML = '<span>▶️</span> เริ่มจับเวลา';
-      btn.classList.remove('bg-amber-600');
-      btn.classList.add('bg-emerald-600');
-    }
-
-    function updateTimerDisplay() {
-      const hrs = Math.floor(remainingSeconds / 3600);
-      const mins = Math.floor((remainingSeconds % 3600) / 60);
-      const secs = remainingSeconds % 60;
-      document.getElementById('exam-timer').innerText = 
-        `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
   </script>
 </body>
