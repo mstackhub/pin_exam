@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affiliate System - 10 Layouts & 10 Thai/EN Fonts</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- jsPDF & AutoTable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <!-- Google Fonts: Thai + English Top Fonts including Noto Sans and IBM Plex Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&family=Chakra+Petch:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600;700&family=Krub:wght@300;400;500;600;700&family=Mitr:wght@300;400;500;600&family=Niramit:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Pridi:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Taviraj:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body { 
+      background: #f1f5f9;
+      color: #0f172a;
+      min-height: 100vh; 
+      letter-spacing: 0.02em;
+      transition: font-family 0.2s ease;
+    }
+    .card-shadow { 
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); 
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Font Classes */
+    .font-kanit { font-family: 'Kanit', sans-serif !important; }
+    .font-prompt { font-family: 'Prompt', sans-serif !important; }
+    .font-ibm { font-family: 'IBM Plex Sans Thai', sans-serif !important; }
+    .font-noto { font-family: 'Noto Sans Thai', 'Noto Sans', sans-serif !important; }
+    .font-sarabun { font-family: 'Sarabun', sans-serif !important; }
+    .font-mitr { font-family: 'Mitr', sans-serif !important; }
+    .font-chakra { font-family: 'Chakra Petch', sans-serif !important; }
+    .font-bai { font-family: 'Bai Jamjuree', sans-serif !important; }
+    .font-krub { font-family: 'Krub', sans-serif !important; }
+    .font-pridi { font-family: 'Pridi', serif !important; }
+    .font-niramit { font-family: 'Niramit', sans-serif !important; }
+    .font-taviraj { font-family: 'Taviraj', serif !important; }
+  </style>
+</head>
+<body id="appBody" class="font-ibm p-3 sm:p-6 md:p-8 relative">
+
+  <!-- Falling Snow Background Canvas -->
+  <canvas id="snowCanvas" class="fixed inset-0 pointer-events-none z-0 w-full h-full"></canvas>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3">
+    <span id="toastIcon">✨</span>
+    <span id="toastMsg" class="text-sm font-medium">ข้อความแจ้งเตือน</span>
+  </div>
+
+  <div class="max-w-6xl mx-auto relative z-10 space-y-6">
+
+    <!-- 🎛️ Master Control Toolbar: Layouts + 12 Thai/EN Fonts (Hidden by default, toggleable) -->
+    <div id="devControlToolbar" class="hidden bg-white p-5 rounded-3xl card-shadow border border-slate-200/80 space-y-4">
+      
+      <!-- Section A: Font Selectors -->
+      <div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🔤</span>
+            <span class="font-bold text-sm text-slate-900">เลือกฟอนต์ (Thai / EN Top Fonts):</span>
+          </div>
+          <span id="currentFontBadge" class="text-xs px-3 py-1 rounded-full font-bold bg-indigo-50 text-indigo-600 border border-indigo-100">
+            Font: IBM Plex Sans Thai (ไอบีเอ็ม) - โมเดิร์น คมชัด สไตล์ Tech
+          </span>
+        </div>
+
+        <div class="flex gap-2 overflow-x-auto pb-1.5 custom-scrollbar">
+          <button onclick="setFont('kanit')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-kanit" data-font="kanit">
+            1. Kanit (คณิต)
+          </button>
+          <button onclick="setFont('prompt')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-prompt" data-font="prompt">
+            2. Prompt (พร้อม)
+          </button>
+          <button onclick="setFont('ibm')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-indigo-600 text-white border-indigo-600 font-ibm" data-font="ibm">
+            3. IBM Plex Sans (ไอบีเอ็ม)
+          </button>
+          <button onclick="setFont('noto')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-noto" data-font="noto">
+            4. Noto Sans (โนโตะ สากล)
+          </button>
+          <button onclick="setFont('sarabun')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-sarabun" data-font="sarabun">
+            5. Sarabun (สารบรรณ)
+          </button>
+          <button onclick="setFont('mitr')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-mitr" data-font="mitr">
+            6. Mitr (มิตร)
+          </button>
+          <button onclick="setFont('chakra')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-chakra" data-font="chakra">
+            7. Chakra Petch (จักรเพชร)
+          </button>
+          <button onclick="setFont('bai')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-bai" data-font="bai">
+            8. Bai Jamjuree (จามจุรี)
+          </button>
+          <button onclick="setFont('krub')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-krub" data-font="krub">
+            9. Krub (ครับ)
+          </button>
+          <button onclick="setFont('pridi')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-pridi" data-font="pridi">
+            10. Pridi (ปรีดี Serif)
+          </button>
+          <button onclick="setFont('niramit')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-niramit" data-font="niramit">
+            11. Niramit (นิรมิต)
+          </button>
+          <button onclick="setFont('taviraj')" class="font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-taviraj" data-font="taviraj">
+            12. Taviraj (ทวิราช Luxury)
+          </button>
+        </div>
+      </div>
+
+      <div class="w-full h-px bg-slate-100"></div>
+
+      <!-- Section B: 10 Layout Selectors -->
+      <div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">📐</span>
+            <span class="font-bold text-sm text-slate-900">เลือกโครงสร้างเลย์เอาต์ (10 Layouts):</span>
+          </div>
+          <span id="currentLayoutBadge" class="text-xs px-3 py-1 rounded-full font-bold bg-blue-50 text-blue-600 border border-blue-100">
+            Layout 4: Bento Grid (บล็อกอสมมาตรสไตล์ Apple)
+          </span>
+        </div>
+
+        <div class="flex gap-2 overflow-x-auto pb-1.5 custom-scrollbar">
+          <button onclick="setLayout(1)" class="layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-layout="1">
+            1. Stacked Classic
+          </button>
+          <button onclick="setLayout(2)" class="layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-layout="2">
+            2. Split 2-Column
+          </button>
+          <button onclick="setLayout(3)" class="layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-layout="3">
+            3. Sidebar Portal
+          </button>
+          <button onclick="setLayout(4)" class="layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/20" data-layout="4">
+            4. Bento Grid (Apple)
+          </button>
+          <button onclick="setLayout(5)" class="layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-layout="5">
+            5. Horizontal KPI Ribbon
+          </button>
+          <button onclick="setLayout(6)" class="layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-layout="6">
+            6. Tabbed Modular (Tabs)
+          </button>
+          <button onclick="setLayout(7)" class="layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-layout="7">
+            7. Card Matrix (Grid)
+          </button>
+          <button onclick="setLayout(8)" class="layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-layout="8">
+            8. Timeline Feed (Social)
+          </button>
+          <button onclick="setLayout(9)" class="layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-layout="9">
+            9. Accordion List
+          </button>
+          <button onclick="setLayout(10)" class="layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-layout="10">
+            10. Hero Spotlight
+          </button>
+        </div>
+      </div>
+
+      <div class="w-full h-px bg-slate-100"></div>
+
+      <!-- Section C: 5 Badge Designs for Live / Video -->
+      <div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🏷️</span>
+            <span class="font-bold text-sm text-slate-900">เลือกดีไซน์ป้ายไลฟ์ / คลิป (Badge Designs):</span>
+          </div>
+          <span id="currentBadgeName" class="text-xs px-3 py-1 rounded-full font-bold bg-rose-50 text-rose-600 border border-rose-100">
+            Style 5: Mini Stat Cards (การ์ดมินิมอลโมเดิร์น)
+          </span>
+        </div>
+
+        <div class="flex gap-2 overflow-x-auto pb-1.5 custom-scrollbar">
+          <button onclick="setBadgeStyle(1)" class="badge-btn flex-shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-badge="1">
+            1. SaaS Micro-Pill (แนะนำ)
+          </button>
+          <button onclick="setBadgeStyle(2)" class="badge-btn flex-shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-badge="2">
+            2. Dual Capsule (แคปซูลคู่ขีดคั่น)
+          </button>
+          <button onclick="setBadgeStyle(3)" class="badge-btn flex-shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-badge="3">
+            3. Clean Typography (ตัวเลขคลีน)
+          </button>
+          <button onclick="setBadgeStyle(4)" class="badge-btn flex-shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100" data-badge="4">
+            4. Glass Neon Glow (นีออนเทค)
+          </button>
+          <button onclick="setBadgeStyle(5)" class="badge-btn flex-shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-rose-600 text-white border-rose-600 shadow-md shadow-rose-500/20" data-badge="5">
+            5. Mini Stat Cards (การ์ดมินิมอล)
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Search Box Header (Global) -->
+    <div id="globalSearchCard" class="bg-white p-6 sm:p-7 rounded-3xl card-shadow border border-white">
+      <div class="flex flex-wrap justify-between items-center gap-4 mb-5">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold mb-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            Tuesday House Affiliate System
+          </div>
+          <h1 class="text-2xl font-bold tracking-normal text-slate-900">ระบบเช็กข้อมูล Affiliate</h1>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span id="syncStatus" class="text-xs text-slate-400 font-medium hidden sm:inline-block">พร้อมใช้งาน</span>
+          <button onclick="refreshData()" title="ดึงข้อมูลล่าสุดจาก Google Sheets" class="flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 px-3.5 py-2 rounded-xl text-xs font-semibold transition active:scale-95">
+            <span id="refreshIcon" class="inline-block">🔄</span>
+            <span>รีเฟรชข้อมูล</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Input -->
+      <div class="relative">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="relative flex-1">
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="กรอกชื่อช่องเพื่อค้นหา..." 
+              autocomplete="off"
+              oninput="handleSearchInput(this.value)"
+              onkeydown="if(event.key === 'Enter') handleSearch()"
+              class="w-full pl-12 pr-10 py-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all text-base font-medium placeholder-slate-400"
+            >
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl pointer-events-none">🔍</div>
+            <button id="clearBtn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center rounded-full bg-slate-200 text-slate-600 hover:bg-slate-300 text-xs font-bold transition">✕</button>
+          </div>
+
+          <button onclick="handleSearch()" class="bg-blue-600 text-white px-8 py-3.5 rounded-2xl hover:bg-blue-700 font-semibold shadow-lg shadow-blue-500/25 active:scale-95 transition-all flex items-center justify-center gap-2">
+            <span>ค้นหาข้อมูล</span>
+            <span>➔</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="bg-white rounded-3xl p-12 sm:p-20 text-center card-shadow border border-white">
+      <div class="w-16 h-16 mx-auto mb-4 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center text-3xl">📊</div>
+      <h3 class="text-lg font-bold text-slate-800 mb-1">ยังไม่มีการค้นหาข้อมูล</h3>
+      <p class="text-slate-500 max-w-md mx-auto text-xs sm:text-sm">กรอกชื่อช่อง Affiliate ของคุณด้านบนเพื่อแสดงข้อมูลตามฟอนต์และเลย์เอาต์ที่เลือก</p>
+    </div>
+
+    <!-- Dynamic Layout Container -->
+    <div id="dynamicLayoutContainer" class="hidden">
+      <!-- Layout HTML injected dynamically -->
+    </div>
+
+  </div>
+
+  <script>
+    // Configuration & State
+    const SHEET_ID = '1OA7MsqW3aDCqEvgRdpwK836YE66vVQDEfUB9gJPTWLM';
+    const SHEET_TAB_NAME = 'affi';
+    
+    let allData = [];
+    let displayData = [];
+    let channelDataYearly = [];
+    let latestEntry = null;
+    let currentPage = 1;
+    let itemsPerPage = 12;
+    let selectedMonth = "";
+    let selectedYear = "2026";
+    let currentLayout = 4; // Bento Grid (Apple)
+    let currentFont = 'ibm'; // IBM Plex Sans Thai
+    let currentBadgeStyle = 5; // Mini Stat Cards
+    let activeTab = 'overview';
+
+    const fontDescriptions = {
+      'kanit': 'Font: Kanit (คณิต) - ทันสมัย มาตรฐาน',
+      'prompt': 'Font: Prompt (พร้อม) - ชัดเจน คมกริบ ทางการ',
+      'ibm': 'Font: IBM Plex Sans Thai (ไอบีเอ็ม) - โมเดิร์น คมชัด สไตล์ Tech',
+      'noto': 'Font: Noto Sans Thai (โนโตะ) - ฟอนต์สากล Google สบายตา',
+      'sarabun': 'Font: Sarabun (สารบรรณ) - สบายตา เรียบง่าย',
+      'mitr': 'Font: Mitr (มิตร) - มินิมอล โค้งมน เป็นมิตร',
+      'chakra': 'Font: Chakra Petch (จักรเพชร) - ล้ำยุค สไตล์ Tech/Gaming',
+      'bai': 'Font: Bai Jamjuree (จามจุรี) - เหลี่ยมโมเดิร์น มีเอกลักษณ์',
+      'krub': 'Font: Krub (ครับ) - คลีน เรขาคณิต สไตล์สากล',
+      'pridi': 'Font: Pridi (ปรีดี Serif) - หัวมีเชิง หรูหรา คลาสสิก',
+      'niramit': 'Font: Niramit (นิรมิต) - สุภาพ สง่างาม นุ่มนวล',
+      'taviraj': 'Font: Taviraj (ทวิราช Luxury) - สไตล์แมกกาซีนพรีเมียม'
+    };
+
+    const layoutDescriptions = {
+      1: 'Layout 1: Stacked Classic (แถวยาวมาตรฐาน)',
+      2: 'Layout 2: Split 2-Column (ซ้ายโปรไฟล์ ขวาตาราง)',
+      3: 'Layout 3: Sidebar Portal (เมนูด้านข้างสไตล์ SaaS)',
+      4: 'Layout 4: Bento Grid (บล็อกอสมมาตรสไตล์ Apple)',
+      5: 'Layout 5: Horizontal KPI Ribbon (แถบสรุปตัวเลขแนวนอน)',
+      6: 'Layout 6: Tabbed Modular (แยกแท็บย่อย Overview/Live/VDO)',
+      7: 'Layout 7: Card Matrix Feed (การ์ดสรุปรายเดือนเรียง 3 คอลัมน์)',
+      8: 'Layout 8: Timeline Feed (ไทม์ไลน์เรื่องราวโซเชียล)',
+      9: 'Layout 9: Accordion List (ลิสต์ประวัติพับ-กางได้)',
+      10: 'Layout 10: Hero Spotlight (เน้นตัวเลขยักษ์ตรงกลาง)'
+    };
+
+    const badgeDescriptions = {
+      1: 'Style 1: Modern SaaS Micro-Pill (จุดพัลส์สด + SVG)',
+      2: 'Style 2: Dual Capsule (แคปซูลคู่ขีดคั่น)',
+      3: 'Style 3: Clean Typography (ตัวเลขคลีน สบายตา)',
+      4: 'Style 4: Glass Neon Glow (นีออนเทคเรืองแสง)',
+      5: 'Style 5: Mini Stat Cards (การ์ดมินิมอลโมเดิร์น)'
+    };
+
+    // Toggle Dev Control Toolbar (Ctrl/Cmd + Shift + D)
+    function toggleDevToolbar() {
+      const tb = document.getElementById('devControlToolbar');
+      if (tb) {
+        tb.classList.toggle('hidden');
+        showToast(tb.classList.contains('hidden') ? '🔒 ซ่อนแถบควบคุมการตั้งค่าแล้ว' : '🔓 เปิดแถบเลือกฟอนต์ / เลย์เอาต์ / ป้ายสถานะ');
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'd' || e.key === 'D')) {
+        e.preventDefault();
+        toggleDevToolbar();
+      }
+    });
+
+    function setBadgeStyle(styleId) {
+      currentBadgeStyle = styleId;
+      document.querySelectorAll('.badge-btn').forEach(btn => {
+        const b = parseInt(btn.getAttribute('data-badge'));
+        if (b === styleId) {
+          btn.className = "badge-btn flex-shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-rose-600 text-white border-rose-600 shadow-md shadow-rose-500/20";
+        } else {
+          btn.className = "badge-btn flex-shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100";
+        }
+      });
+
+      document.getElementById('currentBadgeName').innerText = badgeDescriptions[styleId];
+      showToast(`🏷️ สลับดีไซน์ป้าย: ${badgeDescriptions[styleId]}`);
+
+      if (channelDataYearly.length > 0) {
+        renderCurrentLayout();
+      }
+    }
+
+    function renderLiveVideoBadges(liveCount, videoCount) {
+      const l = parseInt(String(liveCount).replace(/[^0-9]/g, '')) || 0;
+      const v = parseInt(String(videoCount).replace(/[^0-9]/g, '')) || 0;
+
+      if (currentBadgeStyle === 1) {
+        // Style 1: Modern SaaS Micro-Pill (Pulsing radar dot + SVG video)
+        return `
+          <div class="inline-flex items-center gap-1.5 flex-wrap">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${l > 0 ? 'bg-rose-50 text-rose-700 border border-rose-200/80 shadow-xs' : 'bg-slate-50 text-slate-400 border border-slate-200/60'}">
+              ${l > 0 ? `
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                </span>
+              ` : `
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+              `}
+              <span>${liveCount} <span class="font-normal opacity-75 text-[11px]">ไลฟ์</span></span>
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${v > 0 ? 'bg-indigo-50 text-indigo-700 border border-indigo-200/80 shadow-xs' : 'bg-slate-50 text-slate-400 border border-slate-200/60'}">
+              ${v > 0 ? `
+                <svg class="w-3 h-3 text-indigo-500" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              ` : `
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+              `}
+              <span>${videoCount} <span class="font-normal opacity-75 text-[11px]">คลิป</span></span>
+            </span>
+          </div>
+        `;
+      } else if (currentBadgeStyle === 2) {
+        // Style 2: Dual Capsule (Unified compact pill with divider)
+        return `
+          <div class="inline-flex items-center bg-slate-100/90 border border-slate-200/90 rounded-xl px-2.5 py-1 text-xs font-medium gap-2 shadow-xs">
+            <div class="flex items-center gap-1.5 ${l > 0 ? 'text-rose-600 font-bold' : 'text-slate-400'}">
+              <span class="w-2 h-2 rounded-full ${l > 0 ? 'bg-rose-500' : 'bg-slate-300'}"></span>
+              <span>${liveCount}</span>
+              <span class="text-[10px] text-slate-400 font-normal">Live</span>
+            </div>
+            <div class="w-px h-3 bg-slate-300"></div>
+            <div class="flex items-center gap-1.5 ${v > 0 ? 'text-indigo-600 font-bold' : 'text-slate-400'}">
+              <svg class="w-2.5 h-2.5 ${v > 0 ? 'text-indigo-500' : 'text-slate-300'}" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span>${videoCount}</span>
+              <span class="text-[10px] text-slate-400 font-normal">Clip</span>
+            </div>
+          </div>
+        `;
+      } else if (currentBadgeStyle === 3) {
+        // Style 3: Clean Typography (No heavy box, clean spacing)
+        return `
+          <div class="inline-flex items-center gap-2 text-xs">
+            <span class="${l > 0 ? 'text-slate-800 font-bold' : 'text-slate-400'}">
+              <span class="text-rose-500 font-bold">●</span> ${liveCount} <span class="text-[11px] font-normal text-slate-400">ไลฟ์</span>
+            </span>
+            <span class="text-slate-300">/</span>
+            <span class="${v > 0 ? 'text-slate-800 font-bold' : 'text-slate-400'}">
+              <span class="text-indigo-500 font-bold">▶</span> ${videoCount} <span class="text-[11px] font-normal text-slate-400">คลิป</span>
+            </span>
+          </div>
+        `;
+      } else if (currentBadgeStyle === 4) {
+        // Style 4: Glass Neon Glow (Cyber tech aesthetic)
+        return `
+          <div class="inline-flex items-center gap-1.5 flex-wrap">
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-xs font-bold border ${l > 0 ? 'bg-rose-500/10 text-rose-600 border-rose-500/30 ring-1 ring-rose-500/10' : 'bg-slate-50 text-slate-400 border-slate-200'}">
+              <span class="w-1.5 h-1.5 rounded-full ${l > 0 ? 'bg-rose-500 animate-ping' : 'bg-slate-300'}"></span>
+              <span>${liveCount}</span>
+              <span class="text-[10px] font-medium opacity-80">LIVE</span>
+            </span>
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-xs font-bold border ${v > 0 ? 'bg-sky-500/10 text-sky-600 border-sky-500/30 ring-1 ring-sky-500/10' : 'bg-slate-50 text-slate-400 border-slate-200'}">
+              <svg class="w-2.5 h-2.5 ${v > 0 ? 'text-sky-500' : 'text-slate-400'}" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span>${videoCount}</span>
+              <span class="text-[10px] font-medium opacity-80">VDO</span>
+            </span>
+          </div>
+        `;
+      } else if (currentBadgeStyle === 5) {
+        // Style 5: Mini Stat Cards (Compact micro card blocks)
+        return `
+          <div class="inline-flex items-center gap-1.5">
+            <div class="px-2.5 py-0.5 rounded-md bg-white border ${l > 0 ? 'border-rose-200 shadow-xs' : 'border-slate-100'} text-center">
+              <span class="text-[9px] uppercase tracking-wider ${l > 0 ? 'text-rose-500' : 'text-slate-400'} block font-bold leading-tight">Live</span>
+              <span class="text-xs font-bold ${l > 0 ? 'text-rose-700' : 'text-slate-400'} leading-none">${liveCount}</span>
+            </div>
+            <div class="px-2.5 py-0.5 rounded-md bg-white border ${v > 0 ? 'border-indigo-200 shadow-xs' : 'border-slate-100'} text-center">
+              <span class="text-[9px] uppercase tracking-wider ${v > 0 ? 'text-indigo-500' : 'text-slate-400'} block font-bold leading-tight">Clip</span>
+              <span class="text-xs font-bold ${v > 0 ? 'text-indigo-700' : 'text-slate-400'} leading-none">${videoCount}</span>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // Switch Font Function
+    function setFont(fontKey) {
+      currentFont = fontKey;
+      const body = document.getElementById('appBody');
+      body.className = `font-${fontKey} p-3 sm:p-6 md:p-8 relative`;
+
+      document.querySelectorAll('.font-btn').forEach(btn => {
+        const f = btn.getAttribute('data-font');
+        if (f === fontKey) {
+          btn.className = `font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-indigo-600 text-white border-indigo-600 font-${f}`;
+        } else {
+          btn.className = `font-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 font-${f}`;
+        }
+      });
+
+      document.getElementById('currentFontBadge').innerText = fontDescriptions[fontKey];
+      showToast(`🔤 สลับฟอนต์: ${fontDescriptions[fontKey]}`);
+    }
+
+    // Switch Layout Function
+    function setLayout(num) {
+      currentLayout = num;
+      document.querySelectorAll('.layout-btn').forEach(btn => {
+        const l = parseInt(btn.getAttribute('data-layout'));
+        if (l === num) {
+          btn.className = "layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/20";
+        } else {
+          btn.className = "layout-btn flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold border transition active:scale-95 bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100";
+        }
+      });
+
+      document.getElementById('currentLayoutBadge').innerText = layoutDescriptions[num];
+      showToast(`📐 สลับเลย์เอาต์: ${layoutDescriptions[num]}`);
+      
+      if (channelDataYearly.length > 0) {
+        renderCurrentLayout();
+      }
+    }
+
+    // Fallback Mockup Data
+    const mockFallbackData = [
+      { channel: 'nubtang_2564', group: 'Gold', activity: 'Oct Incentive', liveSales: '61,149', vdoSales: '3,608', totalGmv: '64,756', liveCount: '6', videoCount: '0', updatedAt: '4/10/2026' },
+      { channel: 'nubtang_2564', group: 'Gold', activity: 'Sep Incentive', liveSales: '107,799', vdoSales: '23,792', totalGmv: '131,590', liveCount: '49', videoCount: '3', updatedAt: '30/9/2026' },
+      { channel: 'nubtang_2564', group: 'Gold', activity: 'Aug Incentive', liveSales: '197,638', vdoSales: '13,689', totalGmv: '211,327', liveCount: '0', videoCount: '0', updatedAt: '31/8/2026' },
+      { channel: 'nubtang_2564', group: 'Gold', activity: 'Jul Incentive', liveSales: '206,710', vdoSales: '6,072', totalGmv: '212,782', liveCount: '70', videoCount: '10', updatedAt: '31/7/2026' },
+      { channel: 'nubtang_2564', group: 'Gold', activity: 'Jun Incentive', liveSales: '53,336', vdoSales: '19,070', totalGmv: '72,406', liveCount: '89', videoCount: '4', updatedAt: '30/6/2026' },
+      { channel: 'nubtang_2564', group: 'Gold', activity: 'May Incentive', liveSales: '48,284', vdoSales: '9,867', totalGmv: '58,150', liveCount: '0', videoCount: '0', updatedAt: '31/5/2026' },
+      { channel: 'nubtang_2564', group: 'Gold', activity: 'Apr Incentive', liveSales: '47,063', vdoSales: '25,043', totalGmv: '72,106', liveCount: '60', videoCount: '3', updatedAt: '30/4/2026' },
+      { channel: 'nubtang_2564', group: 'Gold', activity: 'Mar Incentive', liveSales: '260,888', vdoSales: '18,881.61', totalGmv: '279,770', liveCount: '113', videoCount: '14', updatedAt: '31/3/2026' },
+      { channel: 'nubtang_2564', group: 'Gold', activity: 'Feb Incentive', liveSales: '162,387', vdoSales: '12,034', totalGmv: '174,421', liveCount: '82', videoCount: '10', updatedAt: '28/2/2026' },
+      { channel: 'ceonui999', group: 'Platinum', activity: 'Sep Incentive', liveSales: '1,998,110', vdoSales: '77,969', totalGmv: '2,076,079', liveCount: '28', videoCount: '30', updatedAt: '30/9/2026' },
+      { channel: 'windy.deedee', group: 'Platinum', activity: 'Sep Incentive', liveSales: '3,067,147', vdoSales: '48,780', totalGmv: '3,115,927', liveCount: '54', videoCount: '45', updatedAt: '30/9/2026' },
+      { channel: 'wisuda_keke', group: 'Platinum', activity: 'Sep Incentive', liveSales: '2,080,352', vdoSales: '6,411', totalGmv: '2,086,764', liveCount: '56', videoCount: '11', updatedAt: '30/9/2026' }
+    ];
+
+    window.onload = async () => {
+      await fetchSheetData();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const chParam = urlParams.get('ch');
+      if (chParam) {
+        document.getElementById('searchInput').value = chParam;
+        handleSearch();
+      }
+    };
+
+    // Smart Data Fetcher
+    async function fetchSheetData() {
+      const statusEl = document.getElementById('syncStatus');
+      const icon = document.getElementById('refreshIcon');
+      icon.classList.add('animate-spin');
+      if (statusEl) statusEl.innerText = "กำลังดึงข้อมูล...";
+
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(data => {
+          allData = data || [];
+          onDataFetchSuccess();
+        }).getData();
+        return;
+      }
+
+      try {
+        const gvizUrl = `https://docs.google.com/spreadsheets/d/1OA7MsqW3aDCqEvgRdpwK836YE66vVQDEfUB9gJPTWLM/gviz/tq?tqx=out:json&sheet=${SHEET_TAB_NAME}`;
+        const response = await fetch(gvizUrl);
+        const text = await response.text();
+        
+        const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+        const json = JSON.parse(jsonString);
+        
+        const rows = json.table.rows;
+        allData = rows.map(r => {
+          const c = r.c || [];
+          return {
+            channel: c[0] ? String(c[0].v || c[0].f || '').trim() : '',
+            group: c[1] ? String(c[1].v || c[1].f || '').trim() : '',
+            activity: c[2] ? String(c[2].v || c[2].f || '').trim() : '',
+            liveSales: c[3] ? (c[3].f || String(c[3].v || '0')) : '0',
+            vdoSales: c[4] ? (c[4].f || String(c[4].v || '0')) : '0',
+            totalGmv: c[5] ? (c[5].f || String(c[5].v || '0')) : '0',
+            liveCount: c[6] ? String(c[6].v || '0') : '0',
+            videoCount: c[7] ? String(c[7].v || '0') : '0',
+            updatedAt: c[8] ? (c[8].f || String(c[8].v || '')) : ''
+          };
+        }).filter(item => item.channel && item.channel !== 'ชื่อช่อง');
+
+        onDataFetchSuccess();
+      } catch (err) {
+        console.warn('Could not fetch directly from Google Sheet, using mock data fallback:', err);
+        allData = mockFallbackData;
+        onDataFetchSuccess();
+      }
+    }
+
+    function onDataFetchSuccess() {
+      const statusEl = document.getElementById('syncStatus');
+      const icon = document.getElementById('refreshIcon');
+      icon.classList.remove('animate-spin');
+      if (statusEl) statusEl.innerText = `ซิงค์แล้ว (${allData.length} แถว)`;
+
+      if (channelDataYearly.length > 0) {
+        applyFilters();
+      }
+    }
+
+    function refreshData() {
+      fetchSheetData();
+      showToast("🔄 กำลังอัปเดตข้อมูลล่าสุด...");
+    }
+
+    // Handle search input change (toggle clear button)
+    function handleSearchInput(val) {
+      const clearBtn = document.getElementById('clearBtn');
+      if (val.trim().length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('clearBtn').classList.add('hidden');
+      document.getElementById('searchInput').focus();
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      if (!query) return;
+
+      const found = allData.filter(item => item.channel.toLowerCase() === query);
+
+      if (found.length > 0) {
+        document.getElementById('emptyState').classList.add('hidden');
+        document.getElementById('dynamicLayoutContainer').classList.remove('hidden');
+        
+        const newUrl = `${window.location.pathname}?ch=${encodeURIComponent(query)}`;
+        window.history.replaceState({ path: newUrl }, '', newUrl);
+
+        applyFilters();
+      } else {
+        alert(`ไม่พบข้อมูลของชื่อช่อง "${query}"\nกรุณาตรวจสอบการสะกดชื่อ หรือติดต่อ Support Tuesday House`);
+      }
+    }
+
+    function parseDate(dateStr) {
+      if (!dateStr) return new Date(0);
+      const parts = dateStr.split('/');
+      if (parts.length === 3) {
+        return new Date(`${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`);
+      }
+      return new Date(dateStr);
+    }
+
+    function applyFilters() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      
+      channelDataYearly = allData.filter(item => {
+        return item.channel.toLowerCase() === query && item.updatedAt.includes(selectedYear);
+      });
+
+      displayData = channelDataYearly.filter(item => {
+        if (!selectedMonth || selectedMonth === "") return true;
+        const parts = item.updatedAt.split('/');
+        if (parts.length === 3) {
+          return parseInt(parts[1], 10) === parseInt(selectedMonth, 10);
+        }
+        return item.updatedAt.includes(`/${selectedMonth}/`);
+      });
+
+      if (channelDataYearly.length > 0) {
+        const sorted = [...channelDataYearly].sort((a, b) => parseDate(b.updatedAt) - parseDate(a.updatedAt));
+        latestEntry = sorted[0];
+      }
+
+      renderCurrentLayout();
+    }
+
+    function getTotals() {
+      let totalGmv = 0, totalLiveSales = 0, totalVdoSales = 0, totalLiveCount = 0, totalVideoCount = 0;
+
+      displayData.forEach(item => {
+        totalGmv += parseFloat(String(item.totalGmv).replace(/,/g, '')) || 0;
+        totalLiveSales += parseFloat(String(item.liveSales).replace(/,/g, '')) || 0;
+        totalVdoSales += parseFloat(String(item.vdoSales).replace(/,/g, '')) || 0;
+        totalLiveCount += parseInt(String(item.liveCount).replace(/[^0-9]/g, '')) || 0;
+        totalVideoCount += parseInt(String(item.videoCount).replace(/[^0-9]/g, '')) || 0;
+      });
+
+      const avgGmv = displayData.length > 0 ? (totalGmv / displayData.length) : 0;
+      const gmvPerLive = totalLiveCount > 0 ? (totalLiveSales / totalLiveCount) : 0;
+      const gmvPerVdo = totalVideoCount > 0 ? (totalVdoSales / totalVideoCount) : 0;
+
+      return {
+        totalGmv: totalGmv.toLocaleString('en-US', { maximumFractionDigits: 2 }),
+        liveSales: totalLiveSales.toLocaleString('en-US', { maximumFractionDigits: 2 }),
+        vdoSales: totalVdoSales.toLocaleString('en-US', { maximumFractionDigits: 2 }),
+        liveCount: totalLiveCount.toLocaleString(),
+        videoCount: totalVideoCount.toLocaleString(),
+        avgGmv: `฿${avgGmv.toLocaleString('en-US', { maximumFractionDigits: 0 })}`,
+        gmvPerLive: `฿${gmvPerLive.toLocaleString('en-US', { maximumFractionDigits: 0 })}`,
+        gmvPerVdo: `฿${gmvPerVdo.toLocaleString('en-US', { maximumFractionDigits: 0 })}`,
+        count: displayData.length
+      };
+    }
+
+    const monthNamesMap = {
+      "": "ทุกเดือน",
+      "1": "มกราคม",
+      "2": "กุมภาพันธ์",
+      "3": "มีนาคม",
+      "4": "เมษายน",
+      "5": "พฤษภาคม",
+      "6": "มิถุนายน",
+      "7": "กรกฎาคม",
+      "8": "สิงหาคม",
+      "9": "กันยายน",
+      "10": "ตุลาคม",
+      "11": "พฤศจิกายน",
+      "12": "ธันวาคม"
+    };
+
+    function selectCustomMonth(val) {
+      selectedMonth = val;
+      closeAllDropdowns();
+      applyFilters();
+    }
+
+    function selectCustomYear(val) {
+      selectedYear = val;
+      closeAllDropdowns();
+      applyFilters();
+    }
+
+    function toggleDropdown(id, event) {
+      if (event) event.stopPropagation();
+      const dropdown = document.getElementById(id);
+      const isHidden = dropdown ? dropdown.classList.contains('hidden') : true;
+      closeAllDropdowns();
+      if (dropdown && isHidden) {
+        dropdown.classList.remove('hidden');
+      }
+    }
+
+    function closeAllDropdowns() {
+      document.querySelectorAll('.custom-dropdown-menu').forEach(el => el.classList.add('hidden'));
+    }
+
+    document.addEventListener('click', () => {
+      closeAllDropdowns();
+    });
+
+    function getFilterBarHTML() {
+      const monthLabel = monthNamesMap[selectedMonth] || "ทุกเดือน";
+      const yearLabel = selectedYear;
+
+      return `
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 rounded-2xl card-shadow border border-slate-100 relative z-30">
+          <div class="flex flex-wrap items-center gap-2">
+            
+            <!-- Custom Month Select Dropdown -->
+            <div class="relative">
+              <button 
+                onclick="toggleDropdown('monthDropdownMenu', event)" 
+                type="button"
+                class="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 text-slate-800 px-3.5 py-2 rounded-xl text-xs font-bold transition active:scale-95 border border-slate-200/70 shadow-xs"
+              >
+                <span class="text-slate-400 font-medium">📅</span>
+                <span class="text-slate-500 font-normal">เดือน:</span>
+                <span class="text-slate-900 font-bold">${monthLabel}</span>
+                <svg class="w-3.5 h-3.5 text-slate-400 ml-0.5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+
+              <div id="monthDropdownMenu" class="custom-dropdown-menu hidden absolute left-0 top-full mt-1.5 w-52 bg-white rounded-2xl shadow-2xl border border-slate-100 py-1.5 z-50 max-h-64 overflow-y-auto custom-scrollbar">
+                ${Object.entries(monthNamesMap).map(([val, label]) => `
+                  <button 
+                    onclick="selectCustomMonth('${val}')" 
+                    class="w-full text-left px-3.5 py-2 text-xs font-semibold flex items-center justify-between transition ${selectedMonth === val ? 'bg-blue-50 text-blue-600 font-bold' : 'text-slate-700 hover:bg-slate-50'}"
+                  >
+                    <span>${label}</span>
+                    ${selectedMonth === val ? '<span class="text-blue-600 font-bold">✓</span>' : ''}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Custom Year Select Dropdown -->
+            <div class="relative">
+              <button 
+                onclick="toggleDropdown('yearDropdownMenu', event)" 
+                type="button"
+                class="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 text-slate-800 px-3.5 py-2 rounded-xl text-xs font-bold transition active:scale-95 border border-slate-200/70 shadow-xs"
+              >
+                <span class="text-slate-500 font-normal">ปี:</span>
+                <span class="text-slate-900 font-bold">${yearLabel}</span>
+                <svg class="w-3.5 h-3.5 text-slate-400 ml-0.5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+
+              <div id="yearDropdownMenu" class="custom-dropdown-menu hidden absolute left-0 top-full mt-1.5 w-28 bg-white rounded-2xl shadow-2xl border border-slate-100 py-1.5 z-50">
+                ${['2026', '2027', '2025'].map(yr => `
+                  <button 
+                    onclick="selectCustomYear('${yr}')" 
+                    class="w-full text-left px-3.5 py-2 text-xs font-semibold flex items-center justify-between transition ${selectedYear === yr ? 'bg-blue-50 text-blue-600 font-bold' : 'text-slate-700 hover:bg-slate-50'}"
+                  >
+                    <span>${yr}</span>
+                    ${selectedYear === yr ? '<span class="text-blue-600 font-bold">✓</span>' : ''}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+          </div>
+
+          <button onclick="exportToPDF()" class="bg-rose-500 hover:bg-rose-600 text-white px-3.5 py-2 rounded-xl text-xs font-semibold transition active:scale-95 flex items-center gap-1.5 shadow-sm">
+            📄 <span>ดาวน์โหลด PDF</span>
+          </button>
+        </div>
+      `;
+    }
+
+    function getTableHTML() {
+      const start = (currentPage - 1) * itemsPerPage;
+      const paginated = displayData.slice(start, start + itemsPerPage);
+
+      return `
+        <div class="bg-white rounded-3xl card-shadow overflow-hidden border border-slate-100">
+          <div class="p-5 border-b border-slate-100 flex justify-between items-center">
+            <h3 class="font-bold text-slate-900 text-base">ประวัติข้อมูลรายเดือน</h3>
+            <span class="text-xs bg-blue-50 text-blue-600 font-bold px-3 py-1 rounded-full">${displayData.length} รายการ</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left hidden md:table text-sm">
+              <thead>
+                <tr class="bg-slate-50/80 text-slate-400 text-xs uppercase font-semibold border-b border-slate-100">
+                  <th class="p-4 pl-6">ชื่อช่อง</th>
+                  <th class="p-4">Live / VDO Sales</th>
+                  <th class="p-4">ยอดรวมสุทธิ</th>
+                  <th class="p-4">ไลฟ์ / คลิป</th>
+                  <th class="p-4 pr-6">วันที่อัปเดต</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-50">
+                ${paginated.map(r => `
+                  <tr class="hover:bg-blue-50/30 transition-colors">
+                    <td class="p-4 pl-6 font-semibold text-slate-800">@${r.channel}</td>
+                    <td class="p-4 text-slate-600 font-medium">
+                      <span class="text-blue-600 font-semibold">฿${r.liveSales}</span> <span class="text-slate-300">/</span> <span class="text-indigo-600 font-semibold">฿${r.vdoSales}</span>
+                    </td>
+                    <td class="p-4 font-bold text-slate-900">฿${r.totalGmv}</td>
+                    <td class="p-4">
+                      ${renderLiveVideoBadges(r.liveCount, r.videoCount)}
+                    </td>
+                    <td class="p-4 pr-6 text-xs text-slate-400 font-medium">${r.updatedAt}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+            <div class="md:hidden divide-y divide-slate-100">
+              ${paginated.map(r => `
+                <div class="p-4 space-y-2.5">
+                  <div class="flex justify-between items-center text-sm font-bold text-slate-800">
+                    <span>@${r.channel}</span>
+                    <span class="text-xs font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">${r.updatedAt}</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-blue-600 font-bold text-lg">฿${r.totalGmv}</span>
+                    <div>
+                      ${renderLiveVideoBadges(r.liveCount, r.videoCount)}
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCurrentLayout() {
+      const container = document.getElementById('dynamicLayoutContainer');
+      const stats = getTotals();
+      const channel = latestEntry ? latestEntry.channel : '-';
+      const group = latestEntry ? latestEntry.group : '-';
+      const activity = latestEntry ? latestEntry.activity : '-';
+      const date = latestEntry ? latestEntry.updatedAt : '-';
+
+      let html = '';
+
+      switch(currentLayout) {
+        case 1:
+          html = `
+            <div class="space-y-6">
+              ${getFilterBarHTML()}
+              <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-6 sm:p-8 rounded-3xl text-white shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-xs bg-white/20 px-3 py-0.5 rounded-full uppercase">Creator Report</span>
+                    <span class="text-xs bg-amber-400 text-amber-950 px-3 py-0.5 rounded-full font-bold uppercase">${group.toUpperCase()} TIER</span>
+                  </div>
+                  <h2 class="text-2xl sm:text-3xl font-bold">ช่อง: @${channel}</h2>
+                  <p class="text-blue-100 text-xs sm:text-sm">Group: ${group} | กิจกรรม: ${activity}</p>
+                </div>
+                <div class="text-left sm:text-right bg-white/10 sm:bg-transparent p-2.5 rounded-xl">
+                  <p class="text-xs text-blue-200">อัปเดตล่าสุด</p>
+                  <p class="text-sm font-bold text-white">${date}</p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bg-white p-7 rounded-3xl card-shadow border border-slate-100 text-center">
+                  <span class="inline-block px-3 py-1 bg-red-50 text-red-600 text-xs font-bold rounded-full mb-2">ยอดขายรวมสุทธิ (TOTAL GMV)</span>
+                  <div class="text-4xl font-bold text-slate-900 mb-4">฿${stats.totalGmv}</div>
+                  <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100 text-left">
+                    <div class="bg-blue-50 p-3 rounded-xl"><span class="text-xs text-blue-600 font-bold block">Live Sales</span><b class="text-base text-blue-950">฿${stats.liveSales}</b></div>
+                    <div class="bg-indigo-50 p-3 rounded-xl"><span class="text-xs text-indigo-600 font-bold block">VDO Sales</span><b class="text-base text-indigo-950">฿${stats.vdoSales}</b></div>
+                  </div>
+                </div>
+
+                <div class="bg-white p-7 rounded-3xl card-shadow border border-slate-100 flex flex-col justify-between">
+                  <div class="flex divide-x divide-slate-100 items-center h-full">
+                    <div class="flex-1 text-center pr-3">
+                      <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-rose-50 text-rose-500 mb-1">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
+                      </div>
+                      <p class="text-xs text-slate-400 uppercase font-bold">จำนวนไลฟ์</p>
+                      <div class="text-4xl font-bold text-rose-600 my-1">${stats.liveCount}</div>
+                      <p class="text-xs text-slate-400">ครั้ง</p>
+                    </div>
+                    <div class="flex-1 text-center pl-3">
+                      <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-50 text-indigo-500 mb-1">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                      </div>
+                      <p class="text-xs text-slate-400 uppercase font-bold">จำนวนคลิป</p>
+                      <div class="text-4xl font-bold text-indigo-600 my-1">${stats.videoCount}</div>
+                      <p class="text-xs text-slate-400">คลิป</p>
+                    </div>
+                  </div>
+                  <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between text-xs text-slate-500">
+                    <span>ยอดเฉลี่ยต่อเดือน:</span>
+                    <b class="text-slate-800">${stats.avgGmv}</b>
+                  </div>
+                </div>
+              </div>
+
+              ${getTableHTML()}
+            </div>
+          `;
+          break;
+
+        case 2:
+          html = `
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              <div class="lg:col-span-4 space-y-5 lg:sticky lg:top-6">
+                <div class="bg-white p-6 rounded-3xl card-shadow border border-slate-100 text-center">
+                  <div class="w-16 h-16 bg-gradient-to-tr from-blue-600 to-indigo-600 text-white rounded-2xl flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-lg shadow-blue-500/20">@</div>
+                  <h2 class="text-xl font-bold text-slate-900">${channel}</h2>
+                  <span class="inline-block px-3 py-0.5 bg-amber-100 text-amber-800 text-xs font-bold rounded-full mt-1 uppercase">${group} TIER</span>
+                  <p class="text-xs text-slate-400 mt-2">กิจกรรม: ${activity}</p>
+                  
+                  <div class="mt-6 pt-5 border-t border-slate-100 space-y-3 text-left">
+                    <div class="bg-slate-50 p-3.5 rounded-2xl">
+                      <span class="text-xs text-slate-400 font-semibold block">ยอดขายรวมสุทธิ</span>
+                      <div class="text-2xl font-bold text-blue-600">฿${stats.totalGmv}</div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                      <div class="p-3 bg-rose-50/70 border border-rose-100/60 rounded-xl"><span class="text-rose-600 font-bold block">Live Sales</span><b>฿${stats.liveSales}</b></div>
+                      <div class="p-3 bg-indigo-50/70 border border-indigo-100/60 rounded-xl"><span class="text-indigo-600 font-bold block">VDO Sales</span><b>฿${stats.vdoSales}</b></div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-slate-50 rounded-xl text-xs">
+                      <span class="text-slate-600 font-medium">สถิติไลฟ์ / คลิป:</span>
+                      <div>${renderLiveVideoBadges(stats.liveCount, stats.videoCount)}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-8 space-y-5">
+                ${getFilterBarHTML()}
+                ${getTableHTML()}
+              </div>
+            </div>
+          `;
+          break;
+
+        case 3:
+          html = `
+            <div class="bg-white rounded-3xl card-shadow border border-slate-100 overflow-hidden grid grid-cols-1 md:grid-cols-12">
+              <div class="md:col-span-3 bg-slate-900 text-white p-6 flex flex-col justify-between space-y-6">
+                <div>
+                  <span class="text-xs font-bold text-blue-400 uppercase tracking-wider block mb-1">Affiliate Portal</span>
+                  <h3 class="text-lg font-bold text-white">@${channel}</h3>
+                  <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-0.5 rounded-md inline-block mt-2">${group}</span>
+                </div>
+
+                <div class="space-y-2">
+                  <p class="text-xs text-slate-400 font-bold uppercase">ตัวกรองด่วน</p>
+                  <button onclick="quickSelectMonth('')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold ${selectedMonth===''?'bg-blue-600 text-white':'hover:bg-slate-800 text-slate-300'}">📅 ข้อมูลทุกเดือน</button>
+                  <button onclick="quickSelectMonth('/9/')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold ${selectedMonth==='/9/'?'bg-blue-600 text-white':'hover:bg-slate-800 text-slate-300'}">🍂 กันยายน (Sep)</button>
+                  <button onclick="quickSelectMonth('/10/')" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold ${selectedMonth==='/10/'?'bg-blue-600 text-white':'hover:bg-slate-800 text-slate-300'}">🎃 ตุลาคม (Oct)</button>
+                </div>
+
+                <button onclick="exportToPDF()" class="w-full bg-slate-800 hover:bg-slate-700 text-white py-2.5 rounded-xl text-xs font-semibold border border-slate-700">
+                  📄 Export PDF
+                </button>
+              </div>
+
+              <div class="md:col-span-9 p-6 space-y-6">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100"><span class="text-xs text-slate-400 font-bold block">TOTAL GMV</span><b class="text-xl font-bold text-blue-600">฿${stats.totalGmv}</b></div>
+                  <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100"><span class="text-xs text-slate-400 font-bold block">LIVE SALES</span><b class="text-lg font-bold text-slate-800">฿${stats.liveSales}</b></div>
+                  <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100"><span class="text-xs text-slate-400 font-bold block">VDO SALES</span><b class="text-lg font-bold text-slate-800">฿${stats.vdoSales}</b></div>
+                  <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100"><span class="text-xs text-slate-400 font-bold block">TOTAL LIVE</span><b class="text-lg font-bold text-emerald-600">${stats.liveCount} ครั้ง</b></div>
+                </div>
+
+                ${getTableHTML()}
+              </div>
+            </div>
+          `;
+          break;
+
+        case 4:
+          html = `
+            <div class="space-y-6">
+              ${getFilterBarHTML()}
+
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                <div class="md:col-span-12 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-7 sm:p-9 rounded-3xl text-white shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative overflow-hidden">
+                  <!-- Decorative light glow effect -->
+                  <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
+
+                  <div class="space-y-2.5 z-10">
+                    <div class="flex flex-wrap items-center gap-2.5">
+                      <span class="text-xs bg-white/20 backdrop-blur-md px-3 py-1 rounded-full uppercase font-semibold tracking-wider">Creator Hub</span>
+                      <span class="text-xs bg-amber-400/20 text-amber-200 border border-amber-400/30 px-3 py-1 rounded-full font-bold uppercase flex items-center gap-1">
+                        <span>👑</span> <span>${group} Creator</span>
+                      </span>
+                      <span class="text-xs bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full text-blue-100 flex items-center gap-1.5 font-medium border border-white/10">
+                        <span>🕒 วันที่อัปเดต:</span>
+                        <b class="text-white">${date}</b>
+                      </span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight pt-1">@${channel}</h2>
+                    <p class="text-blue-100 text-xs sm:text-sm font-medium">กิจกรรม: ${activity}</p>
+                  </div>
+
+                  <div class="sm:text-right z-10 pt-4 sm:pt-0 border-t sm:border-t-0 border-white/15">
+                    <span class="text-xs text-blue-200 uppercase font-bold tracking-wider block mb-1">ยอดขายรวมสุทธิ</span>
+                    <div class="text-4xl sm:text-5xl font-extrabold tracking-tight">฿${stats.totalGmv}</div>
+                  </div>
+                </div>
+
+                <div class="md:col-span-3 bg-white p-6 rounded-3xl card-shadow border border-slate-100">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-rose-600 uppercase mb-2">
+                    <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                    <span>Live Sales</span>
+                  </div>
+                  <div class="text-2xl font-bold text-slate-800 my-1">฿${stats.liveSales}</div>
+                  <p class="text-xs text-slate-400 font-medium">${stats.liveCount} ครั้ง</p>
+                </div>
+
+                <div class="md:col-span-3 bg-white p-6 rounded-3xl card-shadow border border-slate-100">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-indigo-600 uppercase mb-2">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <span>VDO Sales</span>
+                  </div>
+                  <div class="text-2xl font-bold text-slate-800 my-1">฿${stats.vdoSales}</div>
+                  <p class="text-xs text-slate-400 font-medium">${stats.videoCount} คลิป</p>
+                </div>
+
+                <div class="md:col-span-3 bg-white p-6 rounded-3xl card-shadow border border-slate-100">
+                  <span class="text-xs font-bold text-emerald-600 uppercase block mb-2">เฉลี่ย / ไลฟ์</span>
+                  <div class="text-2xl font-bold text-slate-800 my-1">${stats.gmvPerLive}</div>
+                  <p class="text-xs text-slate-400 font-medium">ต่อ 1 รอบไลฟ์</p>
+                </div>
+
+                <div class="md:col-span-3 bg-white p-6 rounded-3xl card-shadow border border-slate-100">
+                  <span class="text-xs font-bold text-cyan-600 uppercase block mb-2">เฉลี่ย / คลิป</span>
+                  <div class="text-2xl font-bold text-slate-800 my-1">${stats.gmvPerVdo}</div>
+                  <p class="text-xs text-slate-400 font-medium">ต่อ 1 วิดีโอ</p>
+                </div>
+              </div>
+
+              ${getTableHTML()}
+            </div>
+          `;
+          break;
+
+        case 5:
+          html = `
+            <div class="space-y-6">
+              ${getFilterBarHTML()}
+
+              <div class="bg-white p-4 sm:p-6 rounded-3xl card-shadow border border-slate-100">
+                <div class="flex flex-col md:flex-row md:divide-x divide-slate-100 gap-4 md:gap-0 items-stretch">
+                  <div class="flex-1 px-4 text-center md:text-left">
+                    <span class="text-xs text-slate-400 uppercase font-bold block">ช่อง / TIER</span>
+                    <h3 class="text-lg font-bold text-slate-900 truncate">@${channel}</h3>
+                    <span class="text-xs text-amber-500 font-bold">${group}</span>
+                  </div>
+                  <div class="flex-1 px-4 text-center">
+                    <span class="text-xs text-slate-400 uppercase font-bold block">TOTAL GMV</span>
+                    <div class="text-2xl font-bold text-blue-600">฿${stats.totalGmv}</div>
+                  </div>
+                  <div class="flex-1 px-4 text-center">
+                    <span class="text-xs text-slate-400 uppercase font-bold block">LIVE / VDO</span>
+                    <div class="text-base font-bold text-slate-800 mt-1">฿${stats.liveSales} <span class="text-slate-300">/</span> ฿${stats.vdoSales}</div>
+                  </div>
+                  <div class="flex-1 px-4 text-center">
+                    <span class="text-xs text-slate-400 uppercase font-bold block mb-1">สถิติ ไลฟ์ / คลิป</span>
+                    <div class="mt-1 flex justify-center">${renderLiveVideoBadges(stats.liveCount, stats.videoCount)}</div>
+                  </div>
+                </div>
+              </div>
+
+              ${getTableHTML()}
+            </div>
+          `;
+          break;
+
+        case 6:
+          html = `
+            <div class="space-y-5">
+              ${getFilterBarHTML()}
+
+              <div class="flex gap-2 border-b border-slate-200 pb-2">
+                <button onclick="switchTab('overview')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition ${activeTab==='overview'?'bg-blue-600 text-white shadow':'bg-white text-slate-600'}">📊 ภาพรวม (Overview)</button>
+                <button onclick="switchTab('live')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition ${activeTab==='live'?'bg-blue-600 text-white shadow':'bg-white text-slate-600'}">🎙️ เจาะลึก Live Sales</button>
+                <button onclick="switchTab('vdo')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition ${activeTab==='vdo'?'bg-blue-600 text-white shadow':'bg-white text-slate-600'}">🎬 เจาะลึก VDO Sales</button>
+              </div>
+
+              ${activeTab === 'overview' ? `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div class="bg-white p-6 rounded-3xl card-shadow text-center"><span class="text-xs text-slate-400 font-bold block">TOTAL GMV</span><div class="text-3xl font-bold text-blue-600 my-2">฿${stats.totalGmv}</div></div>
+                  <div class="bg-white p-6 rounded-3xl card-shadow text-center"><span class="text-xs text-slate-400 font-bold block">LIVE SHARE</span><div class="text-3xl font-bold text-rose-600 my-2">฿${stats.liveSales}</div></div>
+                  <div class="bg-white p-6 rounded-3xl card-shadow text-center"><span class="text-xs text-slate-400 font-bold block">VDO SHARE</span><div class="text-3xl font-bold text-indigo-600 my-2">฿${stats.vdoSales}</div></div>
+                </div>
+              ` : ''}
+
+              ${activeTab === 'live' ? `
+                <div class="bg-white p-8 rounded-3xl card-shadow text-center border-2 border-rose-100">
+                  <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-500 mx-auto flex items-center justify-center font-bold text-xl mb-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 animate-ping"></span>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mt-2">ยอดขายจาก Live ทั้งหมด</h3>
+                  <div class="text-5xl font-bold text-rose-600 my-4">฿${stats.liveSales}</div>
+                  <p class="text-sm text-slate-500">จำนวนครั้งที่ไลฟ์: <b>${stats.liveCount} ครั้ง</b> | รายได้เฉลี่ย: <b>${stats.gmvPerLive} / ไลฟ์</b></p>
+                </div>
+              ` : ''}
+
+              ${activeTab === 'vdo' ? `
+                <div class="bg-white p-8 rounded-3xl card-shadow text-center border-2 border-indigo-100">
+                  <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-500 mx-auto flex items-center justify-center text-xl mb-2">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 mt-2">ยอดขายจาก Video ทั้งหมด</h3>
+                  <div class="text-5xl font-bold text-indigo-600 my-4">฿${stats.vdoSales}</div>
+                  <p class="text-sm text-slate-500">จำนวนคลิปทั้งหมด: <b>${stats.videoCount} คลิป</b> | รายได้เฉลี่ย: <b>${stats.gmvPerVdo} / คลิป</b></p>
+                </div>
+              ` : ''}
+
+              ${getTableHTML()}
+            </div>
+          `;
+          break;
+
+        case 7:
+          html = `
+            <div class="space-y-6">
+              ${getFilterBarHTML()}
+
+              <div class="bg-white p-6 rounded-3xl card-shadow flex justify-between items-center">
+                <div><h3 class="font-bold text-lg">@${channel}</h3><p class="text-xs text-slate-400">${group} | ยอดรวมทั้งปี: <b class="text-blue-600">฿${stats.totalGmv}</b></p></div>
+                <span class="text-xs bg-blue-50 text-blue-600 px-3 py-1 rounded-full font-bold">Matrix View</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                ${displayData.map(r => `
+                  <div class="bg-white p-5 rounded-3xl card-shadow border border-slate-100 space-y-3 hover:border-blue-200 transition">
+                    <div class="flex justify-between items-center text-xs">
+                      <span class="font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg">${r.updatedAt}</span>
+                      <span class="text-blue-500 font-bold">${r.activity}</span>
+                    </div>
+                    <div class="py-2">
+                      <span class="text-[11px] text-slate-400 uppercase font-bold block">ยอดรวมเดือนนี้</span>
+                      <div class="text-2xl font-bold text-blue-600">฿${r.totalGmv}</div>
+                    </div>
+                    <div class="pt-2 border-t border-slate-50 text-xs text-slate-500 flex justify-between">
+                      <span>Live: <b>฿${r.liveSales}</b> (${r.liveCount})</span>
+                      <span>VDO: <b>฿${r.vdoSales}</b> (${r.videoCount})</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+          break;
+
+        case 8:
+          html = `
+            <div class="max-w-2xl mx-auto space-y-6">
+              ${getFilterBarHTML()}
+
+              <div class="bg-white p-6 rounded-3xl card-shadow text-center">
+                <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 p-1 mx-auto mb-2">
+                  <div class="w-full h-full bg-white rounded-full flex items-center justify-center text-2xl font-black text-rose-500">@</div>
+                </div>
+                <h2 class="text-xl font-bold text-slate-900">@${channel}</h2>
+                <p class="text-xs text-slate-400">${group} • ${activity}</p>
+                
+                <div class="grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-slate-100 text-center text-xs">
+                  <div><span class="text-slate-400 block">Total</span><b class="text-sm text-slate-800">฿${stats.totalGmv}</b></div>
+                  <div><span class="text-slate-400 block">Live</span><b class="text-sm text-emerald-600">${stats.liveCount} ครั้ง</b></div>
+                  <div><span class="text-slate-400 block">Video</span><b class="text-sm text-cyan-600">${stats.videoCount} คลิป</b></div>
+                </div>
+              </div>
+
+              <div class="space-y-4 relative before:absolute before:left-6 before:top-4 before:bottom-4 before:w-0.5 before:bg-slate-200">
+                ${displayData.map(r => `
+                  <div class="relative pl-12">
+                    <div class="absolute left-4 top-4 w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow"></div>
+                    <div class="bg-white p-5 rounded-2xl card-shadow border border-slate-100">
+                      <div class="flex justify-between items-center text-xs mb-1">
+                        <span class="font-bold text-slate-800">${r.updatedAt}</span>
+                        <span class="text-blue-500 font-bold">฿${r.totalGmv}</span>
+                      </div>
+                      <p class="text-xs text-slate-500">Live ฿${r.liveSales} (${r.liveCount} ครั้ง) • VDO ฿${r.vdoSales} (${r.videoCount} คลิป)</p>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+          break;
+
+        case 9:
+          html = `
+            <div class="space-y-5">
+              ${getFilterBarHTML()}
+
+              <div class="bg-white p-6 rounded-3xl card-shadow flex flex-wrap justify-between items-center gap-3">
+                <div><h3 class="text-xl font-bold">@${channel}</h3><span class="text-xs bg-amber-100 text-amber-800 font-bold px-2.5 py-0.5 rounded-full">${group}</span></div>
+                <div class="text-right"><span class="text-xs text-slate-400 block">ยอดรวมทั้งสิ้น</span><div class="text-2xl font-bold text-blue-600">฿${stats.totalGmv}</div></div>
+              </div>
+
+              <div class="space-y-3">
+                ${displayData.map((r, idx) => `
+                  <div class="bg-white rounded-2xl card-shadow border border-slate-100 overflow-hidden">
+                    <div onclick="toggleAccordion('acc-${idx}')" class="p-4.5 px-6 flex justify-between items-center cursor-pointer hover:bg-slate-50 transition">
+                      <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">${idx+1}</span>
+                        <div><b class="text-sm text-slate-900 block">${r.updatedAt}</b><span class="text-xs text-slate-400">${r.activity}</span></div>
+                      </div>
+                      <div class="flex items-center gap-4">
+                        <b class="text-base text-blue-600">฿${r.totalGmv}</b>
+                        <span class="text-slate-400 text-xs">▼</span>
+                      </div>
+                    </div>
+                    <div id="acc-${idx}" class="${idx===0?'':'hidden'} p-5 bg-slate-50/70 border-t border-slate-100 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                      <div class="p-3 bg-white rounded-xl"><span>Live Sales:</span> <b class="block text-sm text-slate-800">฿${r.liveSales}</b></div>
+                      <div class="p-3 bg-white rounded-xl"><span>VDO Sales:</span> <b class="block text-sm text-slate-800">฿${r.vdoSales}</b></div>
+                      <div class="p-3 bg-white rounded-xl"><span>จำนวนไลฟ์:</span> <b class="block text-sm text-emerald-600">${r.liveCount} ครั้ง</b></div>
+                      <div class="p-3 bg-white rounded-xl"><span>จำนวนคลิป:</span> <b class="block text-sm text-cyan-600">${r.videoCount} คลิป</b></div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+          break;
+
+        case 10:
+          html = `
+            <div class="space-y-6 text-center">
+              ${getFilterBarHTML()}
+
+              <div class="bg-white p-10 sm:p-14 rounded-3xl card-shadow border border-slate-100">
+                <span class="inline-block px-3.5 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase mb-3">
+                  TOTAL REVENUE SPOTLIGHT
+                </span>
+                <p class="text-slate-400 text-sm">ยอดขายสุทธิรวมของ @${channel}</p>
+                <div class="text-5xl sm:text-7xl font-extrabold text-slate-900 my-4 tracking-tight">
+                  ฿${stats.totalGmv}
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-3 mt-6">
+                  <div class="px-4 py-2 bg-slate-50 rounded-2xl text-xs"><span class="text-slate-400">Live:</span> <b class="text-blue-600">฿${stats.liveSales}</b> (${stats.liveCount} ครั้ง)</div>
+                  <div class="px-4 py-2 bg-slate-50 rounded-2xl text-xs"><span class="text-slate-400">VDO:</span> <b class="text-indigo-600">฿${stats.vdoSales}</b> (${stats.videoCount} คลิป)</div>
+                  <div class="px-4 py-2 bg-slate-50 rounded-2xl text-xs"><span class="text-slate-400">เฉลี่ยต่อเดือน:</span> <b class="text-slate-800">${stats.avgGmv}</b></div>
+                </div>
+              </div>
+
+              ${getTableHTML()}
+            </div>
+          `;
+          break;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function switchTab(tab) {
+      activeTab = tab;
+      renderCurrentLayout();
+    }
+
+    function toggleAccordion(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('hidden');
+    }
+
+    // PDF Export
+    async function exportToPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const stats = getTotals();
+      const channel = latestEntry ? latestEntry.channel : '-';
+
+      doc.setFontSize(18);
+      doc.text("Tuesday House - Affiliate Report", 14, 20);
+      doc.setFontSize(12);
+      doc.text(`Channel: @${channel}`, 14, 30);
+      
+      doc.setDrawColor(220, 220, 220);
+      doc.line(14, 35, 196, 35);
+      
+      doc.setFontSize(10);
+      doc.text(`Total GMV: ${stats.totalGmv} THB`, 14, 45);
+      doc.text(`Live Sales: ${stats.liveSales} THB | VDO Sales: ${stats.vdoSales} THB`, 14, 52);
+      doc.text(`Total Live: ${stats.liveCount} Times | Total Video: ${stats.videoCount} Clips`, 14, 59);
+      doc.line(14, 65, 196, 65);
+
+      const tableData = displayData.map(d => [d.channel, d.totalGmv, d.liveSales, d.vdoSales, d.liveCount, d.videoCount, d.updatedAt]);
+
+      doc.autoTable({
+        startY: 70,
+        head: [['Channel', 'Total GMV', 'Live Sales', 'VDO Sales', 'Live', 'VDO', 'Date']],
+        body: tableData,
+        theme: 'striped',
+        headStyles: { fillColor: [37, 99, 235] },
+        styles: { fontSize: 8, font: 'helvetica' }
+      });
+
+      doc.save(`Report_${channel}.pdf`);
+      showToast("📄 ดาวน์โหลด PDF สำเร็จ!");
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    // Snow Falling Canvas Animation
+    (function initSnowfall() {
+      const canvas = document.getElementById('snowCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+
+      const maxFlakes = Math.floor(Math.min(width, 1400) / 14);
+      const flakes = [];
+
+      for (let i = 0; i < maxFlakes; i++) {
+        flakes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 3.5 + 1,
+          d: Math.random() * maxFlakes,
+          speed: Math.random() * 1.2 + 0.6,
+          swaySpeed: Math.random() * 0.02 + 0.01,
+          angle: Math.random() * Math.PI * 2,
+          opacity: Math.random() * 0.5 + 0.35
+        });
+      }
+
+      function drawSnow() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < maxFlakes; i++) {
+          const f = flakes[i];
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, false);
+          ctx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`;
+          ctx.shadowBlur = 6;
+          ctx.shadowColor = "rgba(186, 230, 253, 0.6)";
+          ctx.fill();
+        }
+
+        updateSnow();
+        requestAnimationFrame(drawSnow);
+      }
+
+      function updateSnow() {
+        for (let i = 0; i < maxFlakes; i++) {
+          const f = flakes[i];
+          f.angle += f.swaySpeed;
+          f.y += f.speed;
+          f.x += Math.sin(f.angle) * 0.8;
+
+          if (f.y > height + 10) {
+            f.y = -10;
+            f.x = Math.random() * width;
+          }
+          if (f.x > width + 10) {
+            f.x = -10;
+          } else if (f.x < -10) {
+            f.x = width + 10;
+          }
+        }
+      }
+
+      window.addEventListener('resize', () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      });
+
+      requestAnimationFrame(drawSnow);
+    })();
+  </script>
+</body>
+</html>
