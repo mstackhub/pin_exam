@@ -405,6 +405,74 @@
         </div>
       </div>
 
+      <!-- Incomplete Exam Warning Banner -->
+      <div id="quiz-incomplete-banner" class="hidden bg-amber-400 text-slate-950 p-3.5 rounded-2xl border-2 border-amber-300 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-pulse">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">⚠️</span>
+          <div>
+            <div class="text-xs sm:text-sm font-bold font-prompt text-slate-950">
+              คุณยังทำข้อสอบไม่ครบ 100 ข้อ! เหลืออีก <span id="missing-count-text" class="text-red-900 font-black underline">0</span> ข้อที่ยังไม่ได้เลือกคำตอบ
+            </div>
+            <div class="text-[11px] text-slate-800 font-sarabun">สังเกตข้อที่มี <strong>พื้นหลังสีเหลืองอ่อน</strong> ด้านล่าง กรุณาเลือกคำตอบให้ครบก่อนส่งตรวจผลสอบครับ</div>
+          </div>
+        </div>
+        <button onclick="scrollToFirstUnanswered()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl shrink-0 transition font-prompt shadow-sm">
+          ไปข้อที่ยังไม่ได้ทำ ➔
+        </button>
+      </div>
+
+      <!-- Performance Analytics Dashboard -->
+      <div id="quiz-performance-card" class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-base font-bold">
+              📊
+            </div>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-slate-800 font-prompt">แดชบอร์ดสถิติการสอบปรนัย (Performance Dashboard)</h4>
+              <p class="text-[11px] text-slate-500 font-sarabun">บันทึกประวัติการสอบ ความแม่นยำ และพัฒนาการคะแนนอัตโนมัติ</p>
+            </div>
+          </div>
+          <button onclick="togglePerformanceHistory()" id="btn-toggle-perf-history" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold font-prompt transition flex items-center gap-1">
+            <span>📜 ประวัติการสอบ</span>
+            <span id="perf-arrow">▼</span>
+          </button>
+        </div>
+
+        <!-- 4 KPI Summary Badges -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center font-prompt">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5">
+            <div class="text-[10px] text-slate-500 font-semibold uppercase">สอบสะสม</div>
+            <div class="text-base sm:text-lg font-black text-slate-800" id="perf-total-attempts">0 ครั้ง</div>
+          </div>
+          <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-2.5">
+            <div class="text-[10px] text-emerald-700 font-semibold uppercase">คะแนนสูงสุด (Best)</div>
+            <div class="text-base sm:text-lg font-black text-emerald-800" id="perf-best-score">- / 100</div>
+          </div>
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-2.5">
+            <div class="text-[10px] text-blue-700 font-semibold uppercase">คะแนนเฉลี่ย (Avg)</div>
+            <div class="text-base sm:text-lg font-black text-blue-800" id="perf-avg-score">- %</div>
+          </div>
+          <div class="bg-purple-50 border border-purple-200 rounded-xl p-2.5">
+            <div class="text-[10px] text-purple-700 font-semibold uppercase">ครั้งล่าสุด (Latest)</div>
+            <div class="text-base sm:text-lg font-black text-purple-800" id="perf-latest-score">- / 100</div>
+          </div>
+        </div>
+
+        <!-- Collapsible History Drawer -->
+        <div id="perf-history-drawer" class="hidden pt-2 border-t border-slate-100 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-700 font-prompt">บันทึกคะแนนย้อนหลังแต่ละรอบ:</span>
+            <button onclick="clearPerformanceHistory()" class="text-[11px] text-rose-600 hover:text-rose-800 font-medium underline">
+              ล้างประวัติสถิติ
+            </button>
+          </div>
+          <div class="max-h-48 overflow-y-auto space-y-1.5 custom-scrollbar font-sarabun" id="perf-history-list">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+
       <!-- Category Filter Pills (100 Questions) -->
       <div class="flex overflow-x-auto no-scrollbar gap-1.5 py-1">
         <button onclick="filterQuiz('all')" class="quiz-filter-btn px-3 py-1.5 bg-red-600 text-white text-xs rounded-xl font-bold shrink-0 shadow-sm">ทั้งหมด (100)</button>
@@ -1833,6 +1901,39 @@
 
     let isQuizRevealed = false;
 
+    // SHUFFLE QUIZ CHOICES LOGIC (สลับคำตอบทุกครั้งที่เริ่มใหม่เพื่อไม่ให้จำแพทเทิร์น)
+    function shuffleQuizChoices() {
+      QUIZ_DATA.forEach(q => {
+        const cleanOpts = q.options.map(opt => opt.replace(/^[ก-ง]\.\s*/, ''));
+        const correctText = cleanOpts[q.answer];
+
+        const isAllCorrectType = cleanOpts.some(opt => opt.includes('ถูกต้องทุกข้อ') || opt.includes('ถูกทุกข้อ'));
+
+        let newClean = [];
+        if (isAllCorrectType) {
+          const allCorrectText = cleanOpts.find(opt => opt.includes('ถูกต้องทุกข้อ') || opt.includes('ถูกทุกข้อ'));
+          const first3 = cleanOpts.filter(opt => opt !== allCorrectText);
+          for (let i = first3.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [first3[i], first3[j]] = [first3[j], first3[i]];
+          }
+          newClean = [...first3, allCorrectText];
+        } else {
+          newClean = [...cleanOpts];
+          for (let i = newClean.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newClean[i], newClean[j]] = [newClean[j], newClean[i]];
+          }
+        }
+
+        const newAnswerIdx = newClean.indexOf(correctText);
+        q.answer = newAnswerIdx >= 0 ? newAnswerIdx : 0;
+
+        const prefixes = ['ก. ', 'ข. ', 'ค. ', 'ง. '];
+        q.options = newClean.map((opt, idx) => prefixes[idx] + opt);
+      });
+    }
+
     function filterQuiz(filterKey) {
       currentQuizFilter = filterKey;
       document.querySelectorAll('.quiz-filter-btn').forEach(btn => {
@@ -1862,23 +1963,34 @@
         const isCorrect = isAnswered && userAnswer === q.answer;
 
         const card = document.createElement('div');
+        card.id = `quiz-card-${q.id}`;
         
         let cardBorderClass = 'border-slate-200 hover:border-slate-300 bg-white';
+        let statusBadgeHtml = '';
+
         if (isQuizRevealed) {
           if (isCorrect) {
             cardBorderClass = 'border-emerald-300 bg-emerald-50/20';
+            statusBadgeHtml = '<span class="text-[10px] font-bold text-emerald-700 px-2 py-0.5 bg-emerald-100 rounded-md">🟢 ตอบถูก</span>';
           } else if (isAnswered) {
             cardBorderClass = 'border-rose-300 bg-rose-50/20';
+            statusBadgeHtml = '<span class="text-[10px] font-bold text-rose-700 px-2 py-0.5 bg-rose-100 rounded-md">🔴 ตอบผิด</span>';
           } else {
-            cardBorderClass = 'border-slate-300 bg-slate-50/40';
+            cardBorderClass = 'border-slate-300 bg-slate-50/60';
+            statusBadgeHtml = '<span class="text-[10px] font-bold text-slate-500 px-2 py-0.5 bg-slate-200 rounded-md">⚪ ไม่ได้ตอบ</span>';
           }
         } else {
           if (isAnswered) {
             cardBorderClass = 'border-indigo-300 bg-indigo-50/10 shadow-sm';
+            statusBadgeHtml = '<span class="text-[10px] font-bold text-indigo-600 px-2 py-0.5 bg-indigo-100 rounded-md">✓ เลือกแล้ว</span>';
+          } else {
+            // UNANSWERED STATE: Soft Yellow background as requested
+            cardBorderClass = 'border-amber-300 bg-amber-50/70 shadow-sm ring-1 ring-amber-200/80';
+            statusBadgeHtml = '<span class="text-[10px] font-bold text-amber-800 px-2 py-0.5 bg-amber-200/80 rounded-md flex items-center gap-1">⏳ ยังไม่ได้เลือก</span>';
           }
         }
 
-        card.className = `rounded-2xl border p-3.5 sm:p-4 shadow-sm transition ${cardBorderClass}`;
+        card.className = `rounded-2xl border p-3.5 sm:p-4 shadow-sm transition-all duration-200 ${cardBorderClass}`;
 
         let optionsHtml = '';
         q.options.forEach((opt, optIdx) => {
@@ -1886,21 +1998,19 @@
           let badgeHtml = '';
 
           if (!isQuizRevealed) {
-            // EXAM IN-PROGRESS MODE (No answer revealed yet)
             if (userAnswer === optIdx) {
               optClass += "bg-indigo-50 border-indigo-500 text-indigo-950 font-bold ring-2 ring-indigo-400 shadow-sm";
-              badgeHtml = '<span class="text-[11px] font-bold text-indigo-600 px-2 py-0.5 bg-indigo-100 rounded-md">📌 เลือกแล้ว</span>';
+              badgeHtml = '<span class="text-[11px] font-bold text-indigo-600 px-2 py-0.5 bg-indigo-100 rounded-md">📌 ตัวเลือกของคุณ</span>';
             } else {
-              optClass += "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700";
+              optClass += "bg-white/80 border-slate-200 hover:bg-slate-100 text-slate-700";
             }
           } else {
-            // REVEALED MODE
             if (optIdx === q.answer) {
               optClass += "bg-emerald-100 border-emerald-500 text-emerald-950 font-bold shadow-sm";
               badgeHtml = '<span class="text-xs text-emerald-800 font-bold flex items-center gap-1">✅ คำตอบที่ถูกต้อง</span>';
             } else if (userAnswer === optIdx) {
-              optClass += "bg-rose-100 border-rose-400 text-rose-950 font-bold";
-              badgeHtml = '<span class="text-xs text-rose-700 font-bold flex items-center gap-1">❌ คำตอบของคุณ</span>';
+              optClass += "bg-rose-100 border-rose-400 text-rose-950 font-bold line-through";
+              badgeHtml = '<span class="text-xs text-rose-700 font-bold flex items-center gap-1">❌ คำตอบที่คุณเลือก</span>';
             } else {
               optClass += "bg-slate-50 border-slate-200 text-slate-400 opacity-60";
             }
@@ -1920,7 +2030,7 @@
               <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold font-prompt">${q.topic}</span>
               <div class="flex items-center gap-1.5">
                 <span class="text-[10px] text-slate-400 font-medium">ข้อที่ ${q.id} / ${QUIZ_DATA.length}</span>
-                ${isQuizRevealed ? (isCorrect ? '<span class="text-xs">🟢</span>' : (isAnswered ? '<span class="text-xs">🔴</span>' : '<span class="text-xs">⚪</span>')) : (isAnswered ? '<span class="text-xs text-indigo-500 font-bold">✓</span>' : '')}
+                ${statusBadgeHtml}
               </div>
             </div>
             <h4 class="text-xs sm:text-sm font-bold text-slate-800 font-prompt leading-snug mb-2.5">
@@ -1948,6 +2058,13 @@
 
     function selectQuizOption(questionId, selectedOption) {
       userQuizAnswers[questionId] = selectedOption;
+      
+      // Auto-hide incomplete banner if all answered
+      if (Object.keys(userQuizAnswers).length === QUIZ_DATA.length) {
+        const banner = document.getElementById('quiz-incomplete-banner');
+        if (banner) banner.classList.add('hidden');
+      }
+
       renderQuiz();
     }
 
@@ -1960,11 +2077,48 @@
       renderQuiz();
     }
 
+    function scrollToFirstUnanswered() {
+      const unanswered = QUIZ_DATA.filter(q => userQuizAnswers[q.id] === undefined);
+      if (unanswered.length === 0) return;
+      
+      if (currentQuizFilter !== 'all') {
+        filterQuiz('all');
+      }
+      
+      const firstEl = document.getElementById(`quiz-card-${unanswered[0].id}`);
+      if (firstEl) {
+        firstEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstEl.classList.add('ring-4', 'ring-red-500');
+        setTimeout(() => firstEl.classList.remove('ring-4', 'ring-red-500'), 2500);
+      }
+    }
+
+    // STRICT EXAM SUBMISSION: Requires all 100 questions answered
     function submitQuizExam() {
       const total = QUIZ_DATA.length;
       const answeredCount = Object.keys(userQuizAnswers).length;
-      let correctCount = 0;
 
+      // Check if user answered all questions
+      if (answeredCount < total) {
+        const missingCount = total - answeredCount;
+        const banner = document.getElementById('quiz-incomplete-banner');
+        const countText = document.getElementById('missing-count-text');
+        
+        if (countText) countText.innerText = missingCount;
+        if (banner) {
+          banner.classList.remove('hidden');
+          banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        scrollToFirstUnanswered();
+        return;
+      }
+
+      // Hide incomplete banner
+      const banner = document.getElementById('quiz-incomplete-banner');
+      if (banner) banner.classList.add('hidden');
+
+      let correctCount = 0;
       Object.keys(userQuizAnswers).forEach(qId => {
         const q = QUIZ_DATA.find(item => item.id == qId);
         if (q && userQuizAnswers[qId] === q.answer) {
@@ -1973,34 +2127,43 @@
       });
 
       const wrongCount = answeredCount - correctCount;
-      const unansweredCount = total - answeredCount;
+      const unansweredCount = 0;
       const percent = Math.round((correctCount / total) * 100);
 
       // Populate Modal Info
       document.getElementById('modal-score-text').innerText = `${correctCount} / ${total}`;
-      document.getElementById('modal-percent-text').innerText = `คิดเป็น ${percent}% (ตอบแล้ว ${answeredCount}/${total} ข้อ)`;
+      document.getElementById('modal-percent-text').innerText = `คิดเป็น ${percent}% (ตอบครบ 100/100 ข้อ)`;
       document.getElementById('modal-correct-count').innerText = `${correctCount} ข้อ`;
       document.getElementById('modal-wrong-count').innerText = `${wrongCount} ข้อ`;
-      document.getElementById('modal-unanswered-count').innerText = `${unansweredCount} ข้อ`;
+      document.getElementById('modal-unanswered-count').innerText = `0 ข้อ`;
 
       // Evaluation verdict (5 Tiers)
+      let verdictHeadline = '';
       let verdictHtml = '';
       if (percent >= 90) {
-        verdictHtml = `<span class="text-amber-300 font-bold text-sm sm:text-base">🥇 ตัวแม่ ตัวมัม มึงสอบได้แน่ๆ</span><br><span class="text-slate-200 text-xs sm:text-sm">ปังมากก! ทำได้ ${correctCount}/${total} ข้อ พร้อมฟาดบรรจุอันดับ 1 แน่นอน</span>`;
+        verdictHeadline = '🥇 ตัวแม่ ตัวมัม มึงสอบได้แน่ๆ';
+        verdictHtml = `<span class="text-amber-300 font-bold text-sm sm:text-base">${verdictHeadline}</span><br><span class="text-slate-200 text-xs sm:text-sm">ปังมากก! ทำได้ ${correctCount}/${total} ข้อ พร้อมฟาดบรรจุอันดับ 1 แน่นอน</span>`;
       } else if (percent >= 80) {
-        verdictHtml = `<span class="text-emerald-300 font-bold text-sm sm:text-base">🥈 Slay Mama Ten เยี่ยมมาก</span><br><span class="text-slate-200 text-xs sm:text-sm">เริ่ดมากแม่! คะแนนระดับนี้ผ่านฉลุย ลุยสนามสอบจริงได้เลย</span>`;
+        verdictHeadline = '🥈 Slay Mama Ten เยี่ยมมาก';
+        verdictHtml = `<span class="text-emerald-300 font-bold text-sm sm:text-base">${verdictHeadline}</span><br><span class="text-slate-200 text-xs sm:text-sm">เริ่ดมากแม่! คะแนนระดับนี้ผ่านฉลุย ลุยสนามสอบจริงได้เลย</span>`;
       } else if (percent >= 70) {
-        verdictHtml = `<span class="text-sky-300 font-bold text-sm sm:text-base">🥉 ก็อยู่ดี (พอใจไหมละ)</span><br><span class="text-slate-200 text-xs sm:text-sm">ผ่านเกณฑ์แล้วจ้า แต่ถ้าอยากได้อันดับท็อปๆ แนะนำเก็บตกข้อที่พลาดอีกนิด</span>`;
+        verdictHeadline = '🥉 ก็อยู่ดี (พอใจไหมละ)';
+        verdictHtml = `<span class="text-sky-300 font-bold text-sm sm:text-base">${verdictHeadline}</span><br><span class="text-slate-200 text-xs sm:text-sm">ผ่านเกณฑ์แล้วจ้า แต่ถ้าอยากได้อันดับท็อปๆ แนะนำเก็บตกข้อที่พลาดอีกนิด</span>`;
       } else if (percent >= 60) {
-        verdictHtml = `<span class="text-amber-400 font-bold text-sm sm:text-base">⚠️ อีดอกก ไปอ่านนหนังสือใหม่ค่ะ</span><br><span class="text-slate-200 text-xs sm:text-sm">ผ่านแบบหวุดหวิดเฉียดฉิวมาก รีบกดดูเฉลยแล้วไปอ่านทบทวนด่วนๆ!</span>`;
+        verdictHeadline = '⚠️ อีดอกก ไปอ่านนหนังสือใหม่ค่ะ';
+        verdictHtml = `<span class="text-amber-400 font-bold text-sm sm:text-base">${verdictHeadline}</span><br><span class="text-slate-200 text-xs sm:text-sm">ผ่านแบบหวุดหวิดเฉียดฉิวมาก รีบกดดูเฉลยแล้วไปอ่านทบทวนด่วนๆ!</span>`;
       } else {
-        verdictHtml = `<span class="text-rose-400 font-bold text-sm sm:text-base">📖 ถามจิ๊งง มึงใช้อะไรทำข้อสอบ ไปอ่านหนังสือ</span><br><span class="text-slate-200 text-xs sm:text-sm">ยังไม่ผ่านค่ะสาว! กดปุ่ม <strong>"ดูเฉลยละเอียด"</strong> ด้านล่าง ศึกษาทีละข้อ แล้วมาทำใหม่เดี๋ยวนี้</span>`;
+        verdictHeadline = '📖 ถามจิ๊งง มึงใช้อะไรทำข้อสอบ ไปอ่านหนังสือ';
+        verdictHtml = `<span class="text-rose-400 font-bold text-sm sm:text-base">${verdictHeadline}</span><br><span class="text-slate-200 text-xs sm:text-sm">ยังไม่ผ่านค่ะสาว! กดปุ่ม <strong>"ดูเฉลยละเอียด"</strong> ด้านล่าง ศึกษาทีละข้อ แล้วมาทำใหม่เดี๋ยวนี้</span>`;
       }
       document.getElementById('modal-verdict-text').innerHTML = verdictHtml;
 
+      // SAVE PERFORMANCE RECORD TO LOCALSTORAGE
+      savePerformanceHistory(correctCount, total, percent, verdictHeadline);
+
       // Confetti for passing score (>= 70%)
       if (percent >= 70) {
-        confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
+        confetti({ particleCount: 80, spread: 85, origin: { y: 0.6 } });
       }
 
       // Show modal
@@ -2024,6 +2187,7 @@
       }
     }
 
+    // RETAKE EXAM: Shuffles choices so no position patterns can be memorized!
     function retakeQuizFromModal() {
       closeQuizResultModal();
       resetAllQuizzes();
@@ -2032,9 +2196,116 @@
     function resetAllQuizzes() {
       userQuizAnswers = {};
       isQuizRevealed = false;
+      shuffleQuizChoices(); // Shuffles choices for new attempt!
+
+      const banner = document.getElementById('quiz-incomplete-banner');
+      if (banner) banner.classList.add('hidden');
+
       const label = document.getElementById('label-toggle-reveal');
       if (label) label.innerText = 'ดูเฉลยทั้งหมด';
+      
       renderQuiz();
+      window.scrollTo({ top: document.getElementById('section-quiz').offsetTop - 50, behavior: 'smooth' });
+    }
+
+    // PERFORMANCE DASHBOARD LOGIC (localStorage)
+    function getPerformanceHistory() {
+      try {
+        const raw = localStorage.getItem('pin_exam_performance_history');
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function savePerformanceHistory(score, total, percent, verdict) {
+      try {
+        const history = getPerformanceHistory();
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' }) + ' ' + 
+                        now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+        
+        history.unshift({
+          id: Date.now(),
+          round: history.length + 1,
+          dateStr: dateStr,
+          score: score,
+          total: total,
+          percent: percent,
+          verdict: verdict
+        });
+
+        localStorage.setItem('pin_exam_performance_history', JSON.stringify(history));
+        renderPerformanceDashboard();
+      } catch (e) {
+        console.error('Failed to save performance history', e);
+      }
+    }
+
+    function clearPerformanceHistory() {
+      if (confirm('คุณต้องการล้างประวัติสถิติการสอบทั้งหมดใช่หรือไม่?')) {
+        localStorage.removeItem('pin_exam_performance_history');
+        renderPerformanceDashboard();
+      }
+    }
+
+    function togglePerformanceHistory() {
+      const drawer = document.getElementById('perf-history-drawer');
+      const arrow = document.getElementById('perf-arrow');
+      if (drawer) {
+        drawer.classList.toggle('hidden');
+        if (arrow) {
+          arrow.innerText = drawer.classList.contains('hidden') ? '▼' : '▲';
+        }
+      }
+    }
+
+    function renderPerformanceDashboard() {
+      const history = getPerformanceHistory();
+      const totalAttemptsEl = document.getElementById('perf-total-attempts');
+      const bestScoreEl = document.getElementById('perf-best-score');
+      const avgScoreEl = document.getElementById('perf-avg-score');
+      const latestScoreEl = document.getElementById('perf-latest-score');
+      const historyListEl = document.getElementById('perf-history-list');
+
+      if (!totalAttemptsEl) return;
+
+      if (history.length === 0) {
+        totalAttemptsEl.innerText = '0 ครั้ง';
+        bestScoreEl.innerText = '- / 100';
+        avgScoreEl.innerText = '- %';
+        latestScoreEl.innerText = '- / 100';
+        if (historyListEl) {
+          historyListEl.innerHTML = '<div class="text-xs text-slate-400 text-center py-2">ยังไม่มีประวัติการสอบ ส่งคำตอบรอบแรกเพื่อเริ่มเก็บสถิติ</div>';
+        }
+        return;
+      }
+
+      totalAttemptsEl.innerText = `${history.length} ครั้ง`;
+      
+      const maxScore = Math.max(...history.map(h => h.score));
+      bestScoreEl.innerText = `${maxScore} / 100`;
+
+      const avgPercent = Math.round(history.reduce((acc, h) => acc + h.percent, 0) / history.length);
+      avgScoreEl.innerText = `${avgPercent}%`;
+
+      latestScoreEl.innerText = `${history[0].score} / 100`;
+
+      if (historyListEl) {
+        historyListEl.innerHTML = history.map((h, idx) => `
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded font-bold font-prompt ${h.percent >= 80 ? 'bg-emerald-100 text-emerald-800' : (h.percent >= 60 ? 'bg-blue-100 text-blue-800' : 'bg-rose-100 text-rose-800')}">
+                รอบ #${h.round || (history.length - idx)}: ${h.score}/${h.total} (${h.percent}%)
+              </span>
+              <span class="text-[11px] text-slate-500 hidden sm:inline">${h.dateStr}</span>
+            </div>
+            <div class="text-[11px] font-bold text-slate-700 truncate max-w-[180px] sm:max-w-xs">
+              ${h.verdict || ''}
+            </div>
+          </div>
+        `).join('');
+      }
     }
 
     function updateQuizStats() {
